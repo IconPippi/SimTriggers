@@ -22,7 +22,8 @@ import flightsim.simconnect.recv.RecvException;
 import flightsim.simconnect.recv.RecvOpen;
 import flightsim.simconnect.recv.RecvQuit;
 
-public class ConnectionOpen implements 
+@SuppressWarnings("MagicConstant")
+public class ConnectionOpen implements
 	OpenHandler,
 	EventHandler,
 	ExceptionHandler,
@@ -132,27 +133,12 @@ public class ConnectionOpen implements
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
 		logger.log("Triggered event: "+event.getEventID());
+		/* Disabled because I changed my mind about the structure of the proj
 		if (event.getEventID() > 100 && event.getEventID() < 999) { //TODO: Eventually gonna remove it once all events have been handled
 			final ModuleManager mm = new ModuleManager();
 			final Module module = mm.getModuleByID(event.getEventID());
-			logger.log(module.getMeta().toString());
-			try {
-				sc.menu(0, //Gotta find a way to solve this shit
-						EVENT.MODULEMENU_OPEN,
-						module.getMeta().getName(),
-							module.getMeta().getName()
-							+" by "+getAuthorsList(module)
-							+" v"+module.getMeta().getVersion(),
-						new String[] {
-								module.getMeta().isEnabled() ? "Disable" : "Enable",
-								"Delete",
-								"Reload Scripts"
-						}
-				);
-			} catch (NullPointerException | UnsupportedOperationException | IOException e) {
-				logger.log(e.toString());
-			}
-		} else if (event.getEventID() == 4567) {
+			//TODO: Open Module gui (outside gui from the game)
+		} else */if (EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS.isEvent(event)) {
 			try {
 				sc.text(TextType.PRINT_RED, 5, EVENT.RELOADSCRIPTS_TEXT, "Reloading Scripts...");
 			} catch (UnsupportedOperationException | IOException e) {
@@ -184,18 +170,14 @@ public class ConnectionOpen implements
 		logger.log("Protocol version: " + open.getVersion());
 		
 		try {
+			sc.menuAddItem("SimTriggers", EVENT.ADDONSMENU_SIMTRIGGERS, 0); //Add SimTriggers tab in addons menu
 			/*
-			 * sc.menuAddItem("FSX.js", EVENT.ADDONSMENU_FSXJS, 0); //Add FSX.js tab in addons menu
-	        for (Module m : mm.getModules()) { //Add a sub tab for each module
-	        	sc.menuAddSubItem(EVENT.ADDONSMENU_FSXJS, m.getMeta().getName(), EVENT.FSXJSMENU_MODULE, 0);
-	        }
-			 */
-			sc.menuAddItem("SimTriggers", 1234, 0); //Add SimTriggers tab in addons menu
 	        for (Module m : mm.getModules()) { //Add a sub tab for each module
 	        	final ModuleMetadata meta = m.getMeta();
 	        	sc.menuAddSubItem(1234, meta.getName(), meta.getID(), 0);
 	        }
-	        sc.menuAddSubItem(1234, "Reload Scritps...", 4567, 0);
+	        */
+	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0);
 		} catch (IOException e) {
 			logger.error("Exception on adding item to addons menu: \n"+e.toString());
 		}

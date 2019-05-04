@@ -7,7 +7,10 @@ import flightsim.simconnect.recv.RecvSimObjectData;
 public enum EVENT {
 	
 	//Add-ons menu
-	ADDONSMENU_FSXJS,
+	ADDONSMENU_SIMTRIGGERS,
+	
+	//SimTriggers tab
+	SIMTRIGGERSTAB_RELOADSCRIPTS,
 	
 	//Module menu
 	MODULEMENU_OPEN,
