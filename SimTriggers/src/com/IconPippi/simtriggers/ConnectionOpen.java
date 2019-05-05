@@ -2,10 +2,9 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
+import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
-import com.IconPippi.simtriggers.module.ModuleMetadata;
-import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
@@ -144,8 +143,11 @@ public class ConnectionOpen implements
 			} catch (UnsupportedOperationException | IOException e) {
 				logger.error(e.toString());
 			}
-			final ScriptLoader sl = new ScriptLoader();
-			sl.loadModules();
+			//final ScriptLoader sl = new ScriptLoader();
+			//sl.loadModules();
+		} else if (EVENT.SIMTRIGGERSTAB_OPENGUI.isEvent(event)) {
+			final SimTriggersGUI gui = new SimTriggersGUI(this);
+			gui.show();
 		}
 	}
 	
@@ -178,6 +180,7 @@ public class ConnectionOpen implements
 	        }
 	        */
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0);
+	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0);
 		} catch (IOException e) {
 			logger.error("Exception on adding item to addons menu: \n"+e.toString());
 		}

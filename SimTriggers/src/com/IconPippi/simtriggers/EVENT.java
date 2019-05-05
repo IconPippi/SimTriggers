@@ -11,6 +11,7 @@ public enum EVENT {
 	
 	//SimTriggers tab
 	SIMTRIGGERSTAB_RELOADSCRIPTS,
+	SIMTRIGGERSTAB_OPENGUI,
 	
 	//Module menu
 	MODULEMENU_OPEN,
