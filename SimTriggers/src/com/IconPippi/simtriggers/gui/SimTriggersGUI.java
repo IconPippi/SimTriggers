@@ -1,6 +1,7 @@
 package com.IconPippi.simtriggers.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,7 @@ public class SimTriggersGUI {
 	private JFrame mainFrame;
 	private JLabel topLabel;
 	private JList<String> modulesList;
-	
-	@SuppressWarnings("unchecked")
+
 	public SimTriggersGUI(ConnectionOpen open) {
 		//Create main window
 		mainFrame = new JFrame("SimTriggers v0.0.1");
@@ -44,9 +44,18 @@ public class SimTriggersGUI {
 		}
 		modulesList = new JList<String>(modules.toArray(new String[0]));
 		mainPanel.add(new JScrollPane(modulesList), BorderLayout.CENTER);
-		//modulesList.action(Event., new Object{}); TODO: Handle mouse click
+		
+		//Modules list click handler
+		modulesList.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("rawtypes")
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        final JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		        	System.out.println(list.getSelectedValue()); //Open module gui: https://imgur.com/a/LjygOjF
+		        }
+		    }
+		});
 	}
-	//Make GUI basing on this: https://imgur.com/a/gYwhXII
 	
 	public void show() {
 		mainFrame.setVisible(true);
