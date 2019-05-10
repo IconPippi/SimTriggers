@@ -44,6 +44,10 @@ public class ModuleManager {
 		return modules;
 	}
 	
+	/**
+	 * Returns the module object for the specified ID
+	 * @return module
+	 */
 	public Module getModuleByID(int ID) {
 		Module toReturn = null;
 		
@@ -52,6 +56,30 @@ public class ModuleManager {
 			if (meta.getID() == ID) {
 				toReturn = m;
 				break;
+			} else {
+				continue;
+			}
+		}
+		
+		return toReturn;
+	}
+	
+	/**
+	 * Returns the module object for the specified name
+	 * @return module
+	 */
+	public Module getModuleByName(String name) {
+		Module toReturn = null;
+		
+		for (Module m : getModules()) {
+			final ModuleMetadata meta = m.getMeta();
+			if (meta != null) {
+				if (meta.getName() == name) {
+					toReturn = m;
+					break;
+				} else {
+					continue;
+				}
 			} else {
 				continue;
 			}

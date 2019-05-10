@@ -21,7 +21,6 @@ import flightsim.simconnect.recv.RecvException;
 import flightsim.simconnect.recv.RecvOpen;
 import flightsim.simconnect.recv.RecvQuit;
 
-@SuppressWarnings("MagicConstant")
 public class ConnectionOpen implements
 	OpenHandler,
 	EventHandler,
@@ -36,6 +35,7 @@ public class ConnectionOpen implements
 	private final Logger logger = new Logger();
 	
 	//Modules
+	@SuppressWarnings("unused")
 	private final ModuleManager mm;
 	
 	public ConnectionOpen() throws IOException {
@@ -132,12 +132,7 @@ public class ConnectionOpen implements
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
 		logger.log("Triggered event: "+event.getEventID());
-		/* Disabled because I changed my mind about the structure of the proj
-		if (event.getEventID() > 100 && event.getEventID() < 999) { //TODO: Eventually gonna remove it once all events have been handled
-			final ModuleManager mm = new ModuleManager();
-			final Module module = mm.getModuleByID(event.getEventID());
-			//TODO: Open Module gui (outside gui from the game)
-		} else */if (EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS.isEvent(event)) {
+		if (EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS.isEvent(event)) {
 			try {
 				sc.text(TextType.PRINT_RED, 5, EVENT.RELOADSCRIPTS_TEXT, "Reloading Scripts...");
 			} catch (UnsupportedOperationException | IOException e) {
