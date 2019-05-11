@@ -31,7 +31,7 @@ public class ModuleManager {
 	
 	/**
 	 * Gets all the modules present in modules directory
-	 * @return modules
+	 * @return All modules inside the modules directory
 	 */
 	public List<Module> getModules() {
 		final FileUtils fileUtils = new FileUtils();
@@ -46,7 +46,7 @@ public class ModuleManager {
 	
 	/**
 	 * Returns the module object for the specified ID
-	 * @return module
+	 * @return Module Object
 	 */
 	public Module getModuleByID(int ID) {
 		Module toReturn = null;
@@ -54,6 +54,7 @@ public class ModuleManager {
 		for (Module m : getModules()) {
 			final ModuleMetadata meta = m.getMeta();
 			if (meta.getID() == ID) {
+				m = new Module(m.getDir(), m.getMeta());
 				toReturn = m;
 				break;
 			} else {
@@ -66,7 +67,7 @@ public class ModuleManager {
 	
 	/**
 	 * Returns the module object for the specified name
-	 * @return module
+	 * @return Module Object
 	 */
 	public Module getModuleByName(String name) {
 		Module toReturn = null;
@@ -74,7 +75,8 @@ public class ModuleManager {
 		for (Module m : getModules()) {
 			final ModuleMetadata meta = m.getMeta();
 			if (meta != null) {
-				if (meta.getName() == name) {
+				if (meta.getName().contains(name)) {
+					m = new Module(m.getDir(), m.getMeta());
 					toReturn = m;
 					break;
 				} else {

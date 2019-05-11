@@ -5,13 +5,14 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,6 +22,7 @@ import javax.swing.JScrollPane;
 import com.IconPippi.simtriggers.ConnectionOpen;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
+import com.IconPippi.simtriggers.utils.GraphicsUtils;
 
 public class SimTriggersGUI {
 
@@ -36,6 +38,7 @@ public class SimTriggersGUI {
 		mainFrame.setSize(500, 600);
 		mainFrame.setLocationRelativeTo(null);
 		
+		//Create main panel
 		mainPanel = new JPanel(new BorderLayout());
 		mainFrame.setContentPane(mainPanel);
 		
@@ -46,46 +49,58 @@ public class SimTriggersGUI {
 		
 		//Add modules list
 		final ModuleManager manager = new ModuleManager();
-		final List<String> modules = new ArrayList<>();
+		final List<String> modules = new ArrayList<>(); //Create a list to store all the modules
 		for (Module m : manager.getModules()) {
-			modules.add(m.getMeta().getName());
+			modules.add(m.getMeta().getName()); //Add the module to the list
 		}
-		modulesList = new JList<String>(modules.toArray(new String[0]));
-		final JScrollPane moduleComponent = new JScrollPane(modulesList);
-		mainPanel.add(moduleComponent, BorderLayout.CENTER);
+		modulesList = new JList<String>(modules.toArray(new String[0])); //Translate the List into a GUI component (JList) and change the List object to an array
+		final JScrollPane moduleComponent = new JScrollPane(modulesList); //Put the JList into a JScrollPane component to support scrolling
+		mainPanel.add(moduleComponent, BorderLayout.CENTER); //Add the component to the main panel
 
 		//Modules list click handler
 		modulesList.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("rawtypes")
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-		        final JList list = (JList)evt.getSource();
-		        if (evt.getClickCount() == 2) {
-		        	mainPanel.removeAll();
+		        final JList list = (JList)evt.getSource(); //Get the modules JList object
+		        if (evt.getClickCount() == 2) { //If the users clicks to times
+		        	mainPanel.removeAll(); //Clear the GUI
 		        	
-		        	mainFrame.add((Component) new JComponent() {
+		        	final ModuleManager moduleManager = new ModuleManager();
+    		      	final Module module = moduleManager.getModuleByName((String) list.getSelectedValue()); //Get the module object by its name
+		        	
+		        	mainFrame.add((Component) new JLabel() { //Create a new JLabel for the module info page
 
-						private static final long serialVersionUID = 1L;
+						private static final long serialVersionUID = 1L; //Idk tbh
 
 						@Override
-		        		  public void paintComponent(Graphics g) {
-		        		      	if(g instanceof Graphics2D) {
-		        		      		final Module module = new Module(new ModuleManager().getModuleByName((String) list.getSelectedValue()).getDir(), 
-		        		      				new ModuleManager().getModuleByName((String) list.getSelectedValue()).getMeta()); //TODO Throws nullpointer
+		        		public void paintComponent(Graphics g) { //Paint all the GUI components
+							if(g instanceof Graphics2D) {
 		        		      		
-		        		      		System.out.println(module.getMeta().getName());
-		        		      		
-		        		      		Graphics2D g2 = (Graphics2D)g;
-		        		      		g2.setRenderingHint(
-		        		      				RenderingHints.KEY_ANTIALIASING,
-		        		      				RenderingHints.VALUE_ANTIALIAS_ON
-		        		      		);
-		        		      		
-		        		      		g2.setFont(new Font("Palatino", 0, 30));
-		        		      		g2.drawString((String) list.getSelectedValue(), 150, 30); 
-		        		       }
-		        		   }
+		        		      	Graphics2D g2 = (Graphics2D) g; //Initialize Graphics2D obj
+		        		      	g2.setRenderingHint( //Set rendering hints (idk what it does)
+		        		      			RenderingHints.KEY_ANTIALIASING,
+		        		      			RenderingHints.VALUE_ANTIALIAS_ON
+		        		      	);
+		        		      	g2.setFont(new Font("Palatino", 0, 20)); //Set the font and size
+		        		      	
+		        		      	//Use a utils method to center the title string (module name)
+		        		      	new GraphicsUtils().centerString(g2, new Rectangle(0, 0, 460, 30), module.getMeta().getName(), new Font("Palatino", 0, 30)); //Module Name
+		        		      	g2.drawString("Version: "+module.getMeta().getVersion(), 5, 90); //Version
+		        		      	g2.drawString("ID: "+module.getMeta().getID(), 5, 120); //ID
+		        		      	g2.drawString("Authors: "+getAuthorListString(module.getMeta().getAuthors()), 5, 150);
+		        		      	
+		        		      	g2.setFont(new Font("Palatino", 0, 19)); //Set a different font size for the description
+		        		      	g2.drawString(module.getMeta().getDescription(), 5, 200); //TODO: Find a way to enter a new line each time a character limit gets passed?
+							
+		        		      	JButton statusButton = new JButton(module.getMeta().isEnabled() ? "Disable" : "Enable"); //Enable / Disable button
+		    		        	//statusButton.setBorder(BorderFactory.createEmptyBorder(5, 2, 5, 2)); //TODO: idk it doesn not show
+		    		        	//statusButton.setLocation(0, 0);
+		    		        	this.add(statusButton);
+							}
+		        		}
 		        	});
-		        	mainPanel.repaint();
+		        	
+		        	mainPanel.repaint(); //Repaint GUI
 		        	mainPanel.revalidate(); //Refresh GUI
 		        }
 		    }
@@ -93,7 +108,25 @@ public class SimTriggersGUI {
 
 	}
 	
+	/**
+	 * Shows the modules GUI
+	 */
 	public void show() {
-		mainFrame.setVisible(true);
+		mainFrame.setVisible(true); //Show GUI
+	}
+	
+	//Helper methods
+	private String getAuthorListString(String[] authors) {
+		StringBuilder sb = new StringBuilder();
+		
+		for (String author : authors) {
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			
+			sb.append(author);
+		}
+		
+		return sb.toString();
 	}
 }

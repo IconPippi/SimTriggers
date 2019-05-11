@@ -8,9 +8,9 @@ public class FileUtils {
 	
 	/**
 	 * Gets all the files inside a directory
-	 * @param dir (Target directory)
-	 * @param folders (If true also lists all subfolders of the target directory)
-	 * @return files
+	 * @param Target directory
+	 * @param If true also lists all subfolders of the target directory
+	 * @return All files in the target directory
 	 */
 	public List<File> getFilesInDir(File dir, boolean folders) {
 		List<File> files = new ArrayList<>();

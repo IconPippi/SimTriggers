@@ -168,12 +168,6 @@ public class ConnectionOpen implements
 		
 		try {
 			sc.menuAddItem("SimTriggers", EVENT.ADDONSMENU_SIMTRIGGERS, 0); //Add SimTriggers tab in addons menu
-			/*
-	        for (Module m : mm.getModules()) { //Add a sub tab for each module
-	        	final ModuleMetadata meta = m.getMeta();
-	        	sc.menuAddSubItem(1234, meta.getName(), meta.getID(), 0);
-	        }
-	        */
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0);
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0);
 		} catch (IOException e) {
