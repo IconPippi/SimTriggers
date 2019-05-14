@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
+import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
@@ -135,6 +136,7 @@ public class ConnectionOpen implements
 		if (EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS.isEvent(event)) {
 			try {
 				sc.text(TextType.PRINT_RED, 5, EVENT.RELOADSCRIPTS_TEXT, "Reloading Scripts...");
+				new ScriptLoader().loadModules();
 			} catch (UnsupportedOperationException | IOException e) {
 				logger.error(e.toString());
 			}
