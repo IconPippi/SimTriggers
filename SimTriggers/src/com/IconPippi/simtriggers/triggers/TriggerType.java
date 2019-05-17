@@ -2,6 +2,11 @@ package com.IconPippi.simtriggers.triggers;
 
 public enum TriggerType {
 	
-	TEST; //Test triggers
+	//Connection
+	CONNECTION_OPEN,
+	CONNECTION_CLOSE,
+	
+	//Throttle
+	THROTTLE;
 	
 }

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -20,6 +21,9 @@ public class ScriptLoader {
 	private ModuleManager mm;
 	private final Logger logger = new Logger();
 	
+	public final static ScriptEngineManager engineManager = new ScriptEngineManager();
+	public final static ScriptEngine engine = engineManager.getEngineByName("nashorn");
+	
 	/**
 	 * Loads every installed module's scripts
 	 */
@@ -28,9 +32,6 @@ public class ScriptLoader {
 		
 		mm = new ModuleManager();
 		
-		final ScriptEngineManager engineManager = new ScriptEngineManager();
-		final ScriptEngine engine = engineManager.getEngineByName("nashorn");
-		
 		final FileUtils fileUtils = new FileUtils();
 		
 		for (Module m : mm.getModules()) {
@@ -38,12 +39,26 @@ public class ScriptLoader {
 				
 				try {
 					if (f.getName().toLowerCase().endsWith(".js") && engine.eval(compileScripts(f)) != null) {
-						System.out.println(engine.eval(compileScripts(f)));
+						engine.eval(compileScripts(f));
 					}
-				} catch (IOException | ScriptException e) {
+				} catch (Exception e) {
 					logger.log(e.toString());
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Execute a function inside JS code
+	 * @param Function's name
+	 * @param Function's arguments
+	 */
+	public void invokeFunction(String method, Object... args) {
+		final Invocable invoc = (Invocable) engine;
+		try {
+			invoc.invokeFunction(method, args);
+		} catch (NoSuchMethodException | ScriptException e) {
+			logger.error(e.toString());
 		}
 	}
 	

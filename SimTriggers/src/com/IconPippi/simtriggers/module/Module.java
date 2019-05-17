@@ -22,7 +22,7 @@ public class Module {
 	public File getDir() {
 		return dir;
 	}
-	
+
 	public ModuleMetadata getMeta() {
 		final Logger logger = new Logger();
 		

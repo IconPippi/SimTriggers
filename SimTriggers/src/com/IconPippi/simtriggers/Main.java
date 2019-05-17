@@ -1,7 +1,5 @@
 package com.IconPippi.simtriggers;
 
-import com.IconPippi.simtriggers.module.ModuleManager;
-import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
@@ -15,16 +13,6 @@ public class Main {
 		logger.log("Initializing SimTriggers");
 		
 		final ConnectionOpen co; //Connection class
-		final ModuleManager mm; //Modules manager
-		final ScriptLoader sl; //Module script loader
-		
-		//Initialize modules
-		mm = new ModuleManager();
-		mm.initModules();
-		
-		//Load module's scripts
-		sl = new ScriptLoader();
-		sl.loadModules();
 		
 		//Establish connection
 		try {

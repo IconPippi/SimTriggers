@@ -20,8 +20,15 @@ public enum EVENT {
 	MODULEMENU_DISABLE,
 	
 	//Reload scripts 
-	RELOADSCRIPTS_TEXT;
+	RELOADSCRIPTS_TEXT,
 	
+	//Even groups
+	GROUP_THROTTLE,
+	
+	//Throttle events
+	THROTTLE_SET,
+	THROTTLE_FULL,
+	THROTTLE_CUT;	
 	public boolean isEvent(RecvEvent e) {
 		return e.getEventID() == ordinal();
 	}

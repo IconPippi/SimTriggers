@@ -6,8 +6,11 @@ import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.scripting.ScriptLoader;
+import com.IconPippi.simtriggers.triggers.TriggerType;
+import com.IconPippi.simtriggers.triggers.TriggersManager;
 import com.IconPippi.simtriggers.utils.Logger;
 
+import flightsim.simconnect.NotificationPriority;
 import flightsim.simconnect.SimConnect;
 import flightsim.simconnect.TextType;
 import flightsim.simconnect.config.Configuration;
@@ -32,6 +35,9 @@ public class ConnectionOpen implements
 	private SimConnect sc;
 	private final DispatcherTask dt;
 	
+	//Triggers
+	private final TriggersManager triggersManager;
+	
 	//Utils
 	private final Logger logger = new Logger();
 	
@@ -46,6 +52,8 @@ public class ConnectionOpen implements
 		dt.addHandlers(this);
 		
 		mm = new ModuleManager();
+		
+		triggersManager = new TriggersManager();
 	}
 	
 	/**
@@ -140,19 +148,37 @@ public class ConnectionOpen implements
 			} catch (UnsupportedOperationException | IOException e) {
 				logger.error(e.toString());
 			}
-			//final ScriptLoader sl = new ScriptLoader();
-			//sl.loadModules();
 		} else if (EVENT.SIMTRIGGERSTAB_OPENGUI.isEvent(event)) {
 			final SimTriggersGUI gui = new SimTriggersGUI(this);
 			gui.show();
+		} else if (EVENT.THROTTLE_FULL.isEvent(event)) {
+			triggersManager.triggerAll(TriggerType.THROTTLE); //Trigger with no throttle action specification
+			triggersManager.triggerAllThrottle("THROTTLE_FULL"); //Trigger with throttle action specification
+		} else if (EVENT.THROTTLE_CUT.isEvent(event)) {
+			triggersManager.triggerAll(TriggerType.THROTTLE); 
+			triggersManager.triggerAllThrottle("THROTTLE_CUT");
 		}
 	}
+	
 	
 	/*
 	 * Triggered on client connection opening
 	 */
 	@Override
 	public void handleOpen(SimConnect sc, RecvOpen open) {
+		final ModuleManager mm; //Modules manager
+		final ScriptLoader sl; //Module script loader
+		
+		//Initialize modules
+		mm = new ModuleManager();
+		mm.initModules();
+		
+		//Load module's scripts
+		sl = new ScriptLoader();
+		sl.loadModules();
+		
+		triggersManager.triggerAll(TriggerType.CONNECTION_OPEN); //Trigger connection open
+		
 		logger.log("Connected to " + 
 				open.getApplicationName() + 
 				" version " +
@@ -170,11 +196,28 @@ public class ConnectionOpen implements
 		
 		try {
 			sc.menuAddItem("SimTriggers", EVENT.ADDONSMENU_SIMTRIGGERS, 0); //Add SimTriggers tab in addons menu
-	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0);
-	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0);
+	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0); //Add Reload Scripts option under SimTriggers tab
+	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0); //Add Open Modules GUI option under SimTriggers tab
 		} catch (IOException e) {
 			logger.error("Exception on adding item to addons menu: \n"+e.toString());
 		}
+		
+		try {
+			/*
+			 * Get a Sim event and map it to a EVENT enum
+			 */
+			
+			//Throttle Group
+			sc.mapClientEventToSimEvent(EVENT.THROTTLE_FULL, "THROTTLE_FULL");
+			sc.mapClientEventToSimEvent(EVENT.THROTTLE_CUT, "THROTTLE_CUT");
+			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_FULL);
+			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_CUT);
+			sc.setNotificationGroupPriority(EVENT.GROUP_THROTTLE, NotificationPriority.HIGHEST);
+			//Throttle Group
+		} catch (IOException e) {
+			logger.error(e.toString());
+		}
+		//All Flight Sim Events: https://docs.microsoft.com/en-us/previous-versions/microsoft-esp/cc526980(v=msdn.10)
 	}
 	
 	/*
@@ -182,6 +225,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleQuit(SimConnect sc, RecvQuit quit) {
+		triggersManager.triggerAll(TriggerType.CONNECTION_CLOSE);
 		logger.log("Connection between client terminated: "+quit.getRawID());
 	}
 	
