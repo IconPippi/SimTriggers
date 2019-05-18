@@ -48,4 +48,10 @@ public class RegisterTrigger {
 			break; 
 		}
 	}
+	
+	public static void unregisterAll() {
+		TriggersManager.connectionCloseTriggers.clear();
+		TriggersManager.connectionCloseTriggers.clear();
+		TriggersManager.throttleTriggers.clear();
+	}
 }

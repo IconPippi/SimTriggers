@@ -13,12 +13,13 @@ import javax.script.ScriptException;
 
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
+import com.IconPippi.simtriggers.triggers.RegisterTrigger;
 import com.IconPippi.simtriggers.utils.FileUtils;
 import com.IconPippi.simtriggers.utils.Logger;
 
 public class ScriptLoader {
 	
-	private ModuleManager mm;
+	private final ModuleManager mm = new ModuleManager();
 	private final Logger logger = new Logger();
 	
 	public final static ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -30,7 +31,30 @@ public class ScriptLoader {
 	public void loadModules() {
 		logger.log("Loading scripts...");
 		
-		mm = new ModuleManager();
+		final FileUtils fileUtils = new FileUtils();
+		
+		for (Module m : mm.getModules()) {
+			for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
+				
+				try {
+					if (f.getName().toLowerCase().endsWith(".js") && engine.eval(compileScripts(f)) != null) {
+						engine.eval(compileScripts(f));
+					}
+				} catch (Exception e) {
+					logger.log(e.toString());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Reloads every installed module's scripts
+	 */
+	public void reloadModules() {
+		logger.log("Reloading scripts...");
+		
+		//Unregister all triggers and eventually clear any wrapper
+		RegisterTrigger.unregisterAll();
 		
 		final FileUtils fileUtils = new FileUtils();
 		
@@ -63,20 +87,20 @@ public class ScriptLoader {
 	}
 	
 	/*
-	 * Util method to compile scripts from a .js file
+	 * Utility method to compile scripts from a .js file
 	 */
 	private String compileScripts(File f) throws IOException {
 		if (f.isDirectory()) return null;
 	      
 	      StringBuilder compiledScript = new StringBuilder();
-	      
-
-	      @SuppressWarnings("resource")
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF8"));
+	     
+	      BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF8"));
 	      String line;
 	      while ((line = br.readLine()) != null) {
 	          compiledScript.append(line).append("\n");
 	      }
+	      
+	      br.close();
 	      
 	      return compiledScript.toString();
 	}
