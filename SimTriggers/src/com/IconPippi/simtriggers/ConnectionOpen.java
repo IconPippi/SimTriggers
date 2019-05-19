@@ -310,7 +310,11 @@ public class ConnectionOpen implements
 		
 		try {
 			/*
-			 * Get a Sim event and map it to a EVENT enum
+			 * 
+			 * 
+			 * Map Client events to Sim events
+			 * 
+			 * 
 			 */
 			
 			//Throttle Group

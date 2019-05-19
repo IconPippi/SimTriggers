@@ -6,6 +6,9 @@ import flightsim.simconnect.recv.RecvSimObjectData;
 
 public enum EVENT {
 	
+	//Null
+	NULL,
+	
 	//Add-ons menu
 	ADDONSMENU_SIMTRIGGERS,
 	
