@@ -160,6 +160,7 @@ public class ConnectionOpen implements
 			gui.show();
 		} 
 			
+		
 		/*
 		 * Throttle events
 		 */
@@ -310,11 +311,11 @@ public class ConnectionOpen implements
 		
 		try {
 			/*
-			 * 
+			 * ****************************************
 			 * 
 			 * Map Client events to Sim events
 			 * 
-			 * 
+			 * ****************************************
 			 */
 			
 			//Throttle Group
@@ -395,6 +396,16 @@ public class ConnectionOpen implements
 			
 			sc.setNotificationGroupPriority(EVENT.GROUP_THROTTLE, NotificationPriority.HIGHEST);
 			//Throttle Group
+			
+			/*
+			 * ******************************************
+			 * 
+			 * Register a keybind for every key on the keyboard ;(
+			 * 
+			 * ******************************************
+			 */
+			
+			
 		} catch (IOException e) {
 			logger.error(e.toString());
 		}
