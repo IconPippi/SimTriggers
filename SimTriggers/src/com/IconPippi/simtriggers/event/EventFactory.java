@@ -1,38 +1,79 @@
 package com.IconPippi.simtriggers.event;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.IconPippi.simtriggers.EVENT;
 import com.IconPippi.simtriggers.wrappers.SimTriggers;
 
 import flightsim.simconnect.SimConnect;
 
-/*
- * This might solve a couple of problems
- */
 public class EventFactory {
 	
-	@SuppressWarnings("unused")
+	public static List<Integer> eventList = new ArrayList<>();
+	
+	protected static int eventCount = 0;
+	protected static List<String> stringEventList = new ArrayList<>();
+
 	private SimConnect sc = SimTriggers.getSimulator();
 	
-	public void buildClientEvent(String clientEvent, String simEvent, EVENT groupID) {
-		//TODO: Build event
-		//sc.mapClientEventToSimEvent(encodeEvenet(clientEvent), simEvent);
-		//sc.addClientEventToNotificationGroup(groupID, encodeEvenet(clientEvent);
+	/**
+	 * Make a new client event that can be handled in ConnectionOpen class i.e. a throttle event
+	 * @param Name of the client event
+	 * @param Name of the simulator event
+	 * @param Event's enum group
+	 * @throws IOException
+	 * @see {@link flightsim.simconnect.SimConnect#mapClientEventToSimEvent(Enum, String)}
+	 * @see {@link flightsim.simconnect.SimConnect#addClientEventToNotificationGroup(Enum, Enum)}
+	 */
+	public void buildClientEvent(String clientEvent, String simEvent, EVENT groupID) throws IOException {
+		int event = registerEvent(clientEvent, groupID);
+		
+		sc.mapClientEventToSimEvent(event, simEvent);
+		sc.addClientEventToNotificationGroup(getGroupID(groupID), event);
 	}
 	
-	public void buildInputEvent(String inputEvent, String clientEvent, EVENT groupID) {
-		//TODO: Build event
-		//sc.mapInputEventToClientEvent(groupID, inputEvent, encodeEvent(clientEvent));
+	/**
+	 * Make a new input event that can be handled in ConnectionOpen class i.e. a keybind event
+	 * @param Name of the client event
+	 * @param Name of the simulator event
+	 * @param Event's enum group
+	 * @throws IOException
+	 * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
+	 */
+	public void buildInputEvent(String inputEvent, String clientEvent, EVENT groupID) throws IOException {
+		int event = registerEvent(inputEvent, groupID);
+		
+		sc.mapInputEventToClientEvent(getGroupID(groupID), inputEvent, event);
 	}
 	
-	protected double encodeEvent(String eventName, boolean clientOrInput) { //Must be a double cause of the size
-		//TODO: Encode event
-		//Encoding process:
-		//If its client event always starts with 00 if it's input 11
-		//Add a number to declare the groupID (Each ID can be found in the EVENT class) i.e EVENT.GROUP_THROTTLE = 11
-		//Every letter will be represented as it's number in the alphabet and a 0 at the start and end i.e. H = 05, P = 16
-		//The underscore will be 27
-		//Example encoding "THROTTLE_INCR" string: 001120081815202012052709140318
-		return 0;
+	protected int registerEvent(String inputEvent, EVENT groupID) {
+		eventCount++;
+		int count = eventCount; //Keep track of registered events
+		stringEventList.add(inputEvent); //Add the event's name to its list
+		int groupIdentifier = getGroupID(groupID); //Create group identifier variable and initialize it
+		
+		int end = Integer.valueOf(groupIdentifier+""+count); //Final value to return
+		
+		eventList.add(end);
+		
+		return end;
 	}
 	
+	@SuppressWarnings("incomplete-switch")
+	private int getGroupID(EVENT groupID) {
+		int groupIdentifier = -1;
+		
+		switch (groupID) {
+		case GROUP_THROTTLE:
+			groupIdentifier = 11;
+			break;
+		case GROUP_KEYBOARD:
+			groupIdentifier = 22;
+			break;
+		}
+		
+		return groupIdentifier;
+	}
 }
