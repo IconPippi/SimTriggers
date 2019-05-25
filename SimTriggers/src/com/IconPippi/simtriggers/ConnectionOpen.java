@@ -11,7 +11,6 @@ import com.IconPippi.simtriggers.triggers.TriggerType;
 import com.IconPippi.simtriggers.triggers.TriggersManager;
 import com.IconPippi.simtriggers.utils.Logger;
 
-import flightsim.simconnect.NotificationPriority;
 import flightsim.simconnect.SimConnect;
 import flightsim.simconnect.TextType;
 import flightsim.simconnect.config.Configuration;
@@ -147,7 +146,13 @@ public class ConnectionOpen implements
 	public void handleEvent(SimConnect sc, RecvEvent event) {
 		logger.log("Triggered event: "+event.getEventID());
 		
-		if (String.valueOf(event.getEventID()).startsWith("22")) { //Mixture event
+		/*
+		 * Trigger events 
+		 */
+		if (String.valueOf(event.getEventID()).startsWith("11")) { //Throttle events
+			triggersManager.triggerAll(TriggerType.THROTTLE);
+			triggersManager.triggerAllThrottle(new Decoder().decode(event.getEventID()));
+		} else if (String.valueOf(event.getEventID()).startsWith("22")) { //Mixture events
 			triggersManager.triggerAll(TriggerType.MIXTURE);
 			triggersManager.triggerAllMixture(new Decoder().decode(event.getEventID()));
 		}
@@ -167,116 +172,7 @@ public class ConnectionOpen implements
 			gui.show();
 		} 
 		
-		/*
-		 * Throttle events
-		 */
-		if (EVENT.THROTTLE_FULL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); //Trigger with no throttle action specification
-			triggersManager.triggerAllThrottle("THROTTLE_FULL"); //Trigger with throttle action specification
-		} else if (EVENT.THROTTLE_CUT.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_CUT");
-		} else if (EVENT.THROTTLE_SET.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_SET");
-		} else if (EVENT.THROTTLE_INCR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_INCR");
-		} else if (EVENT.THROTTLE_INCR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_INCR_SMALL");
-		} else if (EVENT.THROTTLE_DECR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_DECR");
-		} else if (EVENT.THROTTLE_DECR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE_DECR_SMALL");
-		} else if (EVENT.THROTTLE1_SET.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_SET");
-		} else if (EVENT.THROTTLE1_FULL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_FULL");
-		} else if (EVENT.THROTTLE1_CUT.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_CUT");
-		} else if (EVENT.THROTTLE1_INCR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_INCR");
-		} else if (EVENT.THROTTLE1_INCR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_INCR_SMALL");
-		} else if (EVENT.THROTTLE1_DECR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_DECR");
-		} else if (EVENT.THROTTLE1_DECR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE1_DECR_SMALL");
-		} else if (EVENT.THROTTLE2_SET.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_SET");
-		} else if (EVENT.THROTTLE2_FULL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_FULL");
-		} else if (EVENT.THROTTLE2_CUT.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_CUT");
-		} else if (EVENT.THROTTLE2_INCR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_INCR");
-		} else if (EVENT.THROTTLE2_INCR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_INCR_SMALL");
-		} else if (EVENT.THROTTLE2_DECR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_DECR");
-		} else if (EVENT.THROTTLE2_DECR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE2_DECR_SMALL");
-		} else if (EVENT.THROTTLE3_SET.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_SET");
-		} else if (EVENT.THROTTLE3_FULL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_FULL");
-		} else if (EVENT.THROTTLE3_CUT.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_CUT");
-		} else if (EVENT.THROTTLE3_INCR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_INCR");
-		} else if (EVENT.THROTTLE3_INCR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_INCR_SMALL");
-		} else if (EVENT.THROTTLE3_DECR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_DECR");
-		} else if (EVENT.THROTTLE3_DECR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE3_DECR_SMALL");
-		} else if (EVENT.THROTTLE4_SET.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_SET");
-		} else if (EVENT.THROTTLE4_FULL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_FULL");
-		} else if (EVENT.THROTTLE4_CUT.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_CUT");
-		} else if (EVENT.THROTTLE4_INCR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_INCR");
-		} else if (EVENT.THROTTLE4_INCR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_INCR_SMALL");
-		} else if (EVENT.THROTTLE4_DECR.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_DECR");
-		} else if (EVENT.THROTTLE4_DECR_SMALL.isEvent(event)) {
-			triggersManager.triggerAll(TriggerType.THROTTLE); 
-			triggersManager.triggerAllThrottle("THROTTLE4_DECR_SMALL");
-		}
-	}   
+	} 
 	
 	
 	/*
@@ -313,98 +209,6 @@ public class ConnectionOpen implements
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0); //Add Open Modules GUI option under SimTriggers tab
 		} catch (IOException e) {
 			logger.error("Exception on adding item to addons menu: \n"+e.toString());
-		}
-		
-		try {
-			/*
-			 * ****************************************
-			 * 
-			 * Map Client events to Sim events
-			 * 
-			 * ****************************************
-			 */
-			
-			//Throttle Group
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_FULL, "THROTTLE_FULL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_CUT, "THROTTLE_CUT");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_SET, "THROTTLE_SET");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_INCR, "THROTTLE_INCR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_INCR_SMALL, "THROTTLE_INCR_SMALL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_DECR, "THROTTLE_DECR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE_DECR_SMALL, "THROTTLE_DECR_SMALL");
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_FULL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_CUT);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_SET);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_INCR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_INCR_SMALL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_DECR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE_DECR_SMALL);
-			
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_FULL, "THROTTLE1_FULL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_CUT, "THROTTLE1_CUT");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_SET, "THROTTLE1_SET");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_INCR, "THROTTLE1_INCR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_INCR_SMALL, "THROTTLE1_INCR_SMALL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_DECR, "THROTTLE1_DECR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE1_DECR_SMALL, "THROTTLE1_DECR_SMALL");
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_FULL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_CUT);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_SET);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_INCR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_INCR_SMALL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_DECR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE1_DECR_SMALL);
-			
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_FULL, "THROTTLE2_FULL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_CUT, "THROTTLE2_CUT");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_SET, "THROTTLE2_SET");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_INCR, "THROTTLE2_INCR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_INCR_SMALL, "THROTTLE2_INCR_SMALL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_DECR, "THROTTLE2_DECR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE2_DECR_SMALL, "THROTTLE2_DECR_SMALL");
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_FULL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_CUT);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_SET);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_INCR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_INCR_SMALL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_DECR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE2_DECR_SMALL);
-			
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_FULL, "THROTTLE3_FULL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_CUT, "THROTTLE3_CUT");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_SET, "THROTTLE3_SET");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_INCR, "THROTTLE3_INCR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_INCR_SMALL, "THROTTLE3_INCR_SMALL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_DECR, "THROTTLE3_DECR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE3_DECR_SMALL, "THROTTLE3_DECR_SMALL");
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_FULL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_CUT);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_SET);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_INCR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_INCR_SMALL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_DECR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE3_DECR_SMALL);
-			
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_FULL, "THROTTLE4_FULL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_CUT, "THROTTLE4_CUT");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_SET, "THROTTLE4_SET");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_INCR, "THROTTLE4_INCR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_INCR_SMALL, "THROTTLE4_INCR_SMALL");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_DECR, "THROTTLE4_DECR");
-			sc.mapClientEventToSimEvent(EVENT.THROTTLE4_DECR_SMALL, "THROTTLE4_DECR_SMALL");
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_FULL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_CUT);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_SET);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_INCR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_INCR_SMALL);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_DECR);
-			sc.addClientEventToNotificationGroup(EVENT.GROUP_THROTTLE, EVENT.THROTTLE4_DECR_SMALL);
-			
-			sc.setNotificationGroupPriority(EVENT.GROUP_THROTTLE, NotificationPriority.HIGHEST);
-			//Throttle Group
-			
-		} catch (IOException e) {
-			logger.error(e.toString());
 		}
 		//All Flight Sim Events: https://docs.microsoft.com/en-us/previous-versions/microsoft-esp/cc526980(v=msdn.10)
 	}

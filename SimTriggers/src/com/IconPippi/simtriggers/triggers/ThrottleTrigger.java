@@ -1,8 +1,17 @@
 package com.IconPippi.simtriggers.triggers;
 
+import java.io.IOException;
+
+import com.IconPippi.simtriggers.EVENT;
+import com.IconPippi.simtriggers.event.EventFactory;
+import com.IconPippi.simtriggers.utils.Logger;
+
 public class ThrottleTrigger extends Trigger {
 
 	private String throttleAction;
+	
+	private final EventFactory eventFactory = new EventFactory();
+	private final Logger logger = new Logger();
 	
 	protected ThrottleTrigger(String method) {
 		super(method);
@@ -22,6 +31,12 @@ public class ThrottleTrigger extends Trigger {
 
 	public void setThrottleAction(String action) {
 		this.throttleAction = action;
+		
+		try {
+			eventFactory.buildClientEvent(action, action, EVENT.GROUP_THROTTLE);
+		} catch (IOException e) {
+			logger.error(e.toString());
+		}
 	}
 	
 	public String getThrottleAction() {
