@@ -7,6 +7,9 @@ public enum TriggerType {
 	CONNECTION_CLOSE,
 	
 	//Throttle
-	THROTTLE;
+	THROTTLE,
+	
+	//Mixture
+	MIXTURE;
 	
 }

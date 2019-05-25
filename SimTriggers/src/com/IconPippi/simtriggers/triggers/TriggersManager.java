@@ -11,6 +11,7 @@ public class TriggersManager {
 	protected static List<ConnectionOpenTrigger> connectionOpenTriggers = new ArrayList<>(); //ConnectionOpenTrigger
 	protected static List<ConnectionCloseTrigger> connectionCloseTriggers = new ArrayList<>(); //ConnectionCloseTrigger
 	protected static List<ThrottleTrigger> throttleTriggers = new ArrayList<>(); //ThrottleTrigger
+	protected static List<MixtureTrigger> mixtureTriggers = new ArrayList<>(); //MixtureTrigger
 	
 	/**
 	 * Triggers all the triggers for the specified TriggerType
@@ -33,6 +34,13 @@ public class TriggersManager {
 				throttleTrigger.trigger(); //Trigger without specifying a throttle action
 			}
 			break;
+		case MIXTURE:
+			for (MixtureTrigger mixtureTrigger : mixtureTriggers) {
+				mixtureTrigger.trigger();
+			}
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -43,6 +51,16 @@ public class TriggersManager {
 	public void triggerAllThrottle(String throttleAction) {
 		for (ThrottleTrigger throttleTrigger : throttleTriggers) {
 			throttleTrigger.trigger(throttleAction);
+		}
+	}
+	
+	/**
+	 * Triggers all Mixture triggers, used for triggers with a mixture action set
+	 * @param Mixture Action
+	 */
+	public void triggerAllMixture(String mixtureAction) {
+		for (MixtureTrigger mixtureTrigger : mixtureTriggers) {
+			mixtureTrigger.trigger(mixtureAction);
 		}
 	}
 }

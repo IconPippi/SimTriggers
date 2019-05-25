@@ -27,6 +27,16 @@ public class RegisterTrigger {
 		TriggersManager.throttleTriggers.add(tt);
 		return tt;
 	}
+
+	/**
+	 * Registers a new MixtureTrigger
+	 * @param Trigger's method
+	 */
+	public static MixtureTrigger registerMixture(String method) {
+		MixtureTrigger mt = new MixtureTrigger(method);
+		TriggersManager.mixtureTriggers.add(mt);
+		return mt;
+	}
 	
 	/**
 	 * Registers a new specified trigger
@@ -44,14 +54,22 @@ public class RegisterTrigger {
 		case THROTTLE:
 			ThrottleTrigger tt = new ThrottleTrigger(method);
 			TriggersManager.throttleTriggers.add(tt);
+			break;
+		case MIXTURE:
+			MixtureTrigger mt = new MixtureTrigger(method);
+			TriggersManager.mixtureTriggers.add(mt);
 		default:
 			break; 
 		}
 	}
 	
+	/**
+	 * Unregister all triggers
+	 */
 	public static void unregisterAll() {
 		TriggersManager.connectionCloseTriggers.clear();
 		TriggersManager.connectionCloseTriggers.clear();
 		TriggersManager.throttleTriggers.clear();
+		TriggersManager.mixtureTriggers.clear();
 	}
 }

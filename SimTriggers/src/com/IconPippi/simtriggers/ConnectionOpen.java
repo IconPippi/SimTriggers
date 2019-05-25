@@ -2,6 +2,7 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
+import com.IconPippi.simtriggers.event.Decoder;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
@@ -136,7 +137,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleException(SimConnect sc, RecvException exception) {
-		logger.error(""+exception.getException().getMessage());
+		logger.error(""+exception.getException().getMessage()+" "+exception.getRawID()+" "+exception.getIndex()+" "+exception.getSendID());
 	}
 	
 	/*
@@ -144,7 +145,13 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
-		//logger.log("Triggered event: "+event.getEventID()); TODO: Disabled because it spams some random event that I couldn't figure out which one it is
+		logger.log("Triggered event: "+event.getEventID());
+		
+		if (String.valueOf(event.getEventID()).startsWith("22")) { //Mixture event
+			triggersManager.triggerAll(TriggerType.MIXTURE);
+			triggersManager.triggerAllMixture(new Decoder().decode(event.getEventID()));
+		}
+		
 		/*
 		 * Menu Events
 		 */
@@ -159,7 +166,6 @@ public class ConnectionOpen implements
 			final SimTriggersGUI gui = new SimTriggersGUI(this);
 			gui.show();
 		} 
-			
 		
 		/*
 		 * Throttle events
@@ -396,15 +402,6 @@ public class ConnectionOpen implements
 			
 			sc.setNotificationGroupPriority(EVENT.GROUP_THROTTLE, NotificationPriority.HIGHEST);
 			//Throttle Group
-			
-			/*
-			 * ******************************************
-			 * 
-			 * Register a keybind for every key on the keyboard ;(
-			 * 
-			 * ******************************************
-			 */
-			
 			
 		} catch (IOException e) {
 			logger.error(e.toString());

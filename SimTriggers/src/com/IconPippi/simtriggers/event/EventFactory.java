@@ -36,14 +36,16 @@ public class EventFactory {
 	
 	/**
 	 * Make a new input event that can be handled in ConnectionOpen class i.e. a keybind event
+	 * @param Name of the input event
 	 * @param Name of the client event
-	 * @param Name of the simulator event
 	 * @param Event's enum group
 	 * @throws IOException
 	 * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
 	 */
 	public void buildInputEvent(String inputEvent, String clientEvent, EVENT groupID) throws IOException {
 		int event = registerEvent(inputEvent, groupID);
+		
+		System.out.println(getGroupID(groupID)+" "+inputEvent+" "+event);
 		
 		sc.mapInputEventToClientEvent(getGroupID(groupID), inputEvent, event);
 	}
@@ -69,7 +71,7 @@ public class EventFactory {
 		case GROUP_THROTTLE:
 			groupIdentifier = 11;
 			break;
-		case GROUP_KEYBOARD:
+		case GROUP_MIXTURE:
 			groupIdentifier = 22;
 			break;
 		}
