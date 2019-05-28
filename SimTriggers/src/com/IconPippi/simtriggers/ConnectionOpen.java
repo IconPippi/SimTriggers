@@ -2,7 +2,7 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
-import com.IconPippi.simtriggers.event.Decoder;
+import com.IconPippi.simtriggers.event.EventDecoder;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
@@ -12,6 +12,7 @@ import com.IconPippi.simtriggers.triggers.TriggersManager;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
+import flightsim.simconnect.TextResult;
 import flightsim.simconnect.TextType;
 import flightsim.simconnect.config.Configuration;
 import flightsim.simconnect.config.ConfigurationManager;
@@ -144,21 +145,28 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
-		logger.log("Triggered event: "+event.getEventID());
+		logger.log("Triggered event: "+event.getEventID()); //TODO: For debugging
 		
 		/*
 		 * Trigger events 
 		 */
-		if (String.valueOf(event.getEventID()).startsWith("11")) { //Throttle events
+		if (String.valueOf(event.getEventID()).startsWith("22")) { //Throttle events
 			triggersManager.triggerAll(TriggerType.THROTTLE);
-			triggersManager.triggerAllThrottle(new Decoder().decode(event.getEventID()));
-		} else if (String.valueOf(event.getEventID()).startsWith("22")) { //Mixture events
+			triggersManager.triggerAllThrottle(new EventDecoder().decode(event.getEventID()));
+		} else if (String.valueOf(event.getEventID()).startsWith("33")) { //Mixture events
 			triggersManager.triggerAll(TriggerType.MIXTURE);
-			triggersManager.triggerAllMixture(new Decoder().decode(event.getEventID()));
+			triggersManager.triggerAllMixture(new EventDecoder().decode(event.getEventID()));
 		}
 		
 		/*
 		 * Menu Events
+		 */
+		if (String.valueOf(event.getEventID()).startsWith("11")) { //Menu events
+			scriptLoader.invokeFunction(new EventDecoder().decode(event.getEventID()), TextResult.type(event).toString());
+		}
+		
+		/*
+		 * Client events 
 		 */
 		if (EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS.isEvent(event)) {
 			try {
@@ -170,8 +178,7 @@ public class ConnectionOpen implements
 		} else if (EVENT.SIMTRIGGERSTAB_OPENGUI.isEvent(event)) {
 			final SimTriggersGUI gui = new SimTriggersGUI(this);
 			gui.show();
-		} 
-		
+		}
 	} 
 	
 	

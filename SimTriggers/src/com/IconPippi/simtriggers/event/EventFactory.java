@@ -11,12 +11,11 @@ import flightsim.simconnect.SimConnect;
 
 public class EventFactory {
 	
-	public static List<Integer> eventList = new ArrayList<>();
-	
+	protected static List<Integer> eventList = new ArrayList<>();
 	protected static int eventCount = 0;
 	protected static List<String> stringEventList = new ArrayList<>();
 
-	private SimConnect sc = SimTriggers.getSimulator();
+	private final SimConnect sc = SimTriggers.getSimulator();
 	
 	/**
 	 * Make a new client event that can be handled in ConnectionOpen class i.e. a throttle event
@@ -50,7 +49,16 @@ public class EventFactory {
 		sc.mapInputEventToClientEvent(getGroupID(groupID), inputEvent, event);
 	}
 	
-	protected int registerEvent(String inputEvent, EVENT groupID) {
+	/**
+	 * Make a new menu event ID, marked by 00 at the start of it's ID
+	 * @param Handler's function name
+	 * @return Menu ID
+	 */
+	public int buildMenu(String menuHandler) {
+		return registerEvent(menuHandler, EVENT.GROUP_MENU);
+	}
+	
+	private int registerEvent(String inputEvent, EVENT groupID) {
 		eventCount++;
 		int count = eventCount; //Keep track of registered events
 		stringEventList.add(inputEvent); //Add the event's name to its list
@@ -68,11 +76,14 @@ public class EventFactory {
 		int groupIdentifier = -1;
 		
 		switch (groupID) {
-		case GROUP_THROTTLE:
+		case GROUP_MENU:
 			groupIdentifier = 11;
 			break;
-		case GROUP_MIXTURE:
+		case GROUP_THROTTLE:
 			groupIdentifier = 22;
+			break;
+		case GROUP_MIXTURE:
+			groupIdentifier = 33;
 			break;
 		}
 		

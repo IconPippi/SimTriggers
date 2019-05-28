@@ -50,7 +50,47 @@ function connectionClose() {
 ```
 After you completed the previous steps you can load up your simulator, run SimTriggers and your module should be up and running!
 
-# Triggers List 
-### [Trigger Name // (ENUM_NAME) // Explanation]
-- ConnectionOpen (CONNECTION_OPEN) Triggered once connected with the simulator.
-- ConnectionClose (CONNECTION_CLOSE) Triggered once the connection with the simulator terminates.
+# More Examples:
+
+## Menus
+To create a simple menu you will have to use the take advantage of the Menu wrapper which provides all the methods you need to create and handle a Flight Simulator X interface. Here's an example:
+```js
+var RegisterTrigger = Java.type("com.IconPippi.simtriggers.triggers.RegisterTrigger");
+var Menu = Java.type("com.IconPippi.simtriggers.wrappers.Menu");
+
+RegisterTrigger.registerConnectionOpen("connectionOpen");
+RegisterTrigger.registerConnectionClose("connectionClose");
+
+//Create a simple menu.
+var exampleMenu = new Menu("menuHandler"); //Create the menu specifying the handler function
+throttleMenu.setName("SuperDuperModule"); //Give it a name
+throttleMenu.setTitle("Example Menu"); //Give it a title
+throttleMenu.addOption("Example Option 1"); //MENU_SELECT_1
+throttleMenu.addOption("Example Option 2"); //MENU_SELECT_2
+
+//Handle the menu events
+function menuHandler(menuInput) {
+    switch (menuInput) {
+    case "DISPLAYED": //On menu display
+        print("Menu displayed!");
+        break;
+    case "REMOVED": //On menu hide action
+        print("Menu hidden!");
+        break;
+    case "MENU_SLECT_1": //Example Option 1
+        print("Works!");
+        break;
+    case "MENU_SELECT_2": //Example Option 2
+        print("Working!");
+        break;
+    }
+}
+
+function connectionOpen() {
+    exampleMenu.show();
+}
+
+function connectionClose() {
+    exampleMenu.hide();
+}
+``` 

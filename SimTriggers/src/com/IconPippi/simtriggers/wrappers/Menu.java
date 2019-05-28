@@ -4,18 +4,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.IconPippi.simtriggers.event.EventFactory;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
 
 public class Menu {
 	
-	private SimConnect sc = SimTriggers.getSimulator();
-	private Logger logger = new Logger();
+	private final SimConnect sc = SimTriggers.getSimulator();
+	private final Logger logger = new Logger();
 	
-	public String menuName;
-	public String title;
-	public List<String> options = new ArrayList<>();
+	private String menuName;
+	private String title;
+	private List<String> options = new ArrayList<>();
+	private String menuHandler;
+	private int menuID;
+	
+	/**
+	 * Initialize a menu object by providing its handler
+	 * @param Handler's function name
+	 */
+	public Menu(String menuHandler) {
+		this.menuHandler = menuHandler;
+		
+		menuID = new EventFactory().buildMenu(this.menuHandler);
+	}
 	
 	/**
 	 * Sets the menu's name (a.k.a "title" in the SimConnect .menu method)
@@ -38,7 +51,7 @@ public class Menu {
 	 * @param Option name
 	 * @param Function name
 	 */
-	public void addOption(String option, String actionMethod) { //TODO: Option action
+	public void addOption(String option) {
 		options.add(option);
 	}
 	
@@ -47,7 +60,7 @@ public class Menu {
 	 */
 	public void show() {
 		try {
-			sc.menu(0, 14, menuName, title, options.toArray(new String[0]));
+			sc.menu(0, menuID, menuName, title, options.toArray(new String[0]));
 		} catch (UnsupportedOperationException | IOException e) {
 			logger.error(e.toString());
 		}
@@ -58,7 +71,7 @@ public class Menu {
 	 */
 	public void hide() {
 		try {
-			sc.menu(0.0f, 14, null, null, (String[])null); //Hide the menu
+			sc.menu(0.0f, menuID, null, null, (String[])null); //Hide the menu
 		} catch (UnsupportedOperationException | IOException e) {
 			logger.error(e.toString());
 		}
