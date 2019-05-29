@@ -145,7 +145,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
-		logger.log("Triggered event: "+event.getEventID()); //TODO: For debugging
+		logger.log("Triggered event: "+event.getEventID());
 		
 		/*
 		 * Trigger events 

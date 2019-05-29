@@ -88,4 +88,5 @@ public class RegisterTrigger {
 		TriggersManager.mixtureTriggers.clear();
 		TriggersManager.keyTriggers.clear();
 	}
+	
 }

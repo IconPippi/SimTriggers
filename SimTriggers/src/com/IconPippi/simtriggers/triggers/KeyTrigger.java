@@ -8,7 +8,7 @@ import com.IconPippi.simtriggers.utils.Logger;
 
 public class KeyTrigger extends Trigger {
 	
-	private String key; //TODO: Finish implementing trigger
+	private String key;
 	
 	private final EventFactory eventFactory = new EventFactory();
 	private final Logger logger = new Logger();

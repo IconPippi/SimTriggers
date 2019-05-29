@@ -79,4 +79,5 @@ public class TriggersManager {
 			keyTrigger.trigger(key);
 		}
 	}
+	
 }

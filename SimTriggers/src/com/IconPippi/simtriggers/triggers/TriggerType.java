@@ -9,10 +9,10 @@ public enum TriggerType {
 	//Throttle
 	THROTTLE,
 	
-	//Keys
-	KEYS,
-	
 	//Mixture
-	MIXTURE;
+	MIXTURE,
+	
+	//Keys
+	KEYS;
 	
 }

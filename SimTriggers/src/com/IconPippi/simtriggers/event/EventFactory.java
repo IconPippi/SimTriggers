@@ -12,9 +12,9 @@ import flightsim.simconnect.SimConnect;
 
 public class EventFactory {
 	
-	protected static List<Integer> eventList = new ArrayList<>();
+	protected static List<Integer> eventList = new ArrayList<>(); //Event IDs
 	protected static int eventCount = 0;
-	protected static List<String> stringEventList = new ArrayList<>();
+	protected static List<String> stringEventList = new ArrayList<>(); //Event names
 
 	private final SimConnect sc = SimTriggers.getSimulator();
 	
