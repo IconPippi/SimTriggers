@@ -12,6 +12,7 @@ public class TriggersManager {
 	protected static List<ConnectionCloseTrigger> connectionCloseTriggers = new ArrayList<>(); //ConnectionCloseTrigger
 	protected static List<ThrottleTrigger> throttleTriggers = new ArrayList<>(); //ThrottleTrigger
 	protected static List<MixtureTrigger> mixtureTriggers = new ArrayList<>(); //MixtureTrigger
+	protected static List<KeyTrigger> keyTriggers = new ArrayList<>(); //KeyTrigger
 	
 	/**
 	 * Triggers all the triggers for the specified TriggerType
@@ -39,6 +40,11 @@ public class TriggersManager {
 				mixtureTrigger.trigger();
 			}
 			break;
+		case KEYS:
+			for (KeyTrigger keyTrigger : keyTriggers) {
+				keyTrigger.trigger();
+			}
+			break;
 		default:
 			break;
 		}
@@ -61,6 +67,16 @@ public class TriggersManager {
 	public void triggerAllMixture(String mixtureAction) {
 		for (MixtureTrigger mixtureTrigger : mixtureTriggers) {
 			mixtureTrigger.trigger(mixtureAction);
+		}
+	}
+	
+	/**
+	 * Triggers all Key triggers, used for triggers with a key set
+	 * @param Key
+	 */
+	public void triggerAllKeys(String key) {
+		for (KeyTrigger keyTrigger : keyTriggers) {
+			keyTrigger.trigger(key);
 		}
 	}
 }

@@ -39,6 +39,16 @@ public class RegisterTrigger {
 	}
 	
 	/**
+	 * Registers a new KeyTrigger
+	 * @param Trigger's method
+	 */
+	public static KeyTrigger registerKey(String method) {
+		KeyTrigger kt = new KeyTrigger(method);
+		TriggersManager.keyTriggers.add(kt);
+		return kt;
+	}
+	
+	/**
 	 * Registers a new specified trigger
 	 * @param Trigger to register
 	 * @param Trigger's method
@@ -58,6 +68,11 @@ public class RegisterTrigger {
 		case MIXTURE:
 			MixtureTrigger mt = new MixtureTrigger(method);
 			TriggersManager.mixtureTriggers.add(mt);
+			break;
+		case KEYS:
+			KeyTrigger kt = new KeyTrigger(method);
+			TriggersManager.keyTriggers.add(kt);
+			break;
 		default:
 			break; 
 		}
@@ -71,5 +86,6 @@ public class RegisterTrigger {
 		TriggersManager.connectionCloseTriggers.clear();
 		TriggersManager.throttleTriggers.clear();
 		TriggersManager.mixtureTriggers.clear();
+		TriggersManager.keyTriggers.clear();
 	}
 }

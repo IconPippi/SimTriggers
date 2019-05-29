@@ -28,7 +28,8 @@ public enum EVENT {
 	//Event groups
 	GROUP_MENU, //ID 11
 	GROUP_THROTTLE, //ID 22
-	GROUP_MIXTURE; //ID 33
+	GROUP_MIXTURE, //ID 33
+	GROUP_KEYS; //ID 44
 
 	public boolean isEvent(RecvEvent e) {
 		return e.getEventID() == ordinal();

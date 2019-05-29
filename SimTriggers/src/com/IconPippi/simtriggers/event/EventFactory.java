@@ -7,6 +7,7 @@ import java.util.List;
 import com.IconPippi.simtriggers.EVENT;
 import com.IconPippi.simtriggers.wrappers.SimTriggers;
 
+import flightsim.simconnect.NotificationPriority;
 import flightsim.simconnect.SimConnect;
 
 public class EventFactory {
@@ -41,12 +42,15 @@ public class EventFactory {
 	 * @throws IOException
 	 * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
 	 */
-	public void buildInputEvent(String inputEvent, String clientEvent, EVENT groupID) throws IOException {
+	public void buildInputEvent(String inputEvent, EVENT groupID) throws IOException {
 		int event = registerEvent(inputEvent, groupID);
+		int group = getGroupID(groupID);
 		
-		System.out.println(getGroupID(groupID)+" "+inputEvent+" "+event);
-		
-		sc.mapInputEventToClientEvent(getGroupID(groupID), inputEvent, event);
+		sc.mapClientEventToSimEvent(event);
+		sc.addClientEventToNotificationGroup(group, event, true);
+		sc.setNotificationGroupPriority(group, NotificationPriority.HIGHEST);
+		sc.mapInputEventToClientEvent(group, inputEvent, event);
+		sc.setInputGroupState(group, true);
 	}
 	
 	/**
@@ -84,6 +88,9 @@ public class EventFactory {
 			break;
 		case GROUP_MIXTURE:
 			groupIdentifier = 33;
+			break;
+		case GROUP_KEYS:
+			groupIdentifier = 44;
 			break;
 		}
 		
