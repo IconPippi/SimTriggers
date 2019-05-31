@@ -41,6 +41,26 @@ public class ModuleMetadata extends File {
 		return id;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAuthors(String[] authors) {
+		this.authors = authors;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
 	public String toString() {
 		return "{name="+getName()+
 				", version="+getVersion()+
