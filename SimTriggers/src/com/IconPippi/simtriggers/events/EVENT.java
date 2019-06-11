@@ -59,14 +59,29 @@ public enum EVENT {
 		return e.getEventID() == ordinal();
 	}
 	
+	/**
+	 * Returns true if it matches the SimConnect received object data
+	 * @param e SimConnect simulation object data
+	 * @return true or false
+	 */
 	public boolean isRequest(RecvSimObjectData e) {
 		return e.getRequestID() == ordinal();
 	}
 	
+	/**
+	 * Returns true if it matches the SimConnect received assigned object ID
+	 * @param e SimConnect assigned object ID
+	 * @return true or false
+	 */
 	public boolean isRequest(RecvAssignedObjectID e) {
 		return e.getRequestID() == ordinal();
 	}
 	
+	/**
+	 * Get a specific event inside this enumeration
+	 * @param e EVENT enumeration
+	 * @return EVENT enumeration
+	 */
 	public EVENT getEVENT(EVENT e) {
 		return e;
 	}

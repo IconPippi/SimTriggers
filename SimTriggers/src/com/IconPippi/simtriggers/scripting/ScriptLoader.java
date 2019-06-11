@@ -17,11 +17,22 @@ import com.IconPippi.simtriggers.triggers.RegisterTrigger;
 import com.IconPippi.simtriggers.utils.FileUtils;
 import com.IconPippi.simtriggers.utils.Logger;
 
+/**
+ * This class loads all module's scripts
+ * @author IconPippi
+ *
+ */
 public class ScriptLoader {
 	
+	/*
+	 * Modules
+	 */
 	private final ModuleManager mm = new ModuleManager();
 	private final Logger logger = new Logger();
 	
+	/*
+	 * Scripting
+	 */
 	public final static ScriptEngineManager engineManager = new ScriptEngineManager();
 	public final static ScriptEngine engine = engineManager.getEngineByName("nashorn");
 	
@@ -74,8 +85,8 @@ public class ScriptLoader {
 	
 	/**
 	 * Execute a function inside JS code
-	 * @param Function's name
-	 * @param Function's arguments
+	 * @param method Function's name
+	 * @param args Function's arguments
 	 */
 	public void invokeFunction(String method, Object... args) {
 		final Invocable invoc = (Invocable) engine;

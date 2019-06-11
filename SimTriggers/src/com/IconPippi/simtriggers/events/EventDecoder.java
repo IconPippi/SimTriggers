@@ -1,5 +1,10 @@
 package com.IconPippi.simtriggers.events;
 
+/**
+ * This class decodes a integer into a previously registered event
+ * @author IconPippi
+ *
+ */
 public class EventDecoder {
 	
 	/**

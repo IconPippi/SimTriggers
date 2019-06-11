@@ -9,6 +9,11 @@ import com.IconPippi.simtriggers.wrappers.SimTriggers;
 import flightsim.simconnect.NotificationPriority;
 import flightsim.simconnect.SimConnect;
 
+/**
+ * This class is used to register events and encode them into integers that can be decoded into strings
+ * @author IconPippi
+ *
+ */
 public class EventFactory {
 	
 	/*
