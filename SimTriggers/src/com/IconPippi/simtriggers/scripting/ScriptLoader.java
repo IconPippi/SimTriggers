@@ -41,7 +41,7 @@ public class ScriptLoader {
 						engine.eval(compileScripts(f));
 					}
 				} catch (Exception e) {
-					logger.log(e.toString());
+					logger.error(e.toString());
 				}
 			}
 		}
@@ -66,7 +66,7 @@ public class ScriptLoader {
 						engine.eval(compileScripts(f));
 					}
 				} catch (Exception e) {
-					logger.log(e.toString());
+					logger.error(e.toString());
 				}
 			}
 		}

@@ -7,12 +7,27 @@ import java.util.List;
 import com.IconPippi.simtriggers.utils.FileUtils;
 import com.IconPippi.simtriggers.utils.Logger;
 
+/**
+ * This class manages all modules
+ * @author IconPippi
+ *
+ */
 public class ModuleManager {
 	
+	/*
+	 * Utils
+	 */
 	private final Logger logger = new Logger();
 	
+	/*
+	 * Module
+	 */
 	private final File modulesDir = new File("modules");
 	
+	/**
+	 * Gets "modules" folder directory
+	 * @return modules folder
+	 */
 	public File getModulesDir() {
 		return modulesDir;
 	}
@@ -34,9 +49,10 @@ public class ModuleManager {
 	 * @return All modules inside the modules directory
 	 */
 	public List<Module> getModules() {
-		final FileUtils fileUtils = new FileUtils();
+		final FileUtils fileUtils = new FileUtils(); //Util
 		final List<Module> modules = new ArrayList<>();
 		
+		//Loop through modules folder files
 		for (File f : fileUtils.getFilesInDir(modulesDir, true)) {
 			modules.add(new Module(f, new ModuleMetadata(f, "metadata.json")));
 		}
@@ -46,13 +62,14 @@ public class ModuleManager {
 	
 	/**
 	 * Returns the module object for the specified ID
+	 * @param ID module ID
 	 * @return Module Object
 	 */
 	public Module getModuleByID(int ID) {
 		Module toReturn = null;
 		
 		for (Module m : getModules()) {
-			final ModuleMetadata meta = m.getMeta();
+			final ModuleMetadata meta = m.getMeta(); //Init Meta
 			if (meta.getID() == ID) {
 				m = new Module(m.getDir(), m.getMeta());
 				toReturn = m;
@@ -67,6 +84,7 @@ public class ModuleManager {
 	
 	/**
 	 * Returns the module object for the specified name
+	 * @param name module's name
 	 * @return Module Object
 	 */
 	public Module getModuleByName(String name) {

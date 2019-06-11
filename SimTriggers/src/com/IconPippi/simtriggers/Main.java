@@ -4,8 +4,15 @@ import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
 
+/**
+ * Hello there
+ * @author IconPippi
+ */
 public class Main {
 	
+	/*
+	 * SimConnect constant
+	 */
 	public static SimConnect simConnect;
 	
 	public static void main(String[] args) {

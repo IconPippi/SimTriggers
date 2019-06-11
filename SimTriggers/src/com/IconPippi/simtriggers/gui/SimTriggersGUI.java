@@ -24,6 +24,11 @@ import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.utils.GraphicsUtils;
 
+/**
+ * This class represent the SimConnect modules GUI and its components
+ * @author IconPippi
+ *
+ */
 public class SimTriggersGUI {
 
 	private final JFrame mainFrame;
@@ -78,43 +83,6 @@ public class SimTriggersGUI {
 		}
 		
 		return sb.toString();
-	}
-	
-	/**
-	 * Print the module's description splitting it in lines
-	 * @param Module's description
-	 * @param Graphics2D
-	 */
-	private void printDescription(String description, Graphics2D g2) {
-		List<String> lines = new ArrayList<>();
-		int oldi = 0;
-		String str = new String();
-		
-		/*
-		 * Process the string
-		 */
-		for (int i = 0; i < description.length(); i++) {
-			
-			/*
-			 * Split the description in separated lines (50 characters each)
-			 */
-			if (i % 50 == 0) {
-				lines.add(description.substring(oldi, i));
-				str = description.substring(oldi, i);
-				oldi = i;
-			}
-		}
-		
-		lines.add(description.split(str)[1]); //Add the last line which isn't 50 characters
-		
-		/*
-		 * Render each line
-		 */
-		int i = 200;
-		for (String s : lines) { 
-			g2.drawString(s, 5, i);
-			i = i + 25;
-		}
 	}
 	
 	/**
@@ -184,7 +152,7 @@ public class SimTriggersGUI {
     		      	g2.drawString("Authors: "+getAuthorListString(module.getMeta().getAuthors()), 5, 150);
     		      	
     		      	g2.setFont(new Font("Palatino", 0, 19)); //Set a different font size for the description
-    		      	printDescription(module.getMeta().getDescription(), g2); //Render the description //TODO: Idk how but it fucks up SuperDuperModule's description
+    		      	new GraphicsUtils().printDescription(module.getMeta().getDescription(), g2); //Render the description //TODO: Idk how but it fucks up SuperDuperModule's description
     		      	
     		      	JButton statusButton = new JButton(module.getMeta().isEnabled() ? "Disable" : "Enable"); //Enable / Disable button
 		        	statusButton.setSize(100, 50);

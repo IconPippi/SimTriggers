@@ -9,20 +9,41 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+/**
+ * This class represent a module
+ * @author IconPippi
+ *
+ */
 public class Module {
 	
+	/*
+	 * Module
+	 */
 	private File dir;
 	private ModuleMetadata meta;
 	
+	/**
+	 * Register a new module specifying its directory and metadata file
+	 * @param directory module's folder location
+	 * @param meta metadata .json file
+	 */
 	public Module(File directory, ModuleMetadata meta) {
 		this.dir = directory;
 		this.meta = meta;
 	}
 	
+	/**
+	 * Gets the module's folder
+	 * @return module's folder
+	 */
 	public File getDir() {
 		return dir;
 	}
-
+	
+	/**
+	 * Gets the metadata information for the module
+	 * @return metadata 
+	 */
 	public ModuleMetadata getMeta() {
 		final Logger logger = new Logger();
 		

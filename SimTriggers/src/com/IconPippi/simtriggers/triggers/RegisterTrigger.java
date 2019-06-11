@@ -1,10 +1,15 @@
 package com.IconPippi.simtriggers.triggers;
 
+/**
+ * This class is delegated to register all kinds of triggers
+ * @author IconPippi
+ *
+ */
 public class RegisterTrigger {
 	
 	/**
 	 * Registers a new ConnectionOpenTrigger
-	 * @param Trigger's method
+	 * @param method Trigger's method
 	 */
 	public static void registerConnectionOpen(String method) { 
 		TriggersManager.connectionOpenTriggers.add(new ConnectionOpenTrigger(method));
@@ -12,7 +17,7 @@ public class RegisterTrigger {
 	
 	/**
 	 * Registers a new ConnectionOpenTrigger
-	 * @param Trigger's method
+	 * @param method Trigger's method
 	 */
 	public static void registerConnectionClose(String method) { 
 		TriggersManager.connectionCloseTriggers.add(new ConnectionCloseTrigger(method));
@@ -20,7 +25,7 @@ public class RegisterTrigger {
 	
 	/**
 	 * Registers a new ThrottleTrigger
-	 * @param Trigger's method
+	 * @param method Trigger's method
 	 */
 	public static ThrottleTrigger registerThrottle(String method) { //ThrottleTrigger type is because of .setThrottleAction method
 		ThrottleTrigger tt = new ThrottleTrigger(method);
@@ -30,7 +35,7 @@ public class RegisterTrigger {
 
 	/**
 	 * Registers a new MixtureTrigger
-	 * @param Trigger's method
+	 * @param method Trigger's method
 	 */
 	public static MixtureTrigger registerMixture(String method) {
 		MixtureTrigger mt = new MixtureTrigger(method);
@@ -40,7 +45,7 @@ public class RegisterTrigger {
 	
 	/**
 	 * Registers a new KeyTrigger
-	 * @param Trigger's method
+	 * @param method rigger's method
 	 */
 	public static KeyTrigger registerKey(String method) {
 		KeyTrigger kt = new KeyTrigger(method);
@@ -50,8 +55,8 @@ public class RegisterTrigger {
 	
 	/**
 	 * Registers a new specified trigger
-	 * @param Trigger to register
-	 * @param Trigger's method
+	 * @param triggerType Trigger to register
+	 * @param method Trigger's method
 	 */
 	public static void register(TriggerType triggerType, String method) {
 		switch (triggerType) {

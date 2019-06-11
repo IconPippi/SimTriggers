@@ -1,10 +1,9 @@
-package com.IconPippi.simtriggers.event;
+package com.IconPippi.simtriggers.events;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.IconPippi.simtriggers.EVENT;
 import com.IconPippi.simtriggers.wrappers.SimTriggers;
 
 import flightsim.simconnect.NotificationPriority;
@@ -12,10 +11,16 @@ import flightsim.simconnect.SimConnect;
 
 public class EventFactory {
 	
+	/*
+	 * Event storage
+	 */
 	protected static List<Integer> eventList = new ArrayList<>(); //Event IDs
 	protected static int eventCount = 0;
 	protected static List<String> stringEventList = new ArrayList<>(); //Event names
-
+	
+	/*
+	 * SimConnect constant
+	 */
 	private final SimConnect sc = SimTriggers.getSimulator();
 	
 	/**
@@ -75,7 +80,9 @@ public class EventFactory {
 		return end;
 	}
 	
-	@SuppressWarnings("incomplete-switch")
+	/*
+	 * Get group ID (see EVENT enum for reference)
+	 */
 	private int getGroupID(EVENT groupID) {
 		int groupIdentifier = -1;
 		
@@ -91,6 +98,9 @@ public class EventFactory {
 			break;
 		case GROUP_KEYS:
 			groupIdentifier = 44;
+			break;
+		default:
+			//do nothing
 			break;
 		}
 		

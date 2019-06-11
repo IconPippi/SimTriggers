@@ -4,16 +4,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.IconPippi.simtriggers.event.EventFactory;
+import com.IconPippi.simtriggers.events.EventFactory;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
 
+/**
+ * This class simplifies the menu creating process
+ * @author IconPippi
+ */
 public class Menu {
 	
+	/*
+	 * SimConnect constant
+	 */
 	private final SimConnect sc = SimTriggers.getSimulator();
+	
+	/*
+	 * Util
+	 */
 	private final Logger logger = new Logger();
 	
+	/*
+	 * Menu data
+	 */
 	private String menuName;
 	private String title;
 	private List<String> options = new ArrayList<>();
@@ -22,7 +36,7 @@ public class Menu {
 	
 	/**
 	 * Initialize a menu object by providing its handler
-	 * @param Handler's function name
+	 * @param menuHandler Handler's function name
 	 */
 	public Menu(String menuHandler) {
 		this.menuHandler = menuHandler;
@@ -32,7 +46,7 @@ public class Menu {
 	
 	/**
 	 * Sets the menu's name (a.k.a "title" in the SimConnect .menu method)
-	 * @param Menu's name
+	 * @param name Menu's name
 	 */
 	public void setName(String name) {
 		this.menuName = name;
@@ -40,7 +54,7 @@ public class Menu {
 	
 	/**
 	 * Sets the menu's title (a.k.a "prompt" in the SimConnect .menu method)
-	 * @param Menu's title
+	 * @param title Menu's title
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -48,8 +62,7 @@ public class Menu {
 	
 	/**
 	 * Add a option to the menu and its action specifying the function's name
-	 * @param Option name
-	 * @param Function name
+	 * @param option Option name
 	 */
 	public void addOption(String option) {
 		options.add(option);

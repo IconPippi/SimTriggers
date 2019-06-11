@@ -3,6 +3,11 @@ package com.IconPippi.simtriggers.triggers;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class manages all triggers
+ * @author IconPippi
+ *
+ */
 public class TriggersManager {
 	
 	/*

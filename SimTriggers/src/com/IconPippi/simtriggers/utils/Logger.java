@@ -2,10 +2,18 @@ package com.IconPippi.simtriggers.utils;
 
 import java.util.Date;
 
+/**
+ * This class contains some logging utilities
+ * @author IconPippi
+ *
+ */
 public class Logger {
 	
 	@SuppressWarnings("deprecation")
-	public String getTime() {
+	/*
+	 * Get the time string
+	 */
+	private String getTime() {
 		final Date date = new Date();
 		return date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}

@@ -4,6 +4,11 @@ import com.IconPippi.simtriggers.Main;
 
 import flightsim.simconnect.SimConnect;
 
+/**
+ * This class represents the Simulator
+ * @author IconPippi
+ *
+ */
 public class SimTriggers {
 	
 	/**

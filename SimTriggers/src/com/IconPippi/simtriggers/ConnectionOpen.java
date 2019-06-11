@@ -2,9 +2,9 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
-import com.IconPippi.simtriggers.event.EventDecoder;
+import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.events.EventDecoder;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
-import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.triggers.TriggerType;
@@ -26,42 +26,52 @@ import flightsim.simconnect.recv.RecvException;
 import flightsim.simconnect.recv.RecvOpen;
 import flightsim.simconnect.recv.RecvQuit;
 
+/**
+ * This class handles all the communication with the simulator
+ * @author IconPippi
+ *
+ */
 public class ConnectionOpen implements
 	OpenHandler,
 	EventHandler,
 	ExceptionHandler,
 	QuitHandler {
 	
-	//SimConnect connect
+	/*
+	 * SimConnect
+	 */
 	private SimConnect sc;
 	private final DispatcherTask dt;
 	
-	//Triggers
+	/*
+	 * Triggers
+	 */
 	private final TriggersManager triggersManager;
 	
-	//Utils
+	/*
+	 * Utils
+	 */
 	private final Logger logger = new Logger();
 	
-	//Modules
+	/*
+	 * Modules
+	 */
 	private final ModuleManager moduleManager = new ModuleManager();
 	private final ScriptLoader scriptLoader = new ScriptLoader();
 	
-	//Modules
-	@SuppressWarnings("unused")
-	private final ModuleManager mm;
-	
+	/**
+	 * Open a new connection with any running instance of Flight Simulator X
+	 */
 	public ConnectionOpen() throws IOException {
 		initConnection();
 		
 		dt = new DispatcherTask(sc);
 		dt.addHandlers(this);
 		
-		mm = new ModuleManager();
-		
 		triggersManager = new TriggersManager();
 	}
 	
-	/**
+	/*
 	 * @author bily (https://github.com/bily)
 	 */
 	private void initConnection() throws IOException {
@@ -103,33 +113,27 @@ public class ConnectionOpen implements
 		logger.log("Connection established");
 	}
 	
+	/**
+	 * Run connection thread
+	 */
 	public void run() {
 		dt.createThread().run();
 	}
 	
+	/**
+	 * Get the dispatcher
+	 * @return dispatcher
+	 */
 	public DispatcherTask getDispatcher() {
 		return dt;
 	}
 	
+	/**
+	 * Get the simulator
+	 * @return the simulator
+	 */
 	public SimConnect getSimConnect() {
 		return sc;
-	}
-	
-	/*
-	 * Utils method
-	 */
-	public String getAuthorsList(Module m) {
-		final StringBuilder sb = new StringBuilder();
-		
-		for (String author : m.getMeta().getAuthors()) {
-			if (sb.length() == 0) {
-				sb.append(author);
-			} else {
-				sb.append(", "+author);
-			}
-		}
-		
-		return sb.toString();
 	}
 	
 	/*
@@ -182,6 +186,8 @@ public class ConnectionOpen implements
 			final SimTriggersGUI gui = new SimTriggersGUI(this);
 			gui.show();
 		}
+		
+		//TODO: TEST2
 	} 
 	
 	
@@ -214,12 +220,24 @@ public class ConnectionOpen implements
 		logger.log("Protocol version: " + open.getVersion());
 		
 		try {
+			/*
+			 * System events
+			 */
+			sc.subscribeToSystemEvent(EVENT.SIM_START, "SimStart");
+		
+			
+			/*
+			 * Menu events
+			 */
 			sc.menuAddItem("SimTriggers", EVENT.ADDONSMENU_SIMTRIGGERS, 0); //Add SimTriggers tab in addons menu
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0); //Add Reload Scripts option under SimTriggers tab
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0); //Add Open Modules GUI option under SimTriggers tab
+		
+	        //TODO: TEST3
 		} catch (IOException e) {
-			logger.error("Exception on adding item to addons menu: \n"+e.toString());
+			e.printStackTrace();
 		}
+		
 		//All Flight Sim Events: https://docs.microsoft.com/en-us/previous-versions/microsoft-esp/cc526980(v=msdn.10)
 	}
 	
@@ -232,5 +250,5 @@ public class ConnectionOpen implements
 		logger.log("Connection between client terminated: "+quit.getRawID());
 	}
 	
-	
+	//TODO: TEST1
 }

@@ -1,11 +1,11 @@
-package com.IconPippi.simtriggers.event;
+package com.IconPippi.simtriggers.events;
 
 public class EventDecoder {
 	
 	/**
 	 * Translates a event ID to its String name
-	 * @param Event ID
-	 * @return Event Name
+	 * @param eventID event's ID
+	 * @return Event String name
 	 */
 	public String decode(int eventID) {
 		String toReturn = null;

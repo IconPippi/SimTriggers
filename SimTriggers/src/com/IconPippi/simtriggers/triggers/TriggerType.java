@@ -2,17 +2,25 @@ package com.IconPippi.simtriggers.triggers;
 
 public enum TriggerType {
 	
-	//Connection
+	/*
+	 * Connection
+	 */
 	CONNECTION_OPEN,
 	CONNECTION_CLOSE,
 	
-	//Throttle
+	/*
+	 * Throttle
+	 */
 	THROTTLE,
 	
-	//Mixture
+	/*
+	 * Throttle
+	 */
 	MIXTURE,
 	
-	//Keys
+	/*
+	 * Keys
+	 */
 	KEYS;
 	
 }

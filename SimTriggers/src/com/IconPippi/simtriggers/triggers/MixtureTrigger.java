@@ -2,8 +2,8 @@ package com.IconPippi.simtriggers.triggers;
 
 import java.io.IOException;
 
-import com.IconPippi.simtriggers.EVENT;
-import com.IconPippi.simtriggers.event.EventFactory;
+import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.events.EventFactory;
 import com.IconPippi.simtriggers.utils.Logger;
 
 public class MixtureTrigger extends Trigger {
