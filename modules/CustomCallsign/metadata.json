@@ -1,8 +1,0 @@
-{
-    "name":"CustomCallsing",
-    "version":"134.234.2.2",
-    "description":"A parody of ChatTrigger's module CustomRank. I did not expect such a long description... oh wait... I get it now! It's made for testing!",
-    "authors":["IconPippi", "Sdobix"],
-    "enabled":true,
-    "id":273
-}
