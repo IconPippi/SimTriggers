@@ -1,0 +1,8 @@
+{
+    "name":"SuperDuperModule",
+    "version":"1.1.1",
+    "description":"FIRST SimTriggers module!",
+    "authors":["IconPippi"],
+    "enabled":true,
+    "id":243
+}

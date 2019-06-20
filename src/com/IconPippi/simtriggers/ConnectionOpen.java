@@ -12,6 +12,8 @@ import com.IconPippi.simtriggers.triggers.TriggersManager;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
+import flightsim.simconnect.SimConnectDataType;
+import flightsim.simconnect.SimObjectType;
 import flightsim.simconnect.TextResult;
 import flightsim.simconnect.TextType;
 import flightsim.simconnect.config.Configuration;
@@ -25,6 +27,8 @@ import flightsim.simconnect.recv.RecvEvent;
 import flightsim.simconnect.recv.RecvException;
 import flightsim.simconnect.recv.RecvOpen;
 import flightsim.simconnect.recv.RecvQuit;
+import flightsim.simconnect.recv.RecvSimObjectDataByType;
+import flightsim.simconnect.recv.SimObjectDataTypeHandler;
 
 /**
  * This class handles all the communication with the simulator
@@ -35,7 +39,8 @@ public class ConnectionOpen implements
 	OpenHandler,
 	EventHandler,
 	ExceptionHandler,
-	QuitHandler {
+	QuitHandler,
+	SimObjectDataTypeHandler {
 	
 	/*
 	 * SimConnect
@@ -188,6 +193,13 @@ public class ConnectionOpen implements
 		}
 		
 		//TODO: TEST2
+		try {
+			sc.requestDataOnSimObjectType(EVENT.REQUEST_PLANE_LATITUTE,
+					EVENT.PLANE_LATITUDE, 0, SimObjectType.USER);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//TODO: TEST2
 	} 
 	
 	
@@ -234,6 +246,9 @@ public class ConnectionOpen implements
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0); //Add Open Modules GUI option under SimTriggers tab
 		
 	        //TODO: TEST3
+			sc.addToDataDefinition(EVENT.PLANE_LATITUDE, "Plane Latitude",
+					"degrees", SimConnectDataType.FLOAT64);
+			//TODO: TEST3
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -250,5 +265,22 @@ public class ConnectionOpen implements
 		logger.log("Connection between client terminated: "+quit.getRawID());
 	}
 	
+	//TODO: TEST1
+	@Override
+	public void handleSimObjectType(SimConnect sc, RecvSimObjectDataByType data) {
+		if (data.getRequestID() == EVENT.REQUEST_PLANE_LATITUTE.ordinal()) { //Here throws java.nio.BufferUnderflowException 
+																				 //Fuck it I tried everyhing fucvl off
+			//
+			// notice that we cannot cast directly a RecvSimObjectDataByType 
+			// to a structure. this is forbidden by java language
+			//
+				
+			System.out.println("ObjectID=" + data.getObjectID() + " Title='"
+					+ data.getDataString256() + "'");
+			System.out.println("Lat=" + data.getDataFloat64() + " Lon="
+					+ data.getDataFloat64() + " Alt=" + data.getDataFloat64()
+					+ " Kohlsman=" + data.getDataFloat64());
+		}
+	}
 	//TODO: TEST1
 }
