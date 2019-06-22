@@ -3,15 +3,10 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
-import com.IconPippi.simtriggers.events.EventFactory;
-import com.IconPippi.simtriggers.utils.Logger;
 
 public class MixtureTrigger extends Trigger {
 	
 	private String mixtureAction;
-	
-	private final EventFactory eventFactory = new EventFactory();
-	private final Logger logger = new Logger();
 	
 	protected MixtureTrigger(String method) {
 		super(method);
@@ -20,12 +15,12 @@ public class MixtureTrigger extends Trigger {
 	@Override
 	protected void trigger() {
 		if (mixtureAction != null) return;
-		scriptLoader.invokeFunction(method, (Object[]) null);
+		this.getScriptLoader().invokeFunction(method, (Object[]) null);
 	}
 	
 	protected void trigger(String mixtureAction) {
 		if (mixtureAction == this.mixtureAction) {
-			scriptLoader.invokeFunction(method, (Object[]) null);
+			this.getScriptLoader().invokeFunction(method, (Object[]) null);
 		}
 	}
 	
@@ -33,9 +28,9 @@ public class MixtureTrigger extends Trigger {
 		this.mixtureAction = action;
 		
 		try {
-			eventFactory.buildClientEvent(action, action, EVENT.GROUP_MIXTURE);
+			this.getEventFactory().buildClientEvent(action, action, EVENT.GROUP_MIXTURE);
 		} catch (IOException e) {
-			logger.error(e.toString());
+			this.getLogger().error(e.toString());
 		}
 	}
 	

@@ -3,15 +3,10 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
-import com.IconPippi.simtriggers.events.EventFactory;
-import com.IconPippi.simtriggers.utils.Logger;
 
 public class KeyTrigger extends Trigger {
 	
 	private String key;
-	
-	private final EventFactory eventFactory = new EventFactory();
-	private final Logger logger = new Logger();
 	
 	protected KeyTrigger(String method) {
 		super(method);
@@ -20,12 +15,12 @@ public class KeyTrigger extends Trigger {
 	@Override
 	protected void trigger() {
 		if (key != null) return;
-		scriptLoader.invokeFunction(method, (Object[]) null);
+		this.getScriptLoader().invokeFunction(method, (Object[]) null);
 	}
 	
 	protected void trigger(String key) {
 		if (key == this.key) {
-			scriptLoader.invokeFunction(method, (Object[]) null);
+			this.getScriptLoader().invokeFunction(method, (Object[]) null);
 		}
 	}
 	
@@ -33,9 +28,9 @@ public class KeyTrigger extends Trigger {
 		this.key = key;
 		
 		try {
-			eventFactory.buildInputEvent(key, EVENT.GROUP_KEYS);
+			this.getEventFactory().buildInputEvent(key, EVENT.GROUP_KEYS);
 		} catch (IOException e) {
-			logger.error(e.toString());
+			this.getLogger().error(e.toString());
 		}
 	}
 	

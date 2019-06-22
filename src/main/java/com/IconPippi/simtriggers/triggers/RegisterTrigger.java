@@ -45,12 +45,22 @@ public class RegisterTrigger {
 	
 	/**
 	 * Registers a new KeyTrigger
-	 * @param method rigger's method
+	 * @param method Trigger's method
 	 */
 	public static KeyTrigger registerKey(String method) {
 		KeyTrigger kt = new KeyTrigger(method);
 		TriggersManager.keyTriggers.add(kt);
 		return kt;
+	}
+	
+	/**
+	 * Registers a new PropellerTrigger
+	 * @param method Trigger's method
+	 */
+	public static PropellerTrigger registerPropeller(String method) {
+		PropellerTrigger pt = new PropellerTrigger(method);
+		TriggersManager.propellerTriggers.add(pt);
+		return pt;
 	}
 	
 	/**
@@ -67,17 +77,16 @@ public class RegisterTrigger {
 			TriggersManager.connectionCloseTriggers.add(new ConnectionCloseTrigger(method));
 			break;
 		case THROTTLE:
-			ThrottleTrigger tt = new ThrottleTrigger(method);
-			TriggersManager.throttleTriggers.add(tt);
+			TriggersManager.throttleTriggers.add(new ThrottleTrigger(method));
 			break;
 		case MIXTURE:
-			MixtureTrigger mt = new MixtureTrigger(method);
-			TriggersManager.mixtureTriggers.add(mt);
+			TriggersManager.mixtureTriggers.add(new MixtureTrigger(method));
 			break;
 		case KEYS:
-			KeyTrigger kt = new KeyTrigger(method);
-			TriggersManager.keyTriggers.add(kt);
+			TriggersManager.keyTriggers.add(new KeyTrigger(method));
 			break;
+		case PROPELLER:
+			TriggersManager.propellerTriggers.add(new PropellerTrigger(method));
 		default:
 			break; 
 		}
@@ -92,6 +101,7 @@ public class RegisterTrigger {
 		TriggersManager.throttleTriggers.clear();
 		TriggersManager.mixtureTriggers.clear();
 		TriggersManager.keyTriggers.clear();
+		TriggersManager.propellerTriggers.clear();
 	}
 	
 }

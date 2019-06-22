@@ -104,6 +104,9 @@ public class EventFactory {
 		case GROUP_KEYS:
 			groupIdentifier = 44;
 			break;
+		case GROUP_PROPELLER:
+			groupIdentifier = 55;
+			break;
 		default:
 			//do nothing
 			break;

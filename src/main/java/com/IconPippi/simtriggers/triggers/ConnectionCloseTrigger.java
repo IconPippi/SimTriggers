@@ -8,7 +8,7 @@ public class ConnectionCloseTrigger extends Trigger {
 
 	@Override
 	protected void trigger() {
-		scriptLoader.invokeFunction(method, (Object[]) null);
+		this.getScriptLoader().invokeFunction(method, (Object[]) null);
 	}
 
 }

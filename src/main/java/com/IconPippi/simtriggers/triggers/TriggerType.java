@@ -26,6 +26,11 @@ public enum TriggerType {
 	/*
 	 * Keys
 	 */
-	KEYS;
+	KEYS,
+	
+	/*
+	 * Propeller
+	 */
+	PROPELLER;
 	
 }

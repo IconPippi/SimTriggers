@@ -168,6 +168,9 @@ public class ConnectionOpen implements
 		} else if (String.valueOf(event.getEventID()).startsWith("44")) { //Key events
 			triggersManager.triggerAll(TriggerType.KEYS);
 			triggersManager.triggerAllKeys(new EventDecoder().decode(event.getEventID()));
+		} else if (String.valueOf(event.getEventID()).startsWith("55")) { //Propeller events
+			triggersManager.triggerAll(TriggerType.PROPELLER);
+			triggersManager.triggerAllPropeller(new EventDecoder().decode(event.getEventID()));
 		}
 		
 		/*

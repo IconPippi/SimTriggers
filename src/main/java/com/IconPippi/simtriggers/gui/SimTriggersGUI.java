@@ -36,7 +36,7 @@ public class SimTriggersGUI {
 	private JLabel topLabel;
 	private JList<String> modulesList;
 
-	public SimTriggersGUI(ConnectionOpen open) {
+	public SimTriggersGUI(ConnectionOpen connectionOpen) {
 		
 		//Create main window
 		mainFrame = new JFrame("SimTriggers v0.0.1");
@@ -58,7 +58,7 @@ public class SimTriggersGUI {
 
 	}
 
-	
+
 	/**
 	 * Shows the modules GUI
 	 */

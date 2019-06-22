@@ -18,6 +18,7 @@ public class TriggersManager {
 	protected static List<ThrottleTrigger> throttleTriggers = new ArrayList<>(); //ThrottleTrigger
 	protected static List<MixtureTrigger> mixtureTriggers = new ArrayList<>(); //MixtureTrigger
 	protected static List<KeyTrigger> keyTriggers = new ArrayList<>(); //KeyTrigger
+	protected static List<PropellerTrigger> propellerTriggers = new ArrayList<>(); //PropellerTrigger
 	
 	/**
 	 * Triggers all the triggers for the specified TriggerType
@@ -50,6 +51,10 @@ public class TriggersManager {
 				keyTrigger.trigger();
 			}
 			break;
+		case PROPELLER:
+			for (PropellerTrigger propellerTrigger : propellerTriggers) {
+				propellerTrigger.trigger();
+			}
 		default:
 			break;
 		}
@@ -85,4 +90,13 @@ public class TriggersManager {
 		}
 	}
 	
+	/**
+	 * Triggers all Propeller triggers, used for triggers with a propeller action set
+	 * @param PropellerAction
+	 */
+	public void triggerAllPropeller(String propellerAction) {
+		for (PropellerTrigger propellerTrigger : propellerTriggers) {
+			propellerTrigger.trigger(propellerAction);
+		}
+	}
 }
