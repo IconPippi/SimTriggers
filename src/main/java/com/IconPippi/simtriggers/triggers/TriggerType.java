@@ -13,24 +13,19 @@ public enum TriggerType {
 	CONNECTION_OPEN,
 	CONNECTION_CLOSE,
 	
-	/*
-	 * Throttle
-	 */
+	/* Throttle */
 	THROTTLE,
 	
-	/*
-	 * Throttle
-	 */
+	/* Mixture */
 	MIXTURE,
 	
-	/*
-	 * Keys
-	 */
+	/* Keys */
 	KEYS,
 	
-	/*
-	 * Propeller
-	 */
-	PROPELLER;
+	/* Propeller */
+	PROPELLER,
+	
+	/* Magneto */
+	MAGNETO;
 	
 }

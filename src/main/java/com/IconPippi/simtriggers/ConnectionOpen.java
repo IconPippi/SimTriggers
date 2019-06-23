@@ -48,14 +48,10 @@ public class ConnectionOpen implements
 	private SimConnect sc;
 	private final DispatcherTask dt;
 	
-	/*
-	 * Triggers
-	 */
+	/* Triggers */
 	private final TriggersManager triggersManager;
 	
-	/*
-	 * Utils
-	 */
+	/* Uitls */
 	private final Logger logger = new Logger();
 	
 	/*
@@ -159,18 +155,35 @@ public class ConnectionOpen implements
 		/*
 		 * Trigger events 
 		 */
-		if (String.valueOf(event.getEventID()).startsWith("22")) { //Throttle events
+		if (String.valueOf(
+				event.getEventID()).startsWith("22")) { //Throttle events
 			triggersManager.triggerAll(TriggerType.THROTTLE);
-			triggersManager.triggerAllThrottle(new EventDecoder().decode(event.getEventID()));
-		} else if (String.valueOf(event.getEventID()).startsWith("33")) { //Mixture events
+			triggersManager.triggerAllThrottle(new EventDecoder()
+					.decode(event.getEventID()));
+			
+		} else if (String.valueOf(
+				event.getEventID()).startsWith("33")) { //Mixture events
 			triggersManager.triggerAll(TriggerType.MIXTURE);
-			triggersManager.triggerAllMixture(new EventDecoder().decode(event.getEventID()));
-		} else if (String.valueOf(event.getEventID()).startsWith("44")) { //Key events
+			triggersManager.triggerAllMixture(new EventDecoder()
+					.decode(event.getEventID()));
+			
+		} else if (String.valueOf(
+				event.getEventID()).startsWith("44")) { //Key events
 			triggersManager.triggerAll(TriggerType.KEYS);
-			triggersManager.triggerAllKeys(new EventDecoder().decode(event.getEventID()));
-		} else if (String.valueOf(event.getEventID()).startsWith("55")) { //Propeller events
+			triggersManager.triggerAllKeys(new EventDecoder()
+					.decode(event.getEventID()));
+			
+		} else if (String.valueOf(
+				event.getEventID()).startsWith("55")) { //Propeller events
 			triggersManager.triggerAll(TriggerType.PROPELLER);
-			triggersManager.triggerAllPropeller(new EventDecoder().decode(event.getEventID()));
+			triggersManager.triggerAllPropeller(new EventDecoder()
+					.decode(event.getEventID()));
+			
+		} else if (String.valueOf(
+				event.getEventID()).startsWith("55")) { //Magneto events
+			triggersManager.triggerAll(TriggerType.MAGNETO);
+			triggersManager.triggerAllMagneto(new EventDecoder()
+					.decode(event.getEventID()));
 		}
 		
 		/*

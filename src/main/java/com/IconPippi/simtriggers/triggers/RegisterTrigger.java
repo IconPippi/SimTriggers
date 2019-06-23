@@ -64,6 +64,16 @@ public class RegisterTrigger {
 	}
 	
 	/**
+	 * Registers a new MagnetoTrigger
+	 * @param method Trigger's method
+	 */
+	public static MagnetoTrigger registerMagneto(String method) {
+		MagnetoTrigger mt = new MagnetoTrigger(method);
+		TriggersManager.magnetoTriggers.add(mt);
+		return mt;
+	}
+	  
+	/**
 	 * Registers a new specified trigger
 	 * @param triggerType Trigger to register
 	 * @param method Trigger's method
@@ -87,6 +97,8 @@ public class RegisterTrigger {
 			break;
 		case PROPELLER:
 			TriggersManager.propellerTriggers.add(new PropellerTrigger(method));
+		case MAGNETO:
+			TriggersManager.magnetoTriggers.add(new MagnetoTrigger(method));
 		default:
 			break; 
 		}
@@ -102,6 +114,7 @@ public class RegisterTrigger {
 		TriggersManager.mixtureTriggers.clear();
 		TriggersManager.keyTriggers.clear();
 		TriggersManager.propellerTriggers.clear();
+		TriggersManager.magnetoTriggers.clear();
 	}
 	
 }
