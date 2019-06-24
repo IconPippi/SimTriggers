@@ -146,7 +146,8 @@ public class SimTriggersGUI {
     		      	g2.setFont(new Font("Palatino", 0, 20)); //Set the font and size
     		      	
     		      	//Use a utils method to center the title string (module name)
-    		      	new GraphicsUtils().centerString(g2, new Rectangle(0, 0, 460, 30), module.getMeta().getName(), new Font("Palatino", 0, 30)); //Module Name
+    		      	new GraphicsUtils().centerString(g2, new Rectangle(0, 0, 460, 30),
+    		      			module.getMeta().getName(), new Font("Palatino", 0, 30)); //Module Name
     		      	g2.drawString("Version: "+module.getMeta().getVersion(), 5, 90); //Version
     		      	g2.drawString("ID: "+module.getMeta().getID(), 5, 120); //ID
     		      	g2.drawString("Authors: "+getAuthorListString(module.getMeta().getAuthors()), 5, 150);
