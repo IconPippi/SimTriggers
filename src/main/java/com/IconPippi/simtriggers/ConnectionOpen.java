@@ -180,17 +180,24 @@ public class ConnectionOpen implements
 					.decode(event.getEventID()));
 			
 		} else if (String.valueOf(
-				event.getEventID()).startsWith("55")) { //Magneto events
+				event.getEventID()).startsWith("66")) { //Magneto events
 			triggersManager.triggerAll(TriggerType.MAGNETO);
 			triggersManager.triggerAllMagneto(new EventDecoder()
 					.decode(event.getEventID()));
+		} else if (String.valueOf(
+				event.getEventID()).startsWith("77")) { //Anti Ice events
+			triggersManager.triggerAll(TriggerType.ANTI_ICE);
+			triggersManager.triggerAllAntiIce(new EventDecoder()
+					.decode(event.getEventID()));
+			
 		}
 		
 		/*
 		 * Menu Events
 		 */
 		if (String.valueOf(event.getEventID()).startsWith("11")) { //Menu events
-			scriptLoader.invokeFunction(new EventDecoder().decode(event.getEventID()), TextResult.type(event).toString());
+			scriptLoader.invokeFunction(new EventDecoder()
+					.decode(event.getEventID()), TextResult.type(event).toString());
 		}
 		
 		/*

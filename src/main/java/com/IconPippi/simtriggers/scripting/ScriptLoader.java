@@ -48,7 +48,8 @@ public class ScriptLoader {
 			for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
 				
 				try {
-					if (f.getName().toLowerCase().endsWith(".js") && engine.eval(compileScripts(f)) != null) {
+					if (f.getName().toLowerCase().endsWith(".js")
+							&& engine.eval(compileScripts(f)) != null) {
 						engine.eval(compileScripts(f));
 					}
 				} catch (Exception e) {
@@ -73,7 +74,8 @@ public class ScriptLoader {
 			for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
 				
 				try {
-					if (f.getName().toLowerCase().endsWith(".js") && engine.eval(compileScripts(f)) != null) {
+					if (f.getName().toLowerCase().endsWith(".js")
+							&& engine.eval(compileScripts(f)) != null) {
 						engine.eval(compileScripts(f));
 					}
 				} catch (Exception e) {

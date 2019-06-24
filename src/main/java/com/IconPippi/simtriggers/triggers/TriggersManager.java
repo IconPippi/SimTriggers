@@ -20,6 +20,7 @@ public class TriggersManager {
 	protected static List<KeyTrigger> keyTriggers = new ArrayList<>(); //KeyTrigger
 	protected static List<PropellerTrigger> propellerTriggers = new ArrayList<>(); //PropellerTrigger
 	protected static List<MagnetoTrigger> magnetoTriggers = new ArrayList<>(); //MagnetoTrigger
+	protected static List<AntiIceTrigger> antiIceTriggers = new ArrayList<>(); //AntiIceTrigger
 	
 	/**
 	 * Triggers all the triggers for the specified TriggerType
@@ -56,10 +57,17 @@ public class TriggersManager {
 			for (PropellerTrigger propellerTrigger : propellerTriggers) {
 				propellerTrigger.trigger();
 			}
+			break;
 		case MAGNETO:
 			for (MagnetoTrigger magnetoTrigger : magnetoTriggers) {
 				magnetoTrigger.trigger();
 			}
+			break;
+		case ANTI_ICE:
+			for (AntiIceTrigger antiIceTrigger : antiIceTriggers) {
+				antiIceTrigger.trigger();
+			}
+			break;
 		default:
 			break;
 		}
@@ -112,6 +120,16 @@ public class TriggersManager {
 	public void triggerAllMagneto(String magnetoAction) {
 		for (MagnetoTrigger magnetoTrigger : magnetoTriggers) {
 			magnetoTrigger.trigger(magnetoAction);
+		}
+	}
+	
+	/**
+	 * Triggers all Anti Ice triggers, used for triggers with a anti ice action set
+	 * @param antiIceAction anti ice action
+	 */	
+	public void triggerAllAntiIce(String antiIceAction) {
+		for (AntiIceTrigger antiIceTrigger : antiIceTriggers) {
+			antiIceTrigger.trigger(antiIceAction);
 		}
 	}
 }

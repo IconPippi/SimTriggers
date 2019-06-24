@@ -26,6 +26,8 @@ public enum TriggerType {
 	PROPELLER,
 	
 	/* Magneto */
-	MAGNETO;
+	MAGNETO,
 	
+	/* Anti Ice */
+	ANTI_ICE;
 }

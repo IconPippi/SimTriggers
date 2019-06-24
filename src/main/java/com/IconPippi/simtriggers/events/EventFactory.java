@@ -30,9 +30,9 @@ public class EventFactory {
 	
 	/**
 	 * Make a new client event that can be handled in ConnectionOpen class i.e. a throttle event
-	 * @param Name of the client event
-	 * @param Name of the simulator event
-	 * @param Event's enum group
+	 * @param clientEvent Name of the client event
+	 * @param simEvent Name of the simulator event
+	 * @param groupID Event's enum group
 	 * @throws IOException
 	 * @see {@link flightsim.simconnect.SimConnect#mapClientEventToSimEvent(Enum, String)}
 	 * @see {@link flightsim.simconnect.SimConnect#addClientEventToNotificationGroup(Enum, Enum)}
@@ -46,9 +46,8 @@ public class EventFactory {
 	
 	/**
 	 * Make a new input event that can be handled in ConnectionOpen class i.e. a keybind event
-	 * @param Name of the input event
-	 * @param Name of the client event
-	 * @param Event's enum group
+	 * @param input Name of the input event
+	 * @param groupID Event's enum group
 	 * @throws IOException
 	 * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
 	 */
@@ -65,7 +64,7 @@ public class EventFactory {
 	
 	/**
 	 * Make a new menu event ID, marked by 00 at the start of it's ID
-	 * @param Handler's function name
+	 * @param menuHandler Handler's function name
 	 * @return Menu ID
 	 */
 	public int buildMenu(String menuHandler) {
@@ -109,6 +108,9 @@ public class EventFactory {
 			break;
 		case GROUP_MAGNETO:
 			groupIdentifier = 66;
+			break;
+		case GROUP_ANTI_ICE:
+			groupIdentifier = 77;
 			break;
 		default:
 			//do nothing

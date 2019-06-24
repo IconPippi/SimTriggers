@@ -72,6 +72,16 @@ public class RegisterTrigger {
 		TriggersManager.magnetoTriggers.add(mt);
 		return mt;
 	}
+	
+	/**
+	 * Registers a new AntiIceTrigger
+	 * @param method Trigger's method
+	 */
+	public static AntiIceTrigger registerAntiIce(String method) {
+		AntiIceTrigger ait = new AntiIceTrigger(method);
+		TriggersManager.antiIceTriggers.add(ait);
+		return ait;
+	}
 	  
 	/**
 	 * Registers a new specified trigger
@@ -97,8 +107,13 @@ public class RegisterTrigger {
 			break;
 		case PROPELLER:
 			TriggersManager.propellerTriggers.add(new PropellerTrigger(method));
+			break;
 		case MAGNETO:
 			TriggersManager.magnetoTriggers.add(new MagnetoTrigger(method));
+			break;
+		case ANTI_ICE:
+			TriggersManager.antiIceTriggers.add(new AntiIceTrigger(method));
+			break;
 		default:
 			break; 
 		}
@@ -115,6 +130,7 @@ public class RegisterTrigger {
 		TriggersManager.keyTriggers.clear();
 		TriggersManager.propellerTriggers.clear();
 		TriggersManager.magnetoTriggers.clear();
+		TriggersManager.antiIceTriggers.clear();
 	}
 	
 }
