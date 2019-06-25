@@ -94,3 +94,6 @@ function connectionClose() {
     exampleMenu.hide();
 }
 ``` 
+
+# Credits
+- Idea: [ChatTriggers](https://www.chattriggers.com/)
