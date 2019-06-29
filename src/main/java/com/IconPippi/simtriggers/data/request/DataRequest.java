@@ -1,4 +1,4 @@
-package com.IconPippi.simtriggers.data;
+package com.IconPippi.simtriggers.data.request;
 
 import java.io.IOException;
 import java.util.ArrayList;

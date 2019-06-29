@@ -2,7 +2,7 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
-import com.IconPippi.simtriggers.data.DataDecoder;
+import com.IconPippi.simtriggers.data.request.DataRequestDecoder;
 import com.IconPippi.simtriggers.events.EVENT;
 import com.IconPippi.simtriggers.events.EventDecoder;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
@@ -281,13 +281,13 @@ public class ConnectionOpen implements
 		System.out.println("Data Flow: "+data.getDefineID()+", "+data.getRequestID());
 
 		if (String.valueOf(data.getDefineID()).startsWith("12")) { //Float
-			scriptLoader.invokeFunction(new DataDecoder()
+			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), ""+data.getDataFloat64());
 		} else if (String.valueOf(data.getDefineID()).startsWith("15")) { //Integer
-			scriptLoader.invokeFunction(new DataDecoder()
+			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), ""+data.getDataInt64());
 		} else if (String.valueOf(data.getDefineID()).startsWith("23")) { //String
-			scriptLoader.invokeFunction(new DataDecoder()
+			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), data.getDataString260());
 		}
 	}

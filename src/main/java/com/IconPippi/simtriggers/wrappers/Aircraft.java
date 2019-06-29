@@ -2,7 +2,7 @@ package com.IconPippi.simtriggers.wrappers;
 
 import java.io.IOException;
 
-import com.IconPippi.simtriggers.data.DataRequest;
+import com.IconPippi.simtriggers.data.request.DataRequest;
 
 /**
  * This class wraps all aircraft variables

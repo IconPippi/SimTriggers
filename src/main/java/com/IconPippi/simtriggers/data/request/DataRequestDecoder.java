@@ -1,11 +1,11 @@
-package com.IconPippi.simtriggers.data;
+package com.IconPippi.simtriggers.data.request;
 
 /**
  * This class (similar to EventDecoder) decodes data definitions IDs and data request IDs into strings
  * @author IconPippi
  * 
  */
-public class DataDecoder {
+public class DataRequestDecoder {
 	
 	/**
 	 * Decode a data definition's ID
