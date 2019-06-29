@@ -2,6 +2,7 @@ package com.IconPippi.simtriggers;
 
 import java.io.IOException;
 
+import com.IconPippi.simtriggers.data.DataDecoder;
 import com.IconPippi.simtriggers.events.EVENT;
 import com.IconPippi.simtriggers.events.EventDecoder;
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
@@ -12,8 +13,6 @@ import com.IconPippi.simtriggers.triggers.TriggersManager;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
-import flightsim.simconnect.SimConnectDataType;
-import flightsim.simconnect.SimObjectType;
 import flightsim.simconnect.TextResult;
 import flightsim.simconnect.TextType;
 import flightsim.simconnect.config.Configuration;
@@ -33,7 +32,7 @@ import flightsim.simconnect.recv.SimObjectDataTypeHandler;
 /**
  * This class handles all the communication with the simulator
  * @author IconPippi
- *
+ * 
  */
 public class ConnectionOpen implements
 	OpenHandler,
@@ -51,7 +50,7 @@ public class ConnectionOpen implements
 	/* Triggers */
 	private final TriggersManager triggersManager;
 	
-	/* Uitls */
+	/* Utils */
 	private final Logger logger = new Logger();
 	
 	/*
@@ -66,8 +65,15 @@ public class ConnectionOpen implements
 	public ConnectionOpen() throws IOException {
 		initConnection();
 		
+		/* Sub to sys event */
+		sc.subscribeToSystemEvent(EVENT.SIM_START, "SimStart");
+		
 		dt = new DispatcherTask(sc);
-		dt.addHandlers(this);
+		dt.addOpenHandler(this);
+		dt.addQuitHandler(this);
+		dt.addExceptionHandler(this);
+		dt.addEventHandler(this);
+		dt.addSimObjectDataTypeHandler(this);
 		
 		triggersManager = new TriggersManager();
 	}
@@ -214,15 +220,6 @@ public class ConnectionOpen implements
 			final SimTriggersGUI gui = new SimTriggersGUI(this);
 			gui.show();
 		}
-		
-		//TODO: TEST2
-		try {
-			sc.requestDataOnSimObjectType(EVENT.REQUEST_PLANE_LATITUTE,
-					EVENT.PLANE_LATITUDE, 0, SimObjectType.USER);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//TODO: TEST2
 	} 
 	
 	
@@ -231,10 +228,10 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleOpen(SimConnect sc, RecvOpen open) {
-		//Initialize modules
+		/* Initialize modules */
 		moduleManager.initModules();
 		
-		//Load module's scripts
+		/* Load module's scripts */
 		scriptLoader.loadModules();
 		
 		triggersManager.triggerAll(TriggerType.CONNECTION_OPEN); //Trigger connection open
@@ -256,27 +253,14 @@ public class ConnectionOpen implements
 		
 		try {
 			/*
-			 * System events
-			 */
-			sc.subscribeToSystemEvent(EVENT.SIM_START, "SimStart");
-		
-			
-			/*
 			 * Menu events
 			 */
 			sc.menuAddItem("SimTriggers", EVENT.ADDONSMENU_SIMTRIGGERS, 0); //Add SimTriggers tab in addons menu
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Reload Scripts...", EVENT.SIMTRIGGERSTAB_RELOADSCRIPTS, 0); //Add Reload Scripts option under SimTriggers tab
 	        sc.menuAddSubItem(EVENT.ADDONSMENU_SIMTRIGGERS, "Open Modules GUI", EVENT.SIMTRIGGERSTAB_OPENGUI, 0); //Add Open Modules GUI option under SimTriggers tab
-		
-	        //TODO: TEST3
-			sc.addToDataDefinition(EVENT.PLANE_LATITUDE, "Plane Latitude",
-					"degrees", SimConnectDataType.FLOAT64);
-			//TODO: TEST3
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//All Flight Sim Events: https://docs.microsoft.com/en-us/previous-versions/microsoft-esp/cc526980(v=msdn.10)
 	}
 	
 	/*
@@ -288,22 +272,23 @@ public class ConnectionOpen implements
 		logger.log("Connection between client terminated: "+quit.getRawID());
 	}
 	
-	//TODO: TEST1
+	/*
+	 * Handle data flow
+	 */
 	@Override
 	public void handleSimObjectType(SimConnect sc, RecvSimObjectDataByType data) {
-		if (data.getRequestID() == EVENT.REQUEST_PLANE_LATITUTE.ordinal()) { //Here throws java.nio.BufferUnderflowException 
-																				 //Fuck it I tried everyhing fucvl off
-			//
-			// notice that we cannot cast directly a RecvSimObjectDataByType 
-			// to a structure. this is forbidden by java language
-			//
-				
-			System.out.println("ObjectID=" + data.getObjectID() + " Title='"
-					+ data.getDataString256() + "'");
-			System.out.println("Lat=" + data.getDataFloat64() + " Lon="
-					+ data.getDataFloat64() + " Alt=" + data.getDataFloat64()
-					+ " Kohlsman=" + data.getDataFloat64());
+		/* Debug */
+		System.out.println("Data Flow: "+data.getDefineID()+", "+data.getRequestID());
+
+		if (String.valueOf(data.getDefineID()).startsWith("12")) { //Float
+			scriptLoader.invokeFunction(new DataDecoder()
+					.decodeRequestID(data.getRequestID()), ""+data.getDataFloat64());
+		} else if (String.valueOf(data.getDefineID()).startsWith("15")) { //Integer
+			scriptLoader.invokeFunction(new DataDecoder()
+					.decodeRequestID(data.getRequestID()), ""+data.getDataInt64());
+		} else if (String.valueOf(data.getDefineID()).startsWith("23")) { //String
+			scriptLoader.invokeFunction(new DataDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString260());
 		}
 	}
-	//TODO: TEST1
 }
