@@ -27,21 +27,12 @@ After this step your module will be able to be loaded into FSX, but we still nee
  * SuperDuperModule
  */
 
-//Import all needed classes
-var EVENT = Java.type("com.IconPippi.simtriggers.EVENT");
-var TextType = Java.type("flightsim.simconnect.TextType");
-var SimTriggers = Java.type("com.IconPippi.simtriggers.wrappers.SimTriggers");
-var RegisterTrigger = Java.type("com.IconPippi.simtriggers.triggers.RegisterTrigger");
-
 //Register ConnectionOpen and ConnectionClose triggers
 RegisterTrigger.registerConnectionOpen("connectionOpen");
 RegisterTrigger.registerConnectionClose("connectionClose");
 
 function connectionOpen() {
     print("[SuperDuperModule] Module successfully loaded!");
-    
-    //Print on FSX screen "[SuperDuperModule] Module successfully loaded!" for 5 seconds
-    SimTriggers.getSimulator().text(TextType.PRINT_RED, 5, EVENT.RELOADSCRIPTS_TEXT, "[SuperDuperModule] Module successfully loaded!");
 }
 
 function connectionClose() {
@@ -52,12 +43,19 @@ After you completed the previous steps you can load up your simulator, run SimTr
 
 # More Examples:
 
+## Keybind
+Keybinding has never been easier. It works just like every other trigger...
+```js
+RegisterTrigger.registerKey("keyX").setKey("X");
+
+function keyX() {
+    print("Pressed key X!");
+}
+```
+
 ## Menus
 To create a simple menu you will have to use the take advantage of the Menu wrapper which provides all the methods you need to create and handle a Flight Simulator X interface. Here's an example:
 ```js
-var RegisterTrigger = Java.type("com.IconPippi.simtriggers.triggers.RegisterTrigger");
-var Menu = Java.type("com.IconPippi.simtriggers.wrappers.Menu");
-
 RegisterTrigger.registerConnectionOpen("connectionOpen");
 RegisterTrigger.registerConnectionClose("connectionClose");
 
@@ -93,7 +91,23 @@ function connectionOpen() {
 function connectionClose() {
     exampleMenu.hide();
 }
-``` 
+```
+
+## Data request
+The data request process consists in two simple steps: creating the request and handling the response; here's an example:
+```js
+RegisterTrigger.registerKey("requestSpeed").setKey("M");
+
+function requestSpeed() {
+    /* Create a request for the aircraft speed specifying the callback function where the data will be delivered */
+    Aircraft.requestAirspeed("speed");
+}
+
+/* Create the callback function specifying an argument where the data will be passed */
+function speed(data) {
+    print("Airspeed: "+data);
+}
+```
 
 # Credits
 - Idea: [ChatTriggers](https://www.chattriggers.com/)

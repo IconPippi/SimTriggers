@@ -1,6 +1,9 @@
 package com.IconPippi.simtriggers.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,8 @@ public class FileUtils {
 		for (File f : dir.listFiles()) {
 			if (f.isDirectory() && !folders) {
 				//do nothing
+			} else if (f.getName().equalsIgnoreCase("simtriggersDevKit.js")) {
+				//
 			} else {
 				files.add(f);
 			}
@@ -31,4 +36,37 @@ public class FileUtils {
 		return files;
 	}
 	
+	/**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName ie. simtriggersDevKit.js
+     * @return The path to the exported resource
+     * @throws Exception
+     */
+    public String exportResourceToModulesFolder(String resourceName) throws Exception {
+        InputStream stream = null;
+        OutputStream resStreamOut = null;
+        String jarFolder;
+        try {
+            stream = FileUtils.class.getResourceAsStream(resourceName);
+            if(stream == null) {
+                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
+            }
+
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            jarFolder = new File(FileUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+            resStreamOut = new FileOutputStream(jarFolder + "/modules/" +resourceName);
+            while ((readBytes = stream.read(buffer)) > 0) {
+                resStreamOut.write(buffer, 0, readBytes);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            stream.close();
+            resStreamOut.close();
+        }
+
+        return jarFolder + resourceName;
+    }
 }

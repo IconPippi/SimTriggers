@@ -14,20 +14,13 @@ import com.IconPippi.simtriggers.utils.Logger;
  */
 public class ModuleManager {
 	
-	/*
-	 * Utils
-	 */
+	/* Utils */
 	private final Logger logger = new Logger();
+	private final FileUtils fileUtils = new FileUtils();
 	
-	/*
-	 * Module
-	 */
+	/* Modules folder */
 	private final File modulesDir = new File("modules");
 	
-	/**
-	 * Gets "modules" folder directory
-	 * @return modules folder
-	 */
 	public File getModulesDir() {
 		return modulesDir;
 	}
@@ -41,6 +34,11 @@ public class ModuleManager {
 		} else { 
 			modulesDir.mkdir();
 			logger.log("Created a new Modules folder ("+modulesDir.getAbsolutePath()+")");
+		}
+		try {
+			fileUtils.exportResourceToModulesFolder("/simtriggersDevKit.js");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
