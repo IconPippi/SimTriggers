@@ -63,12 +63,21 @@ public class EventFactory {
 	}
 	
 	/**
-	 * Make a new menu event ID, marked by 00 at the start of it's ID
+	 * Generate a new menu event
 	 * @param menuHandler Handler's function name
 	 * @return Menu ID
 	 */
 	public int buildMenu(String menuHandler) {
 		return registerEvent(menuHandler, EVENT.GROUP_MENU);
+	}
+	
+	/**
+	 * Generate a new text line event
+	 * @param text text line's text
+	 * @return event ID
+	 */
+	public int buildTextLine() {
+		return registerEvent("genericTextLine", EVENT.GROUP_TEXT);
 	}
 	
 	private int registerEvent(String inputEvent, EVENT groupID) {
@@ -111,6 +120,9 @@ public class EventFactory {
 			break;
 		case GROUP_ANTI_ICE:
 			groupIdentifier = 77;
+			break;
+		case GROUP_TEXT:
+			groupIdentifier = 88;
 			break;
 		default:
 			//do nothing

@@ -20,3 +20,7 @@ var TriggerType = Java.type("com.IconPippi.simtriggers.triggers.TriggerType");
 var Menu = Java.type("com.IconPippi.simtriggers.wrappers.Menu");
 var SimTriggers = Java.type("com.IconPippi.simtriggers.wrappers.SimTriggers");
 var Aircraft = Java.type("com.IconPippi.simtriggers.wrappers.Aircraft");
+var TextLine = Java.type("com.IconPippi.simtriggers.wrappers.TextLine");
+
+/* SimConnect */
+var TextType = Java.type("flightsim.simconnect.TextType");

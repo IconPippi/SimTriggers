@@ -15,14 +15,10 @@ import flightsim.simconnect.SimConnect;
  */
 public class Menu {
 	
-	/*
-	 * SimConnect constant
-	 */
+	/* SimConnect constant */
 	private final SimConnect sc = SimTriggers.getSimulator();
 	
-	/*
-	 * Util
-	 */
+	/* Logger */
 	private final Logger logger = new Logger();
 	
 	/*
