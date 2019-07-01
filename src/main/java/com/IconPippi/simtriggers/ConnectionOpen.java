@@ -278,17 +278,81 @@ public class ConnectionOpen implements
 	@Override
 	public void handleSimObjectType(SimConnect sc, RecvSimObjectDataByType data) {
 		/* Debug */
-		System.out.println("Data Flow: "+data.getDefineID()+", "+data.getRequestID());
+		System.out.println("Data Flow: "+new DataRequestDecoder()
+				.decodeRequestID(data.getRequestID())+", "+new DataRequestDecoder().decodeDataDefinitionID(data.getDefineID()));
 
-		if (String.valueOf(data.getDefineID()).startsWith("12")) { //Float
+		if (String.valueOf(data.getDefineID()).startsWith("12")) { //FLOAT 64
 			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), ""+data.getDataFloat64());
-		} else if (String.valueOf(data.getDefineID()).startsWith("15")) { //Integer
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("15")) { //INT 64
 			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), ""+data.getDataInt64());
-		} else if (String.valueOf(data.getDefineID()).startsWith("23")) { //String
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("23")) { //STRING 260
 			scriptLoader.invokeFunction(new DataRequestDecoder()
 					.decodeRequestID(data.getRequestID()), data.getDataString260());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("11")) { //FLOAT 32
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataFloat32());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("13")) { //INITPOSITION
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getInitPosition());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("14")) { //INT 32
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataInt32());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("16")) { //INVALID
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), (Object[]) null);
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("17")) { //LATLONALT
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getLatLonAlt());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("18")) { //MAKERSTATE
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getMarkerState());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("19")) { //MAX
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), (Object[]) null);
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("21")) { //STRING 128
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString128());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("22")) { //STRING 256
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString256());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("24")) { //STRING 32
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString32());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("25")) { //STRING 64
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString64());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("26")) { //STRING 8
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataString8());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("27")) { //STRING V
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getDataStringV());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("28")) { //WAYPOINT
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getWaypoint());
+			
+		} else if (String.valueOf(data.getDefineID()).startsWith("29")) { //XYZ
+			scriptLoader.invokeFunction(new DataRequestDecoder()
+					.decodeRequestID(data.getRequestID()), data.getXYZ());
+			
 		}
 	}
 }

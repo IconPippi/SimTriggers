@@ -41,12 +41,12 @@ public class DataRequest {
 	 * @param callbackFunction the request callback function (where the data will be delivered)
 	 * @throws IOException
 	 */
-	public void requestFloatData(String variable, String units, String callbackFunction) throws IOException {
-		int encodedData = encodeDataDefinition(variable, SimConnectDataType.FLOAT64);
+	public void requestData(String variable, String units, String callbackFunction, SimConnectDataType dataType) throws IOException {
+		int encodedData = encodeDataDefinition(variable, dataType);
 		int encodedRequestID = encodeDataRequestID(callbackFunction);
 		
 		sc.addToDataDefinition(
-				encodedData, variable, units, SimConnectDataType.FLOAT64);
+				encodedData, variable, units, dataType);
 		
 		sc.requestDataOnSimObjectType(
 				encodedRequestID,
@@ -54,6 +54,7 @@ public class DataRequest {
 				0, SimObjectType.USER);
 	}
 	
+
 	/**
 	 * Create a new integer data request
 	 * @param variable variable you want to retrieve data from
@@ -61,6 +62,7 @@ public class DataRequest {
 	 * @param callbackFunction the request callback function (where the data will be delivered)
 	 * @throws IOException
 	 */
+	/*
 	public void requestIntData(String variable, String units, String callbackFunction) throws IOException {
 		int encodedData = encodeDataDefinition(variable, SimConnectDataType.INT64);
 		int encodedRequestID = encodeDataRequestID(callbackFunction);
@@ -81,6 +83,7 @@ public class DataRequest {
 	 * @param callbackFunction the request callback function (where the data will be delivered)
 	 * @throws IOException
 	 */
+	/*
 	public void requestStringData(String variable, String units, String callbackFunction) throws IOException {
 		int encodedData = encodeDataDefinition(variable, SimConnectDataType.STRING260);
 		int encodedRequestID = encodeDataRequestID(callbackFunction);
@@ -93,6 +96,7 @@ public class DataRequest {
 				encodedRequestID,
 				0, SimObjectType.USER);
 	}
+	*/
 
 	private int encodeDataDefinition(String dataDefinition, SimConnectDataType dataType) {
 		dataDefinitionsCount++;
