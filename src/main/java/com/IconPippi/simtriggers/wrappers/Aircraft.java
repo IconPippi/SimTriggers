@@ -12,8 +12,7 @@ import flightsim.simconnect.SimConnectDataType;
  *
  */
 public class Aircraft {
-	//TODO: Add more methods
-	
+
 	/* DataRequest constant */
 	private final static DataRequest dataRequest = new DataRequest();
 	
@@ -133,5 +132,14 @@ public class Aircraft {
 	 */
 	public static void requestOverspeedWarningStatus(String callbackFunction) throws IOException {
 		dataRequest.requestData("Overspeed Warning", "bool", callbackFunction, SimConnectDataType.INT32);
+	}
+	
+	/**
+	 * Open a request for the aircraft stall warning status
+	 * @param callbackFunction function where the data will be delivered
+	 * @throws IOException
+	 */
+	public static void requestStallWarningStatus(String callbackFunction) throws IOException {
+		dataRequest.requestData("Stall Warning", "bool", callbackFunction, SimConnectDataType.INT32);
 	}
 }

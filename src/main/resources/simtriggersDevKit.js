@@ -24,3 +24,14 @@ var TextLine = Java.type("com.IconPippi.simtriggers.wrappers.TextLine");
 
 /* SimConnect */
 var TextType = Java.type("flightsim.simconnect.TextType");
+
+/* SimTriggers */
+var Console = Java.type("com.IconPippi.simtriggers.gui.console.Console");
+var Logger = Java.type("com.IconPippi.simtriggers.util.Logger");
+
+/**
+ * Console util
+ */
+function print(s) {
+    Console.println(s);
+} 

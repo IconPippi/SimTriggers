@@ -1,5 +1,6 @@
 package com.IconPippi.simtriggers;
 
+import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.utils.Logger;
 
 import flightsim.simconnect.SimConnect;
@@ -10,12 +11,16 @@ import flightsim.simconnect.SimConnect;
  */
 public class Main {
 	
-	/*
-	 * SimConnect constant
-	 */
+	/* SimTriggers constant */
 	public static SimConnect simConnect;
 	
+	/* SimTriggersGUI constant */
+	public static SimTriggersGUI simTriggersGUI;
+	
 	public static void main(String[] args) {
+		simTriggersGUI = new SimTriggersGUI();
+		simTriggersGUI.initialize();
+		
 		final Logger logger = new Logger();
 		logger.log("Initializing SimTriggers");
 		

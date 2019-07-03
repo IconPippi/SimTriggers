@@ -110,4 +110,4 @@ function speed(data) {
 ```
 
 # Credits
-- Idea: [ChatTriggers](https://www.chattriggers.com/)
+- Idea & some code: [ChatTriggers](https://www.chattriggers.com/)

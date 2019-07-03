@@ -2,6 +2,8 @@ package com.IconPippi.simtriggers.utils;
 
 import java.util.Date;
 
+import com.IconPippi.simtriggers.gui.console.Console;
+
 /**
  * This class contains some logging utilities
  * @author IconPippi
@@ -24,6 +26,7 @@ public class Logger {
 	 */
 	public void log(String message) {
 		System.out.println("["+getTime()+" / LOG] "+message);
+		Console.println("["+getTime()+" / LOG] "+message);
 	}
 	
 	/**
@@ -32,6 +35,7 @@ public class Logger {
 	 */
 	public void error(String message) {
 		System.out.println("["+getTime()+" / ERROR] "+message);
+		Console.println("["+getTime()+" / ERROR] "+message);
 	}
 	 
 	/**
@@ -40,5 +44,15 @@ public class Logger {
 	 */
 	public void major(String message) {
 		System.out.println("["+getTime()+" / MAJOR] "+message);
+		Console.println("["+getTime()+" / MAJOR] "+message);
+	}
+	
+	/**
+	 * Prints a message into the console as a debug information (Format: [${time} / DEBUG] ${message})
+	 * @param debug message
+	 */
+	public void debug(String message) {
+		System.out.println("["+getTime()+" / DEBUG] "+message);
+		Console.println("["+getTime()+" / DEBUG] "+message);
 	}
 }

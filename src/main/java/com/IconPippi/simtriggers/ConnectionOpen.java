@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.IconPippi.simtriggers.data.request.DataRequestDecoder;
 import com.IconPippi.simtriggers.events.EVENT;
 import com.IconPippi.simtriggers.events.EventDecoder;
-import com.IconPippi.simtriggers.gui.SimTriggersGUI;
 import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.triggers.TriggerType;
@@ -156,7 +155,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
-		logger.log("Triggered event: "+event.getEventID());
+		logger.debug("Triggered event: "+event.getEventID());
 		
 		/*
 		 * Trigger events 
@@ -217,8 +216,7 @@ public class ConnectionOpen implements
 				logger.error(e.toString());
 			}
 		} else if (EVENT.SIMTRIGGERSTAB_OPENGUI.isEvent(event)) {
-			final SimTriggersGUI gui = new SimTriggersGUI(this);
-			gui.show();
+			Main.simTriggersGUI.show();
 		}
 	} 
 	
@@ -270,6 +268,7 @@ public class ConnectionOpen implements
 	public void handleQuit(SimConnect sc, RecvQuit quit) {
 		triggersManager.triggerAll(TriggerType.CONNECTION_CLOSE);
 		logger.log("Connection between client terminated: "+quit.getRawID());
+		Main.simTriggersGUI.shut();
 	}
 	
 	/*
@@ -278,7 +277,7 @@ public class ConnectionOpen implements
 	@Override
 	public void handleSimObjectType(SimConnect sc, RecvSimObjectDataByType data) {
 		/* Debug */
-		System.out.println("Data Flow: "+new DataRequestDecoder()
+		logger.debug("Data Flow: "+new DataRequestDecoder()
 				.decodeRequestID(data.getRequestID())+", "+new DataRequestDecoder().decodeDataDefinitionID(data.getDefineID()));
 
 		if (String.valueOf(data.getDefineID()).startsWith("12")) { //FLOAT 64
