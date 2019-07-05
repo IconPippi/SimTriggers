@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.IconPippi.simtriggers.gui.console.Console;
+import com.IconPippi.simtriggers.gui.modules.ModuleUI;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
 
@@ -23,18 +24,18 @@ import com.IconPippi.simtriggers.module.ModuleManager;
 public class SimTriggersGUI {
 	
 	/* Main frame */
-	private JFrame frame;
+	private static JFrame frame;
 	
 	/*
 	 * Console
 	 */
-	private JTextArea console;
-	private Console consoleOut;
+	private static JTextArea console;
+	private static Console consoleOut;
 	@SuppressWarnings("unused")
-	private JTextField consoleIn;
+	private static JTextField consoleIn;
 	
 	/* Modules */
-	private JList<String> modulesList;
+	private static JList<String> modulesList;
 	
 	/**
 	 * Show the GUI
@@ -75,6 +76,7 @@ public class SimTriggersGUI {
 		
 		/* Modules */
 		modulesList = new JList<String>(getModulesNames().toArray(new String[0]));
+		modulesList.addMouseListener(new ModuleUI());
 		
 		Console.println("                                                                       "); //Make console panel wider than the modules panel
 		
@@ -92,6 +94,18 @@ public class SimTriggersGUI {
 		modules.add("                                                                               "); //Add a long string for spacing
 		
 		return modules;
+	}
+	
+	public static JFrame getMainFrame() {
+		return frame;
+	}
+	
+	public static JTextArea getConsoleComponent() {
+		return console;
+	}
+	
+	public static JList<String> getModulesListComponent() {
+		return modulesList;
 	}
 	
 	public Console getConsole() {

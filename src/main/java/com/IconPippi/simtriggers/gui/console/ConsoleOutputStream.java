@@ -11,13 +11,13 @@ import javax.swing.JTextArea;
  * @author ChatTriggers [FalseHonesty & kerbybit] ({@link}https://github.com/ChatTriggers/ct.js/blob/master/src/main/kotlin/com/chattriggers/ctjs/utils/console/TextAreaOutputStream.kt)
  *
  */
-class JTextAreaOutputStream extends OutputStream {
+class ConsoleOutputStream extends OutputStream {
 	
 	private final StringBuilder buffer = new StringBuilder(128);
 	
 	private final JTextArea console;
 	
-	public JTextAreaOutputStream(JTextArea console) {
+	public ConsoleOutputStream(JTextArea console) {
 		this.console = console;
 	}
 	

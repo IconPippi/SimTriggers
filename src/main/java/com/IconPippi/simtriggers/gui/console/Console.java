@@ -11,14 +11,14 @@ import javax.swing.JTextArea;
  */
 public class Console {
 	
-	private static JTextAreaOutputStream consoleStream;
+	private static ConsoleOutputStream consoleStream;
 	
 	/**
 	 * Open a new console output stream
 	 * @param console console swing component
 	 */
 	public Console(JTextArea console) {
-		consoleStream = new JTextAreaOutputStream(console);
+		consoleStream = new ConsoleOutputStream(console);
 	}
 	
 	/**
