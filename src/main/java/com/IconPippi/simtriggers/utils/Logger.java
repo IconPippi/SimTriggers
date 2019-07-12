@@ -2,6 +2,7 @@ package com.IconPippi.simtriggers.utils;
 
 import java.util.Date;
 
+import com.IconPippi.simtriggers.Main;
 import com.IconPippi.simtriggers.gui.console.Console;
 
 /**
@@ -26,7 +27,7 @@ public class Logger {
 	 */
 	public void log(String message) {
 		System.out.println("["+getTime()+" / LOG] "+message);
-		Console.println("["+getTime()+" / LOG] "+message);
+		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / LOG] "+message);
 	}
 	
 	/**
@@ -35,7 +36,7 @@ public class Logger {
 	 */
 	public void error(String message) {
 		System.out.println("["+getTime()+" / ERROR] "+message);
-		Console.println("["+getTime()+" / ERROR] "+message);
+		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / ERROR] "+message);
 	}
 	 
 	/**
@@ -44,7 +45,7 @@ public class Logger {
 	 */
 	public void major(String message) {
 		System.out.println("["+getTime()+" / MAJOR] "+message);
-		Console.println("["+getTime()+" / MAJOR] "+message);
+		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / MAJOR] "+message);
 	}
 	
 	/**
@@ -53,6 +54,6 @@ public class Logger {
 	 */
 	public void debug(String message) {
 		System.out.println("["+getTime()+" / DEBUG] "+message);
-		Console.println("["+getTime()+" / DEBUG] "+message);
+		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / DEBUG] "+message);
 	}
 }

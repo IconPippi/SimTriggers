@@ -2,7 +2,7 @@
 SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaScript providing a series of useful triggers* and wrappers.
 
 # How to install
-Simply download the lastest version (can be found in Releases) and run it, it will automatically connect to any open instance of FSX.
+/////////////////////////////////////////////////////
 
 # How to install a module
 Drag the module's files into the conveniently provided modules folder (can be found in the same folder the .jar file is stored)
@@ -43,7 +43,7 @@ After you completed the previous steps you can load up your simulator, run SimTr
 
 # More Examples:
 
-## Keybind
+## Keybinds
 Keybinding has never been easier. It works just like every other trigger...
 ```js
 RegisterTrigger.registerKey("keyX").setKey("X");
@@ -61,10 +61,10 @@ RegisterTrigger.registerConnectionClose("connectionClose");
 
 //Create a simple menu.
 var exampleMenu = new Menu("menuHandler"); //Create the menu specifying the handler function
-throttleMenu.setName("SuperDuperModule"); //Give it a name
-throttleMenu.setTitle("Example Menu"); //Give it a title
-throttleMenu.addOption("Example Option 1"); //MENU_SELECT_1
-throttleMenu.addOption("Example Option 2"); //MENU_SELECT_2
+exampleMenu.setName("SuperDuperModule"); //Give it a name
+exampleMenu.setTitle("Example Menu"); //Give it a title
+exampleMenu.addOption("Example Option 1"); //MENU_SELECT_1
+exampleMenu.addOption("Example Option 2"); //MENU_SELECT_2
 
 //Handle the menu events
 function menuHandler(menuInput) {
@@ -93,7 +93,7 @@ function connectionClose() {
 }
 ```
 
-## Data request
+## Data requests
 The data request process consists in two simple steps: creating the request and handling the response; here's an example:
 ```js
 RegisterTrigger.registerKey("requestSpeed").setKey("M");

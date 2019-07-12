@@ -1,5 +1,5 @@
 package com.IconPippi.simtriggers.data.set;
 
-public class DataSet {
+public class DataSetter {
 	//TODO: Everything? :O
 }

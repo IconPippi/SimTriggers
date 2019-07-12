@@ -41,6 +41,10 @@ public class SimTriggersGUI {
 	 * Show the GUI
 	 */
 	public void show() {
+		modulesList = new JList<String>(getModulesNames().toArray(new String[0]));
+		modulesList.addMouseListener(new ModuleUI());
+		
+		frame.getContentPane().add(new JScrollPane(modulesList), BorderLayout.EAST);
 		frame.setVisible(true);
 	}
 	
@@ -75,13 +79,12 @@ public class SimTriggersGUI {
 		consoleIn = new JTextField();
 		
 		/* Modules */
-		modulesList = new JList<String>(getModulesNames().toArray(new String[0]));
+		modulesList = new JList<String>();
 		modulesList.addMouseListener(new ModuleUI());
 		
 		Console.println("                                                                       "); //Make console panel wider than the modules panel
 		
 		frame.getContentPane().add(new JScrollPane(console), BorderLayout.WEST);
-		frame.getContentPane().add(new JScrollPane(modulesList), BorderLayout.EAST);
 	}
 	
 	private List<String> getModulesNames() {

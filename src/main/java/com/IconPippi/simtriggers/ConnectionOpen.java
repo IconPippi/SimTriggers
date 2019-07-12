@@ -55,7 +55,6 @@ public class ConnectionOpen implements
 	/*
 	 * Modules
 	 */
-	private final ModuleManager moduleManager = new ModuleManager();
 	private final ScriptLoader scriptLoader = new ScriptLoader();
 	
 	/**
@@ -226,13 +225,13 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleOpen(SimConnect sc, RecvOpen open) {
+		triggersManager.triggerAll(TriggerType.CONNECTION_OPEN); //Trigger connection open
+		
 		/* Initialize modules */
-		moduleManager.initModules();
+		new ModuleManager().initModules();
 		
 		/* Load module's scripts */
-		scriptLoader.loadModules();
-		
-		triggersManager.triggerAll(TriggerType.CONNECTION_OPEN); //Trigger connection open
+		new ScriptLoader().loadModules();
 		
 		logger.log("Connected to " + 
 				open.getApplicationName() + 

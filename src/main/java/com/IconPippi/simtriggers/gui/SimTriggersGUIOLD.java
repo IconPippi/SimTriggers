@@ -1,3 +1,6 @@
+package com.IconPippi.simtriggers.gui;
+
+public class SimTriggersGUIOLD {}
 //package com.IconPippi.simtriggers.gui;
 //
 //import java.awt.BorderLayout;

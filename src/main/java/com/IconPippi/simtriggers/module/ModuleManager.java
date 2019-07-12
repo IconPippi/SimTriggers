@@ -1,6 +1,7 @@
 package com.IconPippi.simtriggers.module;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class ModuleManager {
 		if (modulesDir.exists()) {
 			logger.log("Loaded Modules folder ("+modulesDir.getAbsolutePath()+")");
 		} else { 
-			modulesDir.mkdir();
-			logger.log("Created a new Modules folder ("+modulesDir.getAbsolutePath()+")");
+			modulesDir.mkdirs();
+			logger.log("Created a new Modules folder ("+modulesDir.getAbsolutePath()+") "+modulesDir.exists());
 		}
 		try {
 			fileUtils.exportResourceToModulesFolder("/simtriggersDevKit.js");
@@ -47,12 +48,19 @@ public class ModuleManager {
 	 * @return All modules inside the modules directory
 	 */
 	public List<Module> getModules() {
+		if (!modulesDir.exists()) return null;
+		
 		final FileUtils fileUtils = new FileUtils(); //Util
 		final List<Module> modules = new ArrayList<>();
 		
 		//Loop through modules folder files
-		for (File f : fileUtils.getFilesInDir(modulesDir, true)) {
-			modules.add(new Module(f, new ModuleMetadata(f, "metadata.json")));
+		try {
+			for (File f : fileUtils.getFilesInDir(modulesDir, true)) {
+				modules.add(new Module(f, new ModuleMetadata(f, "metadata.json")));
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return modules;

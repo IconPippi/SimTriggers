@@ -1,6 +1,7 @@
 package com.IconPippi.simtriggers.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,14 +21,14 @@ public class FileUtils {
 	 * @param folders If true also lists all subfolders of the target directory
 	 * @return All files in the target directory
 	 */
-	public List<File> getFilesInDir(File dir, boolean folders) {
+	public List<File> getFilesInDir(File dir, boolean folders) throws FileNotFoundException {
+		if (!dir.exists()) throw new FileNotFoundException();
+		
 		List<File> files = new ArrayList<>();
 		
 		for (File f : dir.listFiles()) {
 			if (f.isDirectory() && !folders) {
 				//do nothing
-			} else if (f.getName().equalsIgnoreCase("simtriggersDevKit.js")) {
-				//
 			} else {
 				files.add(f);
 			}
@@ -56,7 +57,7 @@ public class FileUtils {
             int readBytes;
             byte[] buffer = new byte[4096];
             jarFolder = new File(FileUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            resStreamOut = new FileOutputStream(jarFolder + "/modules/" +resourceName);
+            resStreamOut = new FileOutputStream(jarFolder + resourceName);
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);
             }

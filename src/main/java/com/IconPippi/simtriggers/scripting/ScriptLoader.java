@@ -3,6 +3,7 @@ package com.IconPippi.simtriggers.scripting;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -36,6 +37,9 @@ public class ScriptLoader {
 	public final static ScriptEngineManager engineManager = new ScriptEngineManager();
 	public final static ScriptEngine engine = engineManager.getEngineByName("nashorn");
 	
+	
+	private final File simTriggersDevKit = new File(mm.getModulesDir()+"/simTriggersDevKit.js");
+	
 	/**
 	 * Loads every installed module's scripts
 	 */
@@ -45,19 +49,25 @@ public class ScriptLoader {
 		final FileUtils fileUtils = new FileUtils();
 		
 		for (Module m : mm.getModules()) {
-			for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
-				
-				try {
-					if (f.getName().toLowerCase().endsWith(".js")
-							&& engine.eval(compileScripts(f)) != null) {
-						engine.eval(compileScripts(f));
+			try {
+				for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
+					
+					try {
+						if (f.getName().toLowerCase().endsWith(".js")
+								&& engine.eval(compileScripts(f)) != null) {
+							engine.eval(compileScripts(f));
+							engine.eval(compileScripts(simTriggersDevKit));
+						}
+					} catch (Exception e) {
+						logger.error(e.toString());
 					}
-				} catch (Exception e) {
-					logger.error(e.toString());
 				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
-	}
+	} 
 	
 	/**
 	 * Reloads every installed module's scripts
@@ -71,16 +81,22 @@ public class ScriptLoader {
 		final FileUtils fileUtils = new FileUtils();
 		
 		for (Module m : mm.getModules()) {
-			for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
-				
-				try {
-					if (f.getName().toLowerCase().endsWith(".js")
-							&& engine.eval(compileScripts(f)) != null) {
-						engine.eval(compileScripts(f));
+			try {
+				for (File f : fileUtils.getFilesInDir(m.getDir(), false)) {
+					
+					try {
+						if (f.getName().toLowerCase().endsWith(".js")
+								&& engine.eval(compileScripts(f)) != null) {
+							engine.eval(compileScripts(f));
+							engine.eval(compileScripts(simTriggersDevKit));
+						}
+					} catch (Exception e) {
+						logger.error(e.toString());
 					}
-				} catch (Exception e) {
-					logger.error(e.toString());
 				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
