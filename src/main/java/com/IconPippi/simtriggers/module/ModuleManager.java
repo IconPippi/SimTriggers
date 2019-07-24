@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.IconPippi.simtriggers.utils.FileUtils;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.FileUtils;
+import com.IconPippi.simtriggers.util.Logger;
 
 /**
  * This class manages all modules
@@ -16,11 +16,13 @@ import com.IconPippi.simtriggers.utils.Logger;
 public class ModuleManager {
 	
 	/* Utils */
-	private final Logger logger = new Logger();
 	private final FileUtils fileUtils = new FileUtils();
 	
 	/* Modules folder */
 	private final File modulesDir = new File("modules");
+	
+	/* SimTriggers dev kit */
+	private final File simTriggersDevKit = new File(fileUtils.exportResourceToModulesFolder("/simtriggersDevKit.js"));
 	
 	public File getModulesDir() {
 		return modulesDir;
@@ -31,16 +33,12 @@ public class ModuleManager {
 	 */
 	public void initModules() {
 		if (modulesDir.exists()) {
-			logger.log("Loaded Modules folder ("+modulesDir.getAbsolutePath()+")");
+			Logger.log("Loaded Modules folder ("+modulesDir.getAbsolutePath()+")");
 		} else { 
 			modulesDir.mkdirs();
-			logger.log("Created a new Modules folder ("+modulesDir.getAbsolutePath()+") "+modulesDir.exists());
+			Logger.log("Created a new Modules folder ("+modulesDir.getAbsolutePath()+") "+modulesDir.exists());
 		}
-		try {
-			fileUtils.exportResourceToModulesFolder("/simtriggersDevKit.js");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		simTriggersDevKit.mkdirs();
 	}
 	
 	/**
@@ -112,5 +110,9 @@ public class ModuleManager {
 		}
 		
 		return toReturn;
+	}
+	
+	public File getSimTriggersDevKit() {
+		return simTriggersDevKit;
 	}
 }

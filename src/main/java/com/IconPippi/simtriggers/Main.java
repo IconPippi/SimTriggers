@@ -1,7 +1,7 @@
 package com.IconPippi.simtriggers;
 
 import com.IconPippi.simtriggers.gui.SimTriggersGUI;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 
 import flightsim.simconnect.SimConnect;
 
@@ -20,9 +20,8 @@ public class Main {
 	public static void main(String[] args) {
 		simTriggersGUI = new SimTriggersGUI();
 		simTriggersGUI.initialize();
-		
-		final Logger logger = new Logger();
-		logger.log("Initializing SimTriggers");
+
+		Logger.log("Initializing SimTriggers");
 		
 		final ConnectionOpen co; //Connection class
 		
@@ -31,7 +30,7 @@ public class Main {
 			co = new ConnectionOpen();
 			simConnect = co.getSimConnect();
 		} catch (Exception e) {
-			logger.error("Connection could not be initalized: \n"+e.toString());
+			Logger.error("Connection could not be initalized: \n"+e.toString());
 			return;
 		}
 		

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -45,13 +45,11 @@ public class Module {
 	 * @return metadata 
 	 */
 	public ModuleMetadata getMeta() {
-		final Logger logger = new Logger();
-		
 		try {
 			meta = new Gson().fromJson(new FileReader(meta), ModuleMetadata.class);
 		} catch (NullPointerException | JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			if (!e.toString().equals("java.lang.NullPointerException")) {
-				logger.log(e.toString());
+				Logger.log(e.toString());
 			}
 		}
 		

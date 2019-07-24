@@ -3,6 +3,7 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.util.Logger;
 
 public class KeyTrigger extends Trigger {
 	
@@ -30,7 +31,7 @@ public class KeyTrigger extends Trigger {
 		try {
 			this.getEventFactory().buildInputEvent(key, EVENT.GROUP_KEYS);
 		} catch (IOException e) {
-			this.getLogger().error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 	

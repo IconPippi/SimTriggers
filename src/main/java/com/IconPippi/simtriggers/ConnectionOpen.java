@@ -9,7 +9,7 @@ import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.scripting.ScriptLoader;
 import com.IconPippi.simtriggers.triggers.TriggerType;
 import com.IconPippi.simtriggers.triggers.TriggersManager;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 
 import flightsim.simconnect.SimConnect;
 import flightsim.simconnect.TextResult;
@@ -49,9 +49,6 @@ public class ConnectionOpen implements
 	/* Triggers */
 	private final TriggersManager triggersManager;
 	
-	/* Utils */
-	private final Logger logger = new Logger();
-	
 	/*
 	 * Modules
 	 */
@@ -80,7 +77,7 @@ public class ConnectionOpen implements
 	 * @author bily (https://github.com/bily)
 	 */
 	private void initConnection() throws IOException {
-		logger.log("Connection initialized");
+		Logger.log("Connection initialized");
 		//
 		// get a configuration block if user provided a simconnect.cfg
 		//
@@ -115,7 +112,7 @@ public class ConnectionOpen implements
 		
 		// force simconnect version 0x3
 		sc = new SimConnect("SimTriggers", cfg, 0x3);
-		logger.log("Connection established");
+		Logger.log("Connection established");
 	}
 	
 	/**
@@ -146,7 +143,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleException(SimConnect sc, RecvException exception) {
-		logger.error(""+exception.getException().getMessage()+" "+exception.getRawID()+" "+exception.getIndex()+" "+exception.getSendID());
+		Logger.error(""+exception.getException().getMessage()+" "+exception.getRawID()+" "+exception.getIndex()+" "+exception.getSendID());
 	}
 	
 	/*
@@ -154,7 +151,7 @@ public class ConnectionOpen implements
 	 */
 	@Override
 	public void handleEvent(SimConnect sc, RecvEvent event) {
-		logger.debug("Triggered event: "+event.getEventID());
+		Logger.debug("Triggered event: "+event.getEventID());
 		
 		/*
 		 * Trigger events 
@@ -212,7 +209,7 @@ public class ConnectionOpen implements
 				sc.text(TextType.PRINT_RED, 5, EVENT.RELOADSCRIPTS_TEXT, "Reloading Scripts...");
 				scriptLoader.reloadModules();
 			} catch (UnsupportedOperationException | IOException e) {
-				logger.error(e.toString());
+				Logger.error(e.toString());
 			}
 		} else if (EVENT.SIMTRIGGERSTAB_OPENGUI.isEvent(event)) {
 			Main.simTriggersGUI.show();
@@ -233,7 +230,7 @@ public class ConnectionOpen implements
 		/* Load module's scripts */
 		new ScriptLoader().loadModules();
 		
-		logger.log("Connected to " + 
+		Logger.log("Connected to " + 
 				open.getApplicationName() + 
 				" version " +
 				open.getApplicationVersionMajor() + "." +
@@ -246,7 +243,7 @@ public class ConnectionOpen implements
 				open.getSimConnectBuildMajor() + "." +
 				open.getSimConnectBuildMinor()
 		);
-		logger.log("Protocol version: " + open.getVersion());
+		Logger.log("Protocol version: " + open.getVersion());
 		
 		try {
 			/*
@@ -266,7 +263,7 @@ public class ConnectionOpen implements
 	@Override
 	public void handleQuit(SimConnect sc, RecvQuit quit) {
 		triggersManager.triggerAll(TriggerType.CONNECTION_CLOSE);
-		logger.log("Connection between client terminated: "+quit.getRawID());
+		Logger.log("Connection between client terminated: "+quit.getRawID());
 		Main.simTriggersGUI.shut();
 	}
 	
@@ -276,7 +273,7 @@ public class ConnectionOpen implements
 	@Override
 	public void handleSimObjectType(SimConnect sc, RecvSimObjectDataByType data) {
 		/* Debug */
-		logger.debug("Data Flow: "+new DataRequestDecoder()
+		Logger.debug("Data Flow: "+new DataRequestDecoder()
 				.decodeRequestID(data.getRequestID())+", "+new DataRequestDecoder().decodeDataDefinitionID(data.getDefineID()));
 
 		if (String.valueOf(data.getDefineID()).startsWith("12")) { //FLOAT 64

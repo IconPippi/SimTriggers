@@ -15,8 +15,8 @@ import javax.script.ScriptException;
 import com.IconPippi.simtriggers.module.Module;
 import com.IconPippi.simtriggers.module.ModuleManager;
 import com.IconPippi.simtriggers.triggers.RegisterTrigger;
-import com.IconPippi.simtriggers.utils.FileUtils;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.FileUtils;
+import com.IconPippi.simtriggers.util.Logger;
 
 /**
  * This class loads all module's scripts
@@ -29,7 +29,6 @@ public class ScriptLoader {
 	 * Modules
 	 */
 	private final ModuleManager mm = new ModuleManager();
-	private final Logger logger = new Logger();
 	
 	/*
 	 * Scripting
@@ -37,14 +36,21 @@ public class ScriptLoader {
 	public final static ScriptEngineManager engineManager = new ScriptEngineManager();
 	public final static ScriptEngine engine = engineManager.getEngineByName("nashorn");
 	
+	private String simTriggersDevKit;
 	
-	private final File simTriggersDevKit = new File(mm.getModulesDir()+"/simTriggersDevKit.js");
+	public ScriptLoader() {
+		try {
+			simTriggersDevKit = compileScripts(mm.getSimTriggersDevKit());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Loads every installed module's scripts
 	 */
 	public void loadModules() {
-		logger.log("Loading scripts...");
+		Logger.log("Loading scripts...");
 		
 		final FileUtils fileUtils = new FileUtils();
 		
@@ -56,14 +62,12 @@ public class ScriptLoader {
 						if (f.getName().toLowerCase().endsWith(".js")
 								&& engine.eval(compileScripts(f)) != null) {
 							engine.eval(compileScripts(f));
-							engine.eval(compileScripts(simTriggersDevKit));
 						}
 					} catch (Exception e) {
-						logger.error(e.toString());
+						Logger.error(e.toString());
 					}
 				}
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -73,7 +77,7 @@ public class ScriptLoader {
 	 * Reloads every installed module's scripts
 	 */
 	public void reloadModules() {
-		logger.log("Reloading scripts...");
+		Logger.log("Reloading scripts...");
 		
 		//Unregister all triggers and eventually clear any wrapper
 		RegisterTrigger.unregisterAll();
@@ -88,14 +92,12 @@ public class ScriptLoader {
 						if (f.getName().toLowerCase().endsWith(".js")
 								&& engine.eval(compileScripts(f)) != null) {
 							engine.eval(compileScripts(f));
-							engine.eval(compileScripts(simTriggersDevKit));
 						}
 					} catch (Exception e) {
-						logger.error(e.toString());
+						Logger.error(e.toString());
 					}
 				}
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -111,7 +113,7 @@ public class ScriptLoader {
 		try {
 			invoc.invokeFunction(method, args);
 		} catch (NoSuchMethodException | ScriptException e) {
-			logger.error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 	
@@ -131,7 +133,7 @@ public class ScriptLoader {
 	      
 	      br.close();
 	      
-	      return compiledScript.toString();
+	      return simTriggersDevKit+"\n "+compiledScript.toString();
 	}
 	
 }

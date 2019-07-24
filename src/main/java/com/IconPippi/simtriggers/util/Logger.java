@@ -1,4 +1,4 @@
-package com.IconPippi.simtriggers.utils;
+package com.IconPippi.simtriggers.util;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class Logger {
 	/*
 	 * Get the time string
 	 */
-	private String getTime() {
+	private static String getTime() {
 		final Date date = new Date();
 		return date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}
@@ -25,7 +25,7 @@ public class Logger {
 	 * Logs a given message into the console (Format: [${time} / LOG] ${message})
 	 * @param message to log
 	 */
-	public void log(String message) {
+	public static void log(String message) {
 		System.out.println("["+getTime()+" / LOG] "+message);
 		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / LOG] "+message);
 	}
@@ -34,7 +34,7 @@ public class Logger {
 	 * Prints a message into the console formatted as an error (Format: [${time} / ERROR] ${message})
 	 * @param error message
 	 */
-	public void error(String message) {
+	public static void error(String message) {
 		System.out.println("["+getTime()+" / ERROR] "+message);
 		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / ERROR] "+message);
 	}
@@ -43,7 +43,7 @@ public class Logger {
 	 * Prints a message into the console as a major information (Format: [${time} / MAJOR] ${message})
 	 * @param major message
 	 */
-	public void major(String message) {
+	public static void major(String message) {
 		System.out.println("["+getTime()+" / MAJOR] "+message);
 		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / MAJOR] "+message);
 	}
@@ -52,7 +52,7 @@ public class Logger {
 	 * Prints a message into the console as a debug information (Format: [${time} / DEBUG] ${message})
 	 * @param debug message
 	 */
-	public void debug(String message) {
+	public static void debug(String message) {
 		System.out.println("["+getTime()+" / DEBUG] "+message);
 		if (Main.simTriggersGUI != null) Console.println("["+getTime()+" / DEBUG] "+message);
 	}

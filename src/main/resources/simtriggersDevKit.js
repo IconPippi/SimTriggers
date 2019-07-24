@@ -1,12 +1,12 @@
 
 /* Data */
 var DataRequest = Java.type("com.IconPippi.simtriggers.data.request.DataRequest");
-var DataSet = Java.type("com.IconPippi.simtriggers.data.set.DataSet");
+var DataSetter = Java.type("com.IconPippi.simtriggers.data.set.DataSetter");
 
 /* Triggers */
-var AntiIceTrigger = Java.type("com.IconPippi.simtriggers.triggers.AntiIceTriggers");
+var AntiIceTrigger = Java.type("com.IconPippi.simtriggers.triggers.AntiIceTrigger");
 var ConnectionOpenTrigger = Java.type("com.IconPippi.simtriggers.triggers.ConnectionOpenTrigger");
-var ConnectionCloseTrigger = Java.type("com.IconPippi.simtriggers.triggers.ConnectionCloseTriggers");
+var ConnectionCloseTrigger = Java.type("com.IconPippi.simtriggers.triggers.ConnectionCloseTrigger");
 var KeyTrigger = Java.type("com.IconPippi.simtriggers.triggers.KeyTrigger");
 var MagnetoTrigger = Java.type("com.IconPippi.simtriggers.triggers.MagnetoTrigger");
 var MixtureTrigger = Java.type("com.IconPippi.simtriggers.triggers.MixtureTrigger");

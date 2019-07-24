@@ -1,4 +1,4 @@
-package com.IconPippi.simtriggers.utils;
+package com.IconPippi.simtriggers.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +44,7 @@ public class FileUtils {
      * @return The path to the exported resource
      * @throws Exception
      */
-    public String exportResourceToModulesFolder(String resourceName) throws Exception {
+    public String exportResourceToModulesFolder(String resourceName) {
         InputStream stream = null;
         OutputStream resStreamOut = null;
         String jarFolder;
@@ -61,13 +61,20 @@ public class FileUtils {
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);
             }
+        
+        
+            return jarFolder + resourceName;
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
-            stream.close();
-            resStreamOut.close();
+        	try {
+        		stream.close();
+        		resStreamOut.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
         }
-
-        return jarFolder + resourceName;
+        
+        return null;
     }
 }

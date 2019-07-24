@@ -3,6 +3,7 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.util.Logger;
 
 public class AntiIceTrigger extends Trigger {
 	
@@ -30,7 +31,7 @@ public class AntiIceTrigger extends Trigger {
 		try {
 			this.getEventFactory().buildClientEvent(action, action, EVENT.GROUP_ANTI_ICE);
 		} catch (IOException e) {
-			this.getLogger().error(e.toString());
+			Logger.error(e.toString());
 		}
 	} 
 	

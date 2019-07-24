@@ -3,6 +3,7 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.util.Logger;
 
 public class ThrottleTrigger extends Trigger {
 
@@ -30,7 +31,7 @@ public class ThrottleTrigger extends Trigger {
 		try {
 			this.getEventFactory().buildClientEvent(action, action, EVENT.GROUP_THROTTLE);
 		} catch (IOException e) {
-			this.getLogger().error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 	

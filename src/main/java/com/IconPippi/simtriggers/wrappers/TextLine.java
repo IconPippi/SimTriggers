@@ -3,7 +3,7 @@ package com.IconPippi.simtriggers.wrappers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EventFactory;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 
 import flightsim.simconnect.SimConnect;
 import flightsim.simconnect.TextType;
@@ -17,9 +17,6 @@ public class TextLine {
 	
 	/* SimTriggers constant */
 	private final SimConnect sc = SimTriggers.getSimulator();
-	
-	/* Logger */
-	private final Logger logger = new Logger();
 	
 	/*
 	 * Text line data
@@ -68,7 +65,7 @@ public class TextLine {
 		try {
 			sc.text(textColor, timeout, textLineID, text);
 		} catch (UnsupportedOperationException | IOException e) {
-			logger.error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 }

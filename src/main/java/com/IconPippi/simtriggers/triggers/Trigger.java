@@ -2,7 +2,7 @@ package com.IconPippi.simtriggers.triggers;
 
 import com.IconPippi.simtriggers.events.EventFactory;
 import com.IconPippi.simtriggers.scripting.ScriptLoader;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 
 /**
  * This class represents a generic trigger

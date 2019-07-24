@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.IconPippi.simtriggers.events.EventFactory;
-import com.IconPippi.simtriggers.utils.Logger;
+import com.IconPippi.simtriggers.util.Logger;
 
 import flightsim.simconnect.SimConnect;
 
@@ -17,9 +17,6 @@ public class Menu {
 	
 	/* SimConnect constant */
 	private final SimConnect sc = SimTriggers.getSimulator();
-	
-	/* Logger */
-	private final Logger logger = new Logger();
 	
 	/*
 	 * Menu data
@@ -71,7 +68,7 @@ public class Menu {
 		try {
 			sc.menu(0, menuID, menuName, title, options.toArray(new String[0]));
 		} catch (UnsupportedOperationException | IOException e) {
-			logger.error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 	
@@ -82,7 +79,7 @@ public class Menu {
 		try {
 			sc.menu(0.0f, menuID, null, null, (String[])null); //Hide the menu
 		} catch (UnsupportedOperationException | IOException e) {
-			logger.error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 }

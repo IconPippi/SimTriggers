@@ -3,6 +3,7 @@ package com.IconPippi.simtriggers.triggers;
 import java.io.IOException;
 
 import com.IconPippi.simtriggers.events.EVENT;
+import com.IconPippi.simtriggers.util.Logger;
 
 public class MagnetoTrigger extends Trigger {
 
@@ -30,7 +31,7 @@ public class MagnetoTrigger extends Trigger {
 		try {
 			this.getEventFactory().buildClientEvent(action, action, EVENT.GROUP_MAGNETO);
 		} catch (IOException e) {
-			this.getLogger().error(e.toString());
+			Logger.error(e.toString());
 		}
 	}
 	

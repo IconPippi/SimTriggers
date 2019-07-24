@@ -1,4 +1,4 @@
-package com.IconPippi.simtriggers.utils;
+package com.IconPippi.simtriggers.util;
 
 import java.awt.Font;
 import java.awt.Graphics;
