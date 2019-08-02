@@ -8,10 +8,11 @@ import java.io.File
  *
  * @author IconPippi
  */
-data class Metadata (
-    var file: File? = null,
-    val metaName: String? = null,
-    val metaVersion: String? = null,
-    val metaAuthor: String? = null,
+class Metadata (parent: File, child: String) : File(parent, child) {
+
+    val metaName: String? = null
+    val metaVersion: String? = null
+    val metaAuthor: String? = null
     val metaDescription: String? = null
-) : File(file!!.absolutePath)
+
+}

@@ -1,4 +1,4 @@
-package main.kotlin.com.simtriggers.fsx
+package com.simtriggers.fsx
 
 import dev.iconpippi.logger.Logger
 import flightsim.simconnect.SimConnect
@@ -54,11 +54,10 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
         //
         // get a configuration block if user provided a simconnect.cfg
         //
-        var cfg: Configuration? = null
-        try {
-            cfg = ConfigurationManager.getConfiguration(0)
+        var cfg: Configuration? = try {
+            ConfigurationManager.getConfiguration(0)
         } catch (cfgEx: Exception) {
-            cfg = Configuration()
+            Configuration()
         }
 
         // fix port number (with automatic settings)
@@ -67,20 +66,20 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
             port = Configuration.findSimConnectPortIPv4()
             if (port <= 0) {
                 port = Configuration.findSimConnectPortIPv6()
-                cfg!!.setProtocol(6)
+                cfg.setProtocol(6)
             } else {
-                cfg!!.setProtocol(4)
+                cfg.setProtocol(4)
             }
-            cfg!!.setPort(port)
+            cfg.setPort(port)
         }
 
         // fix host
-        val host = cfg!!.get(Configuration.ADDRESS, null)
+        val host = cfg.get(Configuration.ADDRESS, null)
         if (host == null) {
-            if (cfg!!.getInt(Configuration.PROTOCOL, 4) === 6)
-                cfg!!.setAddress("::1")
+            if (cfg.getInt(Configuration.PROTOCOL, 4) == 6)
+                cfg.setAddress("::1")
             else
-                cfg!!.setAddress("localhost")
+                cfg.setAddress("localhost")
         }
 
         // force simconnect version 0x3

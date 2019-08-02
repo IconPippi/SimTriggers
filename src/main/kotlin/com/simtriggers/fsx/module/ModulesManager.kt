@@ -1,6 +1,7 @@
 package com.simtriggers.fsx.module
 
-import main.kotlin.com.simtriggers.fsx.SimTriggers
+import com.simtriggers.fsx.util.FileUtils
+import com.simtriggers.fsx.SimTriggers
 import java.io.File
 
 /**
@@ -9,19 +10,32 @@ import java.io.File
  *
  * @author IconPippi
  */
-class ModulesManager {
+object ModulesManager {
 
     /** Modules Foldrr */
-    private val modulesFolder: File = File("${SimTriggers.simTriggersFolder.absolutePath}/modules")
+    val modulesFolder: File = File("${SimTriggers.simTriggersFolder.absolutePath}/modules")
 
     /**
      * Create or load modules folder and export simTriggersDevKit.js
      */
-    fun initModules() {
+    @JvmStatic fun initModules() {
         if (!modulesFolder.exists()) modulesFolder.mkdirs()
 
         //TODO: Export simTriggersDevKit.js
     }
 
+    /**
+     * List all modules
+     * @return Modules
+     */
+    @JvmStatic fun getModules(): List<Module> {
+        val modules = ArrayList<Module>()
+
+        for (f: File in FileUtils.listFiles(modulesFolder, true)) {
+            if (f.isDirectory) modules.add(Module(f, Metadata(f, "metadata.json")))
+        }
+
+        return modules
+    }
 
 }
