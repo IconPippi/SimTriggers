@@ -2,7 +2,7 @@
 SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaScript providing a series of useful triggers* and wrappers.
 
 # How to install
-A proper installed is on the TODO list :)
+A proper installer is on the TODO list :)
 
 # How to install a module
 Drag the module's files into the conveniently provided modules folder (can be found in the same folder the .jar file is stored)
