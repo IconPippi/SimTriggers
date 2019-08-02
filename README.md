@@ -1,13 +1,15 @@
 # SimTriggers
 SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaScript providing a series of useful triggers* and wrappers.
 
-# How to install
+## How to:
+
+### Install this add-on
 A proper installer is on the TODO list :)
 
-# How to install a module
+### Istall a module
 Drag the module's files into the conveniently provided modules folder (can be found in the same folder the .jar file is stored)
 
-# How to make a module
+### Make a module
 Making a module is very simple; create a new folder inside the modules folder and create a new file called metadata.json which will store all module's information, here's an example of it:
 ```json
 {
@@ -41,9 +43,9 @@ function connectionClose() {
 ```
 After you completed the previous steps you can load up your simulator, run SimTriggers and your module should be up and running!
 
-# More Examples:
+## More Examples:
 
-## Keybinds
+### Keybinds
 Keybinding has never been easier. It works just like every other trigger...
 ```js
 RegisterTrigger.registerKey("keyX").setKey("X");
@@ -53,7 +55,7 @@ function keyX() {
 }
 ```
 
-## Menus
+### Menus
 To create a simple menu you will have to use the take advantage of the Menu wrapper which provides all the methods you need to create and handle a Flight Simulator X interface. Here's an example:
 ```js
 RegisterTrigger.registerConnectionOpen("connectionOpen");
@@ -93,7 +95,7 @@ function connectionClose() {
 }
 ```
 
-## Data requests
+### Data requests
 The data request process consists in two simple steps: creating the request and handling the response; here's an example:
 ```js
 RegisterTrigger.registerKey("requestSpeed").setKey("M");
