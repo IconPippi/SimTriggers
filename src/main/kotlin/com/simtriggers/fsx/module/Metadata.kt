@@ -10,9 +10,9 @@ import java.io.File
  */
 class Metadata (parent: File, child: String) : File(parent, child) {
 
-    val metaName: String? = null
-    val metaVersion: String? = null
-    val metaAuthor: String? = null
-    val metaDescription: String? = null
+    val moduleName: String? = null
+    val version: String? = null
+    val author: Array<String>? = null
+    val description: String? = null
 
 }

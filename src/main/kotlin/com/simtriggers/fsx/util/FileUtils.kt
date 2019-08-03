@@ -1,6 +1,7 @@
 package com.simtriggers.fsx.util
 
 import java.io.File
+import java.lang.NullPointerException
 import java.util.ArrayList
 
 /**
@@ -18,15 +19,19 @@ object FileUtils {
      * @return Listed files
      */
     @Throws(Exception::class)
-    @JvmStatic fun listFiles(target: File, folders: Boolean): List<File> {
+    @JvmStatic fun listFiles(target: File, folders: Boolean): List<File>? {
         //If the target is not a folder, throw an exception
-        if (target.isDirectory) throw Exception()
+        if (!target.isDirectory) throw Exception()
 
         val files = ArrayList<File>()
 
-        for (f: File in target.listFiles()) {
-            if (!f.isDirectory) files.add(f) //If the file isn't a directory, add it to the list
-            else if (folders) files.add(f) //Else if the file is a directory and sub-folders are requested to be listed aswell, add it to the list
+        try {
+            for (f: File in target.listFiles()!!) {
+                if (!f.isDirectory) files.add(f) //If the file isn't a directory, add it to the list
+                else if (folders) files.add(f) //Else if the file is a directory and sub-folders are requested to be listed aswell, add it to the list
+            }
+        } catch (e: NullPointerException) {
+            //Leave the List empty
         }
 
         return files

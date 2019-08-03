@@ -31,7 +31,7 @@ object ModulesManager {
     @JvmStatic fun getModules(): List<Module> {
         val modules = ArrayList<Module>()
 
-        for (f: File in FileUtils.listFiles(modulesFolder, true)) {
+        for (f: File in FileUtils.listFiles(modulesFolder, true)!!) {
             if (f.isDirectory) modules.add(Module(f, Metadata(f, "metadata.json")))
         }
 
