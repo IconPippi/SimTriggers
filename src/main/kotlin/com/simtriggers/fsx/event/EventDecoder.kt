@@ -11,17 +11,17 @@ object EventDecoder {
     /**
      * Decode an event ID into his String name
      * @param eventID event's ID
-     * @return Event String name
+     * @return EventRegisterer String name
      */
     fun decode(eventID: Int): String? {
         var eventName: String? = null
         var count = 0 //Initialize count variable to keep track of each list's member index
 
-        Event.eventCodes.forEach { i ->
+        EventRegisterer.eventCodes.forEach { i ->
             count++ //Update counter
             if (i == eventID) {
                 eventName =
-                    Event.events[count - 1] //Get the event's name by relying on the count pos -1
+                    EventRegisterer.events[count - 1] //Get the event's name by relying on the count pos -1
             } else {
                 return@forEach
             }

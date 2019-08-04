@@ -2,6 +2,8 @@ package com.simtriggers.fsx.event
 
 enum class GROUP {
 
-    NULL
+    NULL,
+
+    GENERIC_TRIGGER
 
 }

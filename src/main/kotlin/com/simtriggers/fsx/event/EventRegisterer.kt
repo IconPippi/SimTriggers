@@ -11,7 +11,7 @@ import flightsim.simconnect.NotificationPriority
  *
  * @author IconPippi
  */
-object Event {
+object EventRegisterer {
 
     @JvmStatic val eventCodes = ArrayList<Int>()
     @JvmStatic var eventCount = 0
@@ -40,7 +40,7 @@ object Event {
     /**
      * Register a new client event
      * @param eventName Name of the new event
-     * @param groupID Event's group
+     * @param groupID EventRegisterer's group
      * @throws IOException
      * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
      */
@@ -73,12 +73,9 @@ object Event {
     }
 
     private fun getGroupID(groupID: GROUP): Int {
-        var id: Int = -1
-
-        when(groupID) {
-            GROUP.NULL -> id = 1
+        return when(groupID) {
+            GROUP.NULL -> 1
+            GROUP.GENERIC_TRIGGER -> 2
         }
-
-        return id
     }
 }

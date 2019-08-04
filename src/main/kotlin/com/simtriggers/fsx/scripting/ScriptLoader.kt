@@ -8,6 +8,9 @@ import java.net.URL
 import java.net.URLClassLoader
 import dev.iconpippi.logger.Logger
 import javax.script.ScriptException
+import javax.script.Invocable
+
+
 
 
 /**
@@ -55,6 +58,24 @@ class ScriptLoader {
                 e.printStackTrace()
             }
         }
+    }
+
+    /**
+     * Execute a function inside JS code
+     * @param method Function's name
+     * @param args Function's arguments
+     */
+    fun invokeFunction(method: String, vararg args: Any) {
+        val invoc = engine as Invocable
+
+        try {
+            invoc.invokeFunction(method, *args)
+        } catch (e: NoSuchMethodException) {
+            Logger.error(e.toString())
+        } catch (e: ScriptException) {
+            Logger.error(e.toString())
+        }
+
     }
 
     /**
