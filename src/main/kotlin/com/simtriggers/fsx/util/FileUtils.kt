@@ -37,8 +37,8 @@ class FileUtils {
         return files
     }
 
-    fun saveResource(resourceName: String?, outputFile: File): String {
-        if (resourceName == null || resourceName == "") {
+    fun saveResource(resourceName: String, outputFile: File): String {
+        if (resourceName == "") {
             throw IllegalArgumentException("ResourcePath cannot be null or empty")
         }
 
