@@ -19,8 +19,10 @@ import javax.script.Invocable
  */
 class ScriptLoader {
 
-    /** Nashorn JavaScript engine */
-    private lateinit var engine: ScriptEngine
+    companion object {
+        /** Nashorn JavaScript engine */
+        private lateinit var engine: ScriptEngine
+    }
 
     private val mm: ModulesManager = ModulesManager()
 
@@ -65,7 +67,7 @@ class ScriptLoader {
      * @param method Function's name
      * @param args Function's arguments
      */
-    fun invokeFunction(method: String, vararg args: Any) {
+    fun invokeFunction(method: String, vararg args: Any?) {
         val invoc = engine as Invocable
 
         try {

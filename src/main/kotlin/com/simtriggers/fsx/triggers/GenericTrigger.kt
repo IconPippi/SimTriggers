@@ -20,9 +20,9 @@ class GenericTrigger(private val function: String, private val eventName: String
     /**
      * Run the trigger
      */
-    override fun trigger(eventName: String) {
+    override fun trigger(eventName: String?) {
         if (eventName == this.eventName)
-            scriptLoader.invokeFunction(function, null as Any)
+            scriptLoader.invokeFunction(function, null)
     }
 
 }

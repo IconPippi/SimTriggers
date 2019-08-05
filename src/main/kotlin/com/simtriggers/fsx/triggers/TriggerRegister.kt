@@ -9,15 +9,28 @@ package com.simtriggers.fsx.triggers
 object TriggerRegister {
 
     /**
-     * Register a new trigger
-     * @eventTrigger The name of the trigger's event
+     * Register a new generic trigger
+     * @eventTrigger Name of the trigger's event
      * @functionName Name of the function
      */
-    @JvmStatic fun register(triggerType: TriggerType, eventTrigger: String, functionName: String) {
-        //Added triggerType in preparation of connectionOpen and connectionClose triggers
-        when (triggerType) {
-            TriggerType.GENERIC -> TriggersManager.genericTriggers.add(GenericTrigger(functionName, eventTrigger))
-        }
+    @JvmStatic fun registerGeneric(eventTrigger: String, functionName: String) {
+        TriggersManager.genericTriggers.add(GenericTrigger(functionName, eventTrigger))
+    }
+
+    /**
+     * Register a new connection open trigger
+     * @functionName Name of the function
+     */
+    @JvmStatic fun registerConnectionOpen(functionName: String) {
+        TriggersManager.connectionOpenTriggers.add(ConnectionOpenTrigger(functionName))
+    }
+
+    /**
+     * Register a new connection close trigger
+     * @functionName Name of the function
+     */
+    @JvmStatic fun registerConnectionClose(functionName: String) {
+        TriggersManager.connectionCloseTriggers.add(ConnectionCloseTrigger(functionName))
     }
 
     /**
@@ -26,8 +39,8 @@ object TriggerRegister {
      */
     @JvmStatic fun unregisterAll() {
         TriggersManager.genericTriggers.clear()
-        //connectionOpen
-        //connectionClose
+        TriggersManager.connectionOpenTriggers.clear()
+        TriggersManager.connectionCloseTriggers.clear()
     }
 
 }

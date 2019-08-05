@@ -20,13 +20,14 @@ object Logger {
     private const val YELLOW = "\u001B[33m"
     private const val BLUE = "\u001B[34m"
     private const val PURPLE = "\u001B[35m"
+    private const val RESET = "\u001B[0m"
 
     /**
      * Print a white log message into the console
      * FORMAT: [$time / LOG] $message
      */
     @JvmStatic fun log(msg: String) {
-        System.out.println("[$time / LOG] $msg")
+        System.out.println("[$time / LOG] $msg$RESET")
     }
 
     /**
@@ -34,7 +35,7 @@ object Logger {
      * FORMAT: [$time / ERROR] $message
      */
     @JvmStatic fun error(msg: String) {
-        System.out.println("$RED[$time / ERROR] $msg")
+        System.out.println("$RED[$time / ERROR] $msg$RESET")
     }
 
     /**
@@ -42,7 +43,7 @@ object Logger {
      * FORMAT: [$time / WARNING] $message
      */
     @JvmStatic fun warning(msg: String) {
-        System.out.println("$YELLOW[$time / WARNING] $msg")
+        System.out.println("$YELLOW[$time / WARNING] $msg$RESET")
     }
 
     /**
@@ -50,7 +51,7 @@ object Logger {
      * FORMAT: [$time / MAJOR] $message
      */
     @JvmStatic fun major(msg: String) {
-        System.out.println("$BLUE[$time / MAJOR] $msg")
+        System.out.println("$BLUE[$time / MAJOR] $msg$RESET")
     }
 
     /**
@@ -58,7 +59,7 @@ object Logger {
      * FORMAT: [$time / DEBUG] $message
      */
     @JvmStatic fun debug(msg: String) {
-        System.out.println("$PURPLE[$time / DEBUG] $msg")
+        System.out.println("$PURPLE[$time / DEBUG] $msg$RESET")
     }
 
 }

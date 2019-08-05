@@ -8,8 +8,9 @@ package com.simtriggers.fsx.triggers
  */
 enum class TriggerType {
 
-    GENERIC
+    GENERIC,
 
-    //TODO: ConnectionOpen & ConnectionClose triggers
+    CONNECTION_OPEN,
+    CONNECTION_CLOSE;
 
 }

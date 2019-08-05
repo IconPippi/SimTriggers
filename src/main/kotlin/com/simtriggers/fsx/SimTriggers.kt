@@ -1,5 +1,7 @@
 package com.simtriggers.fsx
 
+import com.simtriggers.fsx.triggers.TriggerType
+import com.simtriggers.fsx.triggers.TriggersManager
 import dev.iconpippi.logger.Logger
 import flightsim.simconnect.SimConnect
 import flightsim.simconnect.config.Configuration
@@ -21,6 +23,9 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
      */
     lateinit var sc: SimConnect
     private val dt: DispatcherTask
+
+    /** Triggers manager */
+    private val tm: TriggersManager = TriggersManager()
 
     /**
      * SimTriggers folder
@@ -98,6 +103,8 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
     }
 
     override fun handleQuit(sc: SimConnect?, quit: RecvQuit?) {
+        tm.triggerAll(TriggerType.CONNECTION_CLOSE, null)
+
         Logger.major("Connection terminated")
     }
 
@@ -110,6 +117,8 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
     }
 
     override fun handleOpen(sc: SimConnect?, open: RecvOpen?) {
+        tm.triggerAll(TriggerType.CONNECTION_OPEN, null)
+
         Logger.major("Connected to " +
                 open!!.applicationName +
                 " version " +

@@ -12,6 +12,8 @@ import java.io.File
  */
 class ModulesManager {
 
+    private val fileUtils: FileUtils = FileUtils()
+
     /** Modules Foldrr */
     val modulesFolder: File = File("${SimTriggers.simTriggersFolder.absolutePath}/modules")
 
@@ -31,7 +33,7 @@ class ModulesManager {
     fun getModules(): List<Module> {
         val modules = ArrayList<Module>()
 
-        for (f: File in FileUtils.listFiles(modulesFolder, true)!!) {
+        for (f: File in fileUtils.listFiles(modulesFolder, true)!!) {
             if (f.isDirectory) modules.add(Module(f, Metadata(f, "metadata.json")))
         }
 

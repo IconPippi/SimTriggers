@@ -12,10 +12,10 @@ import flightsim.simconnect.SimConnect
  * @author IconPippi
  */
 
-private lateinit var simConnect: SimConnect
+private lateinit var sc: SimConnect
 private lateinit var st: SimTriggers
 
-private val sc: ScriptLoader = ScriptLoader()
+private val sl: ScriptLoader = ScriptLoader()
 private val mm: ModulesManager = ModulesManager()
 
 fun main() {
@@ -25,12 +25,12 @@ fun main() {
     Logger.log("Loading modules...")
     mm.initModules()
     Logger.log("Loading scripts...")
-    sc.load()
+    sl.load()
 
     //Establish connection
     try {
         st = SimTriggers
-        simConnect = st.sc
+        sc = st.sc
     } catch (e: Exception) {
         Logger.error("Could not connect to the simulator: ")
         e.printStackTrace()
