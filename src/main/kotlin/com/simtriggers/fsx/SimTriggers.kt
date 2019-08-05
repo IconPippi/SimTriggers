@@ -1,5 +1,9 @@
 package com.simtriggers.fsx
 
+import com.simtriggers.fsx.event.EventHandler
+import com.simtriggers.fsx.event.GROUP
+import com.simtriggers.fsx.module.ModulesManager
+import com.simtriggers.fsx.scripting.ScriptLoader
 import com.simtriggers.fsx.triggers.TriggerType
 import com.simtriggers.fsx.triggers.TriggersManager
 import dev.iconpippi.logger.Logger
@@ -16,21 +20,27 @@ import java.io.IOException
  *
  * @author IconPippi
  */
-object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, SimObjectDataTypeHandler {
+class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler, SimObjectDataTypeHandler {
 
-    /**
-     * SimConnect constants
-     */
-    lateinit var sc: SimConnect
+    companion object {
+        /** Simconnect constant */
+        lateinit var sc: SimConnect
+
+        /** SimTriggers folder */
+        val simTriggersFolder: File = File("SimTriggers")
+    }
+
+    /** SimConnect dispatcher task */
     private val dt: DispatcherTask
 
     /** Triggers manager */
     private val tm: TriggersManager = TriggersManager()
 
     /**
-     * SimTriggers folder
+     * Modules constants
      */
-    @JvmStatic val simTriggersFolder: File = File("SimTriggers")
+    private val sl: ScriptLoader = ScriptLoader()
+    private val mm: ModulesManager = ModulesManager()
 
     /**
      * Open a new connection
@@ -43,12 +53,20 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
         initConnection()
         Logger.log("Connection established")
 
+        sc.subscribeToSystemEvent(GROUP.SIM_START, "SimStart")
+
         dt = DispatcherTask(sc)
         dt.addOpenHandler(this)
         dt.addQuitHandler(this)
         dt.addExceptionHandler(this)
-        dt.addEventHandler(this)
+        dt.addEventHandler(EventHandler())
         dt.addSimObjectDataTypeHandler(this)
+
+        //Load scripts
+        Logger.log("Loading modules...")
+        mm.initModules()
+        Logger.log("Loading scripts...")
+        sl.load()
     }
 
     @Throws(IOException::class)
@@ -59,7 +77,7 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
         //
         // get a configuration block if user provided a simconnect.cfg
         //
-        var cfg: Configuration? = try {
+        val cfg: Configuration? = try {
             ConfigurationManager.getConfiguration(0)
         } catch (cfgEx: Exception) {
             Configuration()
@@ -110,10 +128,6 @@ object SimTriggers : OpenHandler, EventHandler, ExceptionHandler, QuitHandler, S
 
     override fun handleException(sc: SimConnect?, exception: RecvException?) {
         Logger.error(""+exception!!.exception.message+" "+exception.rawID+" "+exception.index+" "+exception.sendID)
-    }
-
-    override fun handleEvent(sc: SimConnect?, event: RecvEvent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun handleOpen(sc: SimConnect?, open: RecvOpen?) {

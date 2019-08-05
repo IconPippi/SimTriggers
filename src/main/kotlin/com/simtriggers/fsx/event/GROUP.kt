@@ -10,6 +10,8 @@ enum class GROUP {
 
     NULL,
 
-    GENERIC_TRIGGER
+    SIM_START,
+
+    GENERIC_TRIGGER;
 
 }

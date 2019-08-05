@@ -6,7 +6,7 @@ SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaSc
 ### Install this add-on
 A proper installer is on the TODO list :)
 
-### Istall a module
+### Install a module
 Drag the module's files into the conveniently provided modules folder (can be found in the same folder the .jar file is stored)
 
 ### Make a module

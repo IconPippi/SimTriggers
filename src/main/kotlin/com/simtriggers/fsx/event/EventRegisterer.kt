@@ -76,6 +76,7 @@ class EventRegisterer {
 
     private fun getGroupID(groupID: GROUP): Int {
         return when(groupID) {
+            GROUP.SIM_START -> 0
             GROUP.NULL -> 1
             GROUP.GENERIC_TRIGGER -> 2
         }

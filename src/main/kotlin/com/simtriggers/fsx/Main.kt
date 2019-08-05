@@ -15,22 +15,13 @@ import flightsim.simconnect.SimConnect
 private lateinit var sc: SimConnect
 private lateinit var st: SimTriggers
 
-private val sl: ScriptLoader = ScriptLoader()
-private val mm: ModulesManager = ModulesManager()
-
 fun main() {
     Logger.log("Initializing application...")
 
-    //Load scripts
-    Logger.log("Loading modules...")
-    mm.initModules()
-    Logger.log("Loading scripts...")
-    sl.load()
-
     //Establish connection
     try {
-        st = SimTriggers
-        sc = st.sc
+        st = SimTriggers()
+        sc = SimTriggers.sc
     } catch (e: Exception) {
         Logger.error("Could not connect to the simulator: ")
         e.printStackTrace()
