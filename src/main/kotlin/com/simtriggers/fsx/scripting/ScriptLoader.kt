@@ -11,8 +11,6 @@ import javax.script.ScriptException
 import javax.script.Invocable
 
 
-
-
 /**
  * 02/08/2019
  * This class loads and evaluates all modules scripts
@@ -24,12 +22,14 @@ class ScriptLoader {
     /** Nashorn JavaScript engine */
     private lateinit var engine: ScriptEngine
 
+    private val mm: ModulesManager = ModulesManager()
+
     /**
      * Load all modules inside modules' folder
      */
     fun load() {
         /** @author ChatTriggers development team (https://github.com/ChatTriggers) */
-        val jars = ModulesManager.getModules().map {
+        val jars = mm.getModules().map {
             it.location.listFiles()?.toList() ?: listOf()
         }.flatten().filter {
             it.name.endsWith(".jar")
@@ -50,7 +50,7 @@ class ScriptLoader {
         }
          */
 
-        for (m: Module in ModulesManager.getModules()) {
+        for (m: Module in mm.getModules()) {
             try {
                 engine.eval(compileScripts(m))
             } catch(e: ScriptException) {

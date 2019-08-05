@@ -16,13 +16,14 @@ private lateinit var simConnect: SimConnect
 private lateinit var st: SimTriggers
 
 private val sc: ScriptLoader = ScriptLoader()
+private val mm: ModulesManager = ModulesManager()
 
 fun main() {
     Logger.log("Initializing application...")
 
     //Load scripts
     Logger.log("Loading modules...")
-    ModulesManager.initModules()
+    mm.initModules()
     Logger.log("Loading scripts...")
     sc.load()
 

@@ -10,7 +10,7 @@ import java.util.ArrayList
  *
  * @author IconPippi
  */
-object FileUtils {
+class FileUtils {
 
     /**
      * List all the files inside a directory
@@ -19,7 +19,7 @@ object FileUtils {
      * @return Listed files
      */
     @Throws(Exception::class)
-    @JvmStatic fun listFiles(target: File, folders: Boolean): List<File>? {
+    fun listFiles(target: File, folders: Boolean): List<File>? {
         //If the target is not a folder, throw an exception
         if (!target.isDirectory) throw Exception()
 

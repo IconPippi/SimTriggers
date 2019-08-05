@@ -10,7 +10,7 @@ import java.io.File
  *
  * @author IconPippi
  */
-object ModulesManager {
+class ModulesManager {
 
     /** Modules Foldrr */
     val modulesFolder: File = File("${SimTriggers.simTriggersFolder.absolutePath}/modules")
@@ -18,7 +18,7 @@ object ModulesManager {
     /**
      * Create or load modules folder and export simTriggersDevKit.js
      */
-    @JvmStatic fun initModules() {
+    fun initModules() {
         if (!modulesFolder.exists()) modulesFolder.mkdirs()
 
         //TODO: Export simTriggersDevKit.js
@@ -28,7 +28,7 @@ object ModulesManager {
      * List all modules
      * @return Modules
      */
-    @JvmStatic fun getModules(): List<Module> {
+    fun getModules(): List<Module> {
         val modules = ArrayList<Module>()
 
         for (f: File in FileUtils.listFiles(modulesFolder, true)!!) {

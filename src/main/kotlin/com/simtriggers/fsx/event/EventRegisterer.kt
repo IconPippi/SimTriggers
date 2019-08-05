@@ -11,11 +11,13 @@ import flightsim.simconnect.NotificationPriority
  *
  * @author IconPippi
  */
-object EventRegisterer {
+class EventRegisterer {
 
-    @JvmStatic val eventCodes = ArrayList<Int>()
-    @JvmStatic var eventCount = 0
-    @JvmStatic val events = ArrayList<String>()
+    companion object {
+        val eventCodes = ArrayList<Int>()
+        var eventCount = 0
+        val events = ArrayList<String>()
+    }
 
     /** SimConnect constant */
     private val sc: SimConnect = SimTriggers.sc

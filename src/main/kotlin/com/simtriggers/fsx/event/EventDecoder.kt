@@ -6,7 +6,7 @@ package com.simtriggers.fsx.event
  *
  * @author IconPippi
  */
-object EventDecoder {
+class EventDecoder {
 
     /**
      * Decode an event ID into his String name
