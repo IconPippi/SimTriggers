@@ -15,10 +15,13 @@ class TriggersManager {
         val genericTriggers = ArrayList<GenericTrigger>()
         val connectionOpenTriggers = ArrayList<ConnectionOpenTrigger>()
         val connectionCloseTriggers = ArrayList<ConnectionCloseTrigger>()
+        val keyTriggers = ArrayList<KeyTrigger>()
     }
 
     /**
      * Trigger all triggers of a specified type
+     * @param triggerType Type of the triggers
+     * @param eventName Name of the received event
      */
     fun triggerAll(triggerType: TriggerType, eventName: String?) {
         when(triggerType) {
@@ -30,6 +33,9 @@ class TriggersManager {
             }
             TriggerType.CONNECTION_CLOSE -> connectionCloseTriggers.forEach {
                 it.trigger(null)
+            }
+            TriggerType.KEY -> keyTriggers.forEach {
+                it.trigger(eventName)
             }
         }
     }

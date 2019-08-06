@@ -37,6 +37,11 @@ class FileUtils {
         return files
     }
 
+    /**
+     * Export a resource from inside to outside the .jar
+     * @param resourceName Name of the resource
+     * @param outputFile Export location
+     */
     fun saveResource(resourceName: String, outputFile: File): String {
         if (resourceName == "") {
             throw IllegalArgumentException("ResourcePath cannot be null or empty")

@@ -17,7 +17,10 @@ abstract class Trigger(private val function: String, private val eventName: Stri
     /** Script loader */
     protected val scriptLoader: ScriptLoader = ScriptLoader()
 
-    /** Run the trigger */
+    /**
+     * Run the trigger
+     * @param eventName Trigger's event
+     */
     abstract fun trigger(eventName: String?)
 
 }

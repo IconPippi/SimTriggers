@@ -67,7 +67,7 @@ class ScriptLoader {
      * @param method Function's name
      * @param args Function's arguments
      */
-    fun invokeFunction(method: String, vararg args: Any?) {
+    fun invokeFunction(method: String?, vararg args: Any?) {
         val invoc = engine as Invocable
 
         try {
@@ -82,6 +82,7 @@ class ScriptLoader {
 
     /**
      * Compile all script files for a module into one single string for evaluation
+     * @param m Target module
      */
     @Throws(Exception::class)
     private fun compileScripts(m: Module): String {

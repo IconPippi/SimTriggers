@@ -11,6 +11,7 @@ enum class TriggerType {
     GENERIC,
 
     CONNECTION_OPEN,
-    CONNECTION_CLOSE;
+    CONNECTION_CLOSE,
 
+    KEY;
 }

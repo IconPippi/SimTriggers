@@ -10,8 +10,8 @@ object TriggerRegister {
 
     /**
      * Register a new generic trigger
-     * @eventTrigger Name of the trigger's event
-     * @functionName Name of the function
+     * @param eventTrigger Name of the trigger's event
+     * @param functionName Name of the function
      */
     @JvmStatic fun registerGeneric(eventTrigger: String, functionName: String) {
         TriggersManager.genericTriggers.add(GenericTrigger(functionName, eventTrigger))
@@ -19,7 +19,7 @@ object TriggerRegister {
 
     /**
      * Register a new connection open trigger
-     * @functionName Name of the function
+     * @param functionName Name of the function
      */
     @JvmStatic fun registerConnectionOpen(functionName: String) {
         TriggersManager.connectionOpenTriggers.add(ConnectionOpenTrigger(functionName))
@@ -27,10 +27,19 @@ object TriggerRegister {
 
     /**
      * Register a new connection close trigger
-     * @functionName Name of the function
+     * @param functionName Name of the function
      */
     @JvmStatic fun registerConnectionClose(functionName: String) {
         TriggersManager.connectionCloseTriggers.add(ConnectionCloseTrigger(functionName))
+    }
+
+    /**
+     * Register a new keybind
+     * @param key Keybind key
+     * @param functionName Function name
+     */
+    @JvmStatic fun registerKey(key: String, functionName: String) {
+        TriggersManager.keyTriggers.add(KeyTrigger(functionName, key))
     }
 
     /**
@@ -41,6 +50,7 @@ object TriggerRegister {
         TriggersManager.genericTriggers.clear()
         TriggersManager.connectionOpenTriggers.clear()
         TriggersManager.connectionCloseTriggers.clear()
+        TriggersManager.keyTriggers.clear()
     }
 
 }

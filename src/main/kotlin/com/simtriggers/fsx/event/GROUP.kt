@@ -12,6 +12,12 @@ enum class GROUP {
 
     SIM_START,
 
+    KEYBIND,
+
+    MENU,
+
+    TEXTLINE,
+
     GENERIC_TRIGGER;
 
 }

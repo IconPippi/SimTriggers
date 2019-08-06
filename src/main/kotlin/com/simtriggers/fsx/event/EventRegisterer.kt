@@ -13,6 +13,9 @@ import flightsim.simconnect.NotificationPriority
  */
 class EventRegisterer {
 
+    /**
+     * Event storage
+     */
     companion object {
         val eventCodes = ArrayList<Int>()
         var eventCount = 0
@@ -59,6 +62,23 @@ class EventRegisterer {
     }
 
     /**
+     * Register a new menu
+     * @param menuHandler Menu's handler function
+     * @return Menu's event id
+     */
+    fun registerMenuEvent(menuHandler: String): Int {
+        return encodeEvent(menuHandler, GROUP.MENU)
+    }
+
+    /**
+     * Register a new text line
+     * @return Text line ID
+     */
+    fun regiserTextLineEvent(): Int {
+        return encodeEvent("textLine", GROUP.TEXTLINE)
+    }
+
+    /**
      * Encode event names into Integers because SimConnect event subscribing system sucks
      * @return Encoded event ID
      */
@@ -79,6 +99,9 @@ class EventRegisterer {
             GROUP.SIM_START -> 0
             GROUP.NULL -> 1
             GROUP.GENERIC_TRIGGER -> 2
+            GROUP.KEYBIND -> 3
+            GROUP.MENU -> 4
+            GROUP.TEXTLINE -> 5
         }
     }
 }
