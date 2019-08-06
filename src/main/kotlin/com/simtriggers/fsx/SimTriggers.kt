@@ -1,5 +1,6 @@
 package com.simtriggers.fsx
 
+import com.simtriggers.fsx.data.DataHandler
 import com.simtriggers.fsx.event.EventHandler
 import com.simtriggers.fsx.event.GROUP
 import com.simtriggers.fsx.module.ModulesManager
@@ -20,7 +21,7 @@ import java.io.IOException
  *
  * @author IconPippi
  */
-class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler, SimObjectDataTypeHandler {
+class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
 
     companion object {
         /** Simconnect constant */
@@ -60,7 +61,7 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler, SimObjectDataTyp
         dt.addQuitHandler(this)
         dt.addExceptionHandler(this)
         dt.addEventHandler(EventHandler())
-        dt.addSimObjectDataTypeHandler(this)
+        dt.addSimObjectDataTypeHandler(DataHandler())
 
         //Load scripts
         Logger.log("Loading modules...")
@@ -114,10 +115,6 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler, SimObjectDataTyp
      */
     fun run() {
         dt.run()
-    }
-
-    override fun handleSimObjectType(sc: SimConnect?, dataType: RecvSimObjectDataByType?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun handleQuit(sc: SimConnect?, quit: RecvQuit?) {

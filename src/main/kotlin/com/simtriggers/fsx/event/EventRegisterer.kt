@@ -7,7 +7,7 @@ import flightsim.simconnect.NotificationPriority
 
 /**
  * 03/08/2019
- * This object provides functions for event registering purposes
+ * This class provides functions for event registering purposes
  *
  * @author IconPippi
  */
