@@ -4,9 +4,11 @@ import javax.script.ScriptEngine
 import com.simtriggers.fsx.module.Module
 import com.simtriggers.fsx.module.ModulesManager
 import com.simtriggers.fsx.SimTriggers
+import com.simtriggers.fsx.util.FileUtils
 import java.net.URL
 import java.net.URLClassLoader
 import dev.iconpippi.logger.Logger
+import java.io.File
 import javax.script.ScriptException
 import javax.script.Invocable
 
@@ -26,6 +28,8 @@ class ScriptLoader {
 
     private val mm: ModulesManager = ModulesManager()
 
+    private val fileUtils: FileUtils = FileUtils()
+
     /**
      * Load all modules inside modules' folder
      */
@@ -41,8 +45,9 @@ class ScriptLoader {
 
         engine = instanceScriptEngine(jars)
 
-        /* Doesn't find the resource and throws IllegalArgument
-        val simTriggersDevKit = FileUtils.saveResource("/simTriggersDevKit.js", ModulesManager.modulesFolder)
+        val simTriggersDevKit = fileUtils.saveResource(
+            "/simTriggersDevKit.js", File("${mm.modulesFolder}/simTriggersDevKit.js")
+        )
 
         try {
             engine.eval(simTriggersDevKit)
@@ -50,7 +55,6 @@ class ScriptLoader {
             Logger.error("An unexpected error occurred while loading simTriggersDevKit.js file.")
             e.printStackTrace()
         }
-         */
 
         for (m: Module in mm.getModules()) {
             try {

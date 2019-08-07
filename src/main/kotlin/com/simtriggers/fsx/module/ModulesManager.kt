@@ -21,6 +21,7 @@ class ModulesManager {
      * Create or load modules folder and export simTriggersDevKit.js
      */
     fun initModules() {
+        modulesFolder.setWritable(true)
         if (!modulesFolder.exists()) modulesFolder.mkdirs()
 
         //TODO: Export simTriggersDevKit.js

@@ -1,7 +1,5 @@
 package com.simtriggers.fsx
 
-import com.simtriggers.fsx.module.ModulesManager
-import com.simtriggers.fsx.scripting.ScriptLoader
 import dev.iconpippi.logger.Logger
 import flightsim.simconnect.SimConnect
 

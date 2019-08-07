@@ -52,6 +52,8 @@ class FileUtils {
             ?: throw IllegalArgumentException("The embedded resource '$parsedResourceName' cannot be found.")
 
         val res = resource.bufferedReader().readText()
+        outputFile.setWritable(true)
+        outputFile.setReadable(true)
         outputFile.writeText(res)
         return res
     }
