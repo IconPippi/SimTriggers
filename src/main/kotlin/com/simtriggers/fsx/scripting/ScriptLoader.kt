@@ -55,8 +55,8 @@ class ScriptLoader {
         for (m: Module in mm.getModules()) {
             try {
                 engine.eval(compileScripts(m))
-            } catch(e: ScriptException) {
-                Logger.error("Error on loading module ${m.metadata.moduleName}")
+            } catch(e: Exception) {
+                Logger.error("Error on loading module: ${m.metadata.moduleName}")
                 e.printStackTrace()
             }
         }
