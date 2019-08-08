@@ -1,7 +1,7 @@
 package com.simtriggers.fsx.simulator
 
 import com.simtriggers.fsx.SimTriggers
-import com.simtriggers.fsx.event.EventRegisterer
+import com.simtriggers.fsx.event.RegisterEvent
 import flightsim.simconnect.SimConnect
 import java.util.ArrayList
 
@@ -17,7 +17,7 @@ class Menu(private val menuHandler: String) {
     private val sc: SimConnect = SimTriggers.sc
 
     /** Event registerer */
-    private val eventRegisterer: EventRegisterer = EventRegisterer()
+    private val eventRegisterer: RegisterEvent = RegisterEvent()
 
     /** Menu identifier */
     private val menuID: Int

@@ -11,7 +11,7 @@ import flightsim.simconnect.NotificationPriority
  *
  * @author IconPippi
  */
-class EventRegisterer {
+class RegisterEvent {
 
     /**
      * Event storage
@@ -45,7 +45,7 @@ class EventRegisterer {
     /**
      * Register a new client event
      * @param eventName Name of the new event
-     * @param groupID EventRegisterer's group
+     * @param groupID RegisterEvent's group
      * @throws IOException
      * @see {@link flightsim.simconnect.SimConnect#mapInputEventToClientEvent(Enum, String, Enum)}
      */

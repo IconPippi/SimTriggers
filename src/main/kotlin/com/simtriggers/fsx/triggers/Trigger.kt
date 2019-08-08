@@ -1,6 +1,6 @@
 package com.simtriggers.fsx.triggers
 
-import com.simtriggers.fsx.event.EventRegisterer
+import com.simtriggers.fsx.event.RegisterEvent
 import com.simtriggers.fsx.scripting.ScriptLoader
 
 /**
@@ -12,7 +12,7 @@ import com.simtriggers.fsx.scripting.ScriptLoader
 abstract class Trigger(private val function: String, private val eventName: String?) {
 
     /** Event registerer */
-    protected val eventRegister: EventRegisterer = EventRegisterer()
+    protected val eventRegister: RegisterEvent = RegisterEvent()
 
     /** Script loader */
     protected val scriptLoader: ScriptLoader = ScriptLoader()

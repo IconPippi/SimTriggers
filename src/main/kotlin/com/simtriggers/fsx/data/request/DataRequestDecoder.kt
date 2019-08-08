@@ -17,10 +17,10 @@ class DataRequestDecoder {
         var toReturn: String? = null
         var count = 0
 
-        for (i in DataRequest.dataDefinitionIDs) {
+        for (i in RequestData.dataDefinitionIDs) {
             count++
             if (i == dataDefinitionID) {
-                toReturn = DataRequest.dataDefinitions[count - 1]
+                toReturn = RequestData.dataDefinitions[count - 1]
                 break
             } else {
                 continue
@@ -38,10 +38,10 @@ class DataRequestDecoder {
         var toReturn: String? = null
         var count = 0
 
-        for (i in DataRequest.requestIDs) {
+        for (i in RequestData.requestIDs) {
             count++
             if (i == requestID) {
-                toReturn = DataRequest.requests[count - 1]
+                toReturn = RequestData.requests[count - 1]
                 break
             } else {
                 continue

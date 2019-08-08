@@ -1,7 +1,7 @@
 package com.simtriggers.fsx.simulator
 
 import com.simtriggers.fsx.SimTriggers
-import com.simtriggers.fsx.event.EventRegisterer
+import com.simtriggers.fsx.event.RegisterEvent
 import flightsim.simconnect.SimConnect
 import flightsim.simconnect.TextType
 
@@ -17,7 +17,7 @@ class TextLine {
     private val sc: SimConnect = SimTriggers.sc
 
     /** Event registerer constant */
-    private val eventRegisterer: EventRegisterer = EventRegisterer()
+    private val eventRegisterer: RegisterEvent = RegisterEvent()
 
     /** Text line identifier */
     private val textLineID: Int

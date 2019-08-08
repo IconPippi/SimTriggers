@@ -12,7 +12,7 @@ class Metadata (parent: File, child: String) : File(parent, child) {
 
     val moduleName: String? = null
     val version: String? = null
-    val author: Array<String>? = null
+    val authors: Array<String>? = null
     val description: String? = null
 
 }

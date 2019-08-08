@@ -1,6 +1,6 @@
 package com.simtriggers.fsx.simulator.objects
 
-import com.simtriggers.fsx.data.request.DataRequest
+import com.simtriggers.fsx.data.request.RequestData
 import flightsim.simconnect.SimConnectDataType
 
 /**
@@ -11,60 +11,60 @@ import flightsim.simconnect.SimConnectDataType
  */
 object Aircraft {
 
-    /** Data request constant */
-    private val request: DataRequest = DataRequest()
+    /** Data requestData constant */
+    private val requestData: RequestData = RequestData()
 
     /**
-     * Open a new altitude request
+     * Open a new altitude requestData
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAltitude(callbackFunction: String) {
-        request.requestData("Plane Altitude", "feet", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Altitude", "feet", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft latitude
+     * Open a requestData for the aircraft latitude
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestLatitude(callbackFunction: String) {
-        request.requestData("Plane Latitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Latitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft longitude
+     * Open a requestData for the aircraft longitude
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestLongitude(callbackFunction: String) {
-        request.requestData("Plane Longitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Longitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft heading
+     * Open a requestData for the aircraft heading
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestHeading(callbackFunction: String) {
-        request.requestData("Plane Heading Degrees True", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Heading Degrees True", "radians", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft pitch angle
+     * Open a requestData for the aircraft pitch angle
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestPitch(callbackFunction: String) {
-        request.requestData("Plane Pitch Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Pitch Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft bank angle
+     * Open a requestData for the aircraft bank angle
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestBank(callbackFunction: String) {
-        request.requestData("Plane Bank Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Bank Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the surface type the aircraft is flying over
-     * NOTE: The units for this variable is listed as "enum". That means opening a integer request is going to return a bunch of numbers which will indicate different surface types.
+     * Open a requestData for the surface type the aircraft is flying over
+     * NOTE: The units for this variable is listed as "enum". That means opening a integer requestData is going to return a bunch of numbers which will indicate different surface types.
      * Here's a list of them:
      *
      * - 0 = Concrete
@@ -96,39 +96,39 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestSurfaceType(callbackFunction: String) {
-        request.requestData("Surface Type", "enum", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Surface Type", "enum", callbackFunction, SimConnectDataType.INT32)
     }
 
     /**
-     * Open a request for the aircraft airspeed
+     * Open a requestData for the aircraft airspeed
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAirspeed(callbackFunction: String) {
-        request.requestData("Airspeed True", "knots", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Airspeed True", "knots", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Open a request for the aircraft mach airspeed
+     * Open a requestData for the aircraft mach airspeed
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAirspeedMach(callbackFunction: String) {
-        request.requestData("Airspeed Mach", "mach", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Airspeed Mach", "mach", callbackFunction, SimConnectDataType.FLOAT64)
     }
 
     /**
-     * Opens a request for the aircraft overspeed warning status
+     * Opens a requestData for the aircraft overspeed warning status
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestOverspeedWarningStatus(callbackFunction: String) {
-        request.requestData("Overspeed Warning", "bool", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Overspeed Warning", "bool", callbackFunction, SimConnectDataType.INT32)
     }
 
     /**
-     * Open a request for the aircraft stall warning status
+     * Open a requestData for the aircraft stall warning status
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestStallWarningStatus(callbackFunction: String) {
-        request.requestData("Stall Warning", "bool", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Stall Warning", "bool", callbackFunction, SimConnectDataType.INT32)
     }
 
 }

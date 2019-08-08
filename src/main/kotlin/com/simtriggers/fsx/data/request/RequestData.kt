@@ -11,7 +11,7 @@ import flightsim.simconnect.SimConnectDataType
  *
  * @author IconPippi
  */
-class DataRequest {
+class RequestData {
 
     /** SimConenct constant */
     private val sc: SimConnect = SimTriggers.sc
