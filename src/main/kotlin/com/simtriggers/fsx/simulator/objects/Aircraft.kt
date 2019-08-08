@@ -1,6 +1,7 @@
 package com.simtriggers.fsx.simulator.objects
 
 import com.simtriggers.fsx.data.request.RequestData
+import com.simtriggers.fsx.data.set.SetVariable
 import flightsim.simconnect.SimConnectDataType
 
 /**
@@ -14,12 +15,15 @@ object Aircraft {
     /** Data requestData constant */
     private val requestData: RequestData = RequestData()
 
+    /** SetVatiable constant */
+    private val setVariable: SetVariable = SetVariable(0, 8)
+
     /**
      * Open a new altitude requestData
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAltitude(callbackFunction: String) {
-        requestData.requestData("Plane Altitude", "feet", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Altitude", "feet", callbackFunction, "double")
     }
 
     /**
@@ -27,7 +31,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestLatitude(callbackFunction: String) {
-        requestData.requestData("Plane Latitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Latitude", "radians", callbackFunction, "double")
     }
 
     /**
@@ -35,7 +39,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestLongitude(callbackFunction: String) {
-        requestData.requestData("Plane Longitude", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Longitude", "radians", callbackFunction, "double")
     }
 
     /**
@@ -43,7 +47,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestHeading(callbackFunction: String) {
-        requestData.requestData("Plane Heading Degrees True", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Heading Degrees True", "radians", callbackFunction, "double")
     }
 
     /**
@@ -51,7 +55,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestPitch(callbackFunction: String) {
-        requestData.requestData("Plane Pitch Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Pitch Degrees", "radians", callbackFunction, "double")
     }
 
     /**
@@ -59,7 +63,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestBank(callbackFunction: String) {
-        requestData.requestData("Plane Bank Degrees", "radians", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Plane Bank Degrees", "radians", callbackFunction, "double")
     }
 
     /**
@@ -96,7 +100,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestSurfaceType(callbackFunction: String) {
-        requestData.requestData("Surface Type", "enum", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Surface Type", "enum", callbackFunction, "int")
     }
 
     /**
@@ -104,7 +108,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAirspeed(callbackFunction: String) {
-        requestData.requestData("Airspeed True", "knots", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Airspeed True", "knots", callbackFunction, "double")
     }
 
     /**
@@ -112,7 +116,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestAirspeedMach(callbackFunction: String) {
-        requestData.requestData("Airspeed Mach", "mach", callbackFunction, SimConnectDataType.FLOAT64)
+        requestData.requestData("Airspeed Mach", "mach", callbackFunction, "double")
     }
 
     /**
@@ -120,7 +124,7 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestOverspeedWarningStatus(callbackFunction: String) {
-        requestData.requestData("Overspeed Warning", "bool", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Overspeed Warning", "bool", callbackFunction, "int")
     }
 
     /**
@@ -128,7 +132,46 @@ object Aircraft {
      * @param callbackFunction Function where the data will be delivered
      */
     @JvmStatic fun requestStallWarningStatus(callbackFunction: String) {
-        requestData.requestData("Stall Warning", "bool", callbackFunction, SimConnectDataType.INT32)
+        requestData.requestData("Stall Warning", "bool", callbackFunction, "int")
     }
 
+    /**
+     * Set the plane altitude
+     * @param altitude New value for "Plane Altitude" variable
+     */
+    @JvmStatic fun setAltitude(altitude: Int) {
+        setVariable.set("Plane Altitude", altitude, "feet")
+    }
+
+    /**
+     * Set the plane altitude
+     * @param latitude New value for "Plane Latitude" variable
+     */
+    @JvmStatic fun setLatidtude(latitude: Double) {
+        setVariable.set("Plane Latitude", latitude, "radians")
+    }
+
+    /**
+     * Set the plane altitude
+     * @param longitude New value for "Plane Longitude" variable
+     */
+    @JvmStatic fun setLongitude(longitude: Double) {
+        setVariable.set("Plane Longitude", longitude, "radians")
+    }
+
+    /**
+     * Set the plane altitude
+     * @param bank New value for "Plane Bank Degrees" variable
+     */
+    @JvmStatic fun setBank(bank: Float) {
+        setVariable.set("Plane Bank Degrees", bank, "radians")
+    }
+
+    /**
+     * Set the plane altitude
+     * @param pitch New value for "Plane Pitch Degrees" variable
+     */
+    @JvmStatic fun setPitch(pitch: Float) {
+        setVariable.set("Plane Pitch Degrees", pitch, "radians")
+    }
 }

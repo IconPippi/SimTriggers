@@ -9,6 +9,9 @@ import java.io.FileReader
  * 01/08/2019
  * This class represents a Module
  *
+ * @param location Module's directory
+ * @param metadata Module's metadata
+ *
  * @author IconPippi
  */
 class Module(val location: File, var metadata: Metadata) {

@@ -99,6 +99,21 @@ function toggleMenu() {
 }
 ```
 
+### Text lines
+Text lines are another feature of FSX, they are those green lines with colored text placed in the top part of your screen.
+```js
+TriggerRegister.registerKey("Shift+U", "textLine");
+
+var speedBroadcast = new TextLine();
+speedBroadcast.setTimeout(5.0)
+speedBroadcast.setTextColor(TextType.PRINT_RED)
+speedBroadcast.setText("Hello world!")
+
+function textLine() {
+    speedBroadcast.show()
+}
+```
+
 ### Data requests
 The data request process consists in two simple steps: creating the request and handling the response; here's an example:
 ```js
@@ -112,6 +127,16 @@ function requestSpeed() {
 /* Create the callback function specifying an argument where the data will be passed */
 function speed(data) {
     print("Airspeed: "+data);
+}
+```
+
+### Variable setting
+Setting variables is very similar to requesting data, the difference is you don't need a callback function
+```js
+TriggerRegister.registerKey("Shift+L", "key");
+
+function key() {
+    Aircraft.setBank(2.4324325)
 }
 ```
 

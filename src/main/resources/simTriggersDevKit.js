@@ -18,3 +18,7 @@ var TextLine = Java.type("com.simtriggers.fsx.simulator.TextLine");
 
 /* Simulator Objects */
 var Aircraft = Java.type("com.simtriggers.fsx.simulator.objects.Aircraft");
+
+/* Wrappers */
+var RequestData = Java.type("com.simtriggers.fsx.data.request.RequestData");
+var SetVariable = Java.type("com.simtriggers.fsx.data.set.SetVariable");

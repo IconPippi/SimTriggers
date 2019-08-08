@@ -6,6 +6,9 @@ import com.simtriggers.fsx.event.GROUP
  * 04/08/2019
  * This class represents a generic trigger
  *
+ * @param function Function name
+ * @param eventName Name of the trigger's event
+ *
  * @author IconPippi
  */
 class GenericTrigger(private val function: String, private val eventName: String) : Trigger(function, eventName) {

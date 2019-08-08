@@ -9,6 +9,8 @@ import java.util.ArrayList
  * 06/08/2019
  * This class represents a FSX menu
  *
+ * @param menuHandler Menu's handler function
+ *
  * @author IconPippi
  */
 class Menu(private val menuHandler: String) {

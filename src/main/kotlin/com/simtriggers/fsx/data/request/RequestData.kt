@@ -36,12 +36,21 @@ class RequestData {
      * @param callbackFunction The javascript function where your data will be delivered
      * @param dataType The data type of the variable
      */
-    fun requestData(variableName: String, units: String, callbackFunction: String, dataType: SimConnectDataType) {
-        val encodedData: Int = encodeDataDefinition(variableName, dataType)
+    fun requestData(variableName: String, units: String, callbackFunction: String, dataType: String) {
+        val simConnectDataType: SimConnectDataType = when (dataType) {
+            "string" -> SimConnectDataType.STRING260
+            "int" -> SimConnectDataType.INT32
+            "long" -> SimConnectDataType.INT64
+            "float" -> SimConnectDataType.FLOAT32
+            "double" -> SimConnectDataType.FLOAT64
+            else -> SimConnectDataType.INVALID
+        }
+
+        val encodedData: Int = encodeDataDefinition(variableName, simConnectDataType)
         val encodedRequestID: Int = encodeDataRequest(callbackFunction)
 
         sc.addToDataDefinition(
-            encodedData, variableName, units, dataType
+            encodedData, variableName, units, simConnectDataType
         )
 
         sc.requestDataOnSimObjectType(
