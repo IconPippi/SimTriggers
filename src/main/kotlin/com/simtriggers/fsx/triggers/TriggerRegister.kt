@@ -43,6 +43,15 @@ object TriggerRegister {
     }
 
     /**
+     * Register a new system event
+     * @param eventName Name of the system event
+     * @param functionName Name of the handler function
+     */
+    @JvmStatic fun registerSystem(eventName: String, functionName: String) {
+        TriggersManager.systemTriggers.add(SystemTrigger(functionName, eventName))
+    }
+
+    /**
      * Unregister all triggers
      * NOTE: This function is not meant to be used outside of the source code
      */
@@ -51,6 +60,7 @@ object TriggerRegister {
         TriggersManager.connectionOpenTriggers.clear()
         TriggersManager.connectionCloseTriggers.clear()
         TriggersManager.keyTriggers.clear()
+        TriggersManager.systemTriggers.clear()
     }
 
 }

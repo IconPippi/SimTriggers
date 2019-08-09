@@ -16,6 +16,7 @@ class TriggersManager {
         val connectionOpenTriggers = ArrayList<ConnectionOpenTrigger>()
         val connectionCloseTriggers = ArrayList<ConnectionCloseTrigger>()
         val keyTriggers = ArrayList<KeyTrigger>()
+        val systemTriggers = ArrayList<SystemTrigger>()
     }
 
     /**
@@ -35,6 +36,9 @@ class TriggersManager {
                 it.trigger(null)
             }
             TriggerType.KEY -> keyTriggers.forEach {
+                it.trigger(eventName)
+            }
+            TriggerType.SYSTEM -> systemTriggers.forEach {
                 it.trigger(eventName)
             }
         }

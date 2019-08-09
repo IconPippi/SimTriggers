@@ -26,6 +26,5 @@ fun main() {
         return
     }
 
-
     st.run() //Run connection thread
 }

@@ -62,6 +62,17 @@ class RegisterEvent {
     }
 
     /**
+     * Register a new system event
+     * @evenName Name of the event
+     * @return Event ID
+     */
+    fun registerSystemEvent(eventName: String) {
+        val eventID = encodeEvent(eventName, GROUP.SYSTEM)
+
+        sc.subscribeToSystemEvent(eventID, eventName)
+    }
+
+    /**
      * Register a new menu
      * @param menuHandler Menu's handler function
      * @return Menu's event id
@@ -74,7 +85,7 @@ class RegisterEvent {
      * Register a new text line
      * @return Text line ID
      */
-    fun regiserTextLineEvent(): Int {
+    fun registerTextLineEvent(): Int {
         return encodeEvent("textLine", GROUP.TEXTLINE)
     }
 
@@ -96,8 +107,8 @@ class RegisterEvent {
 
     private fun getGroupID(groupID: GROUP): Int {
         return when(groupID) {
-            GROUP.SIM_START -> 0
-            GROUP.NULL -> 1
+            GROUP.NULL -> 0
+            GROUP.SYSTEM -> 1
             GROUP.GENERIC_TRIGGER -> 2
             GROUP.KEYBIND -> 3
             GROUP.MENU -> 4

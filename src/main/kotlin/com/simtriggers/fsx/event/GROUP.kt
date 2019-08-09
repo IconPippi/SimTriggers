@@ -10,7 +10,7 @@ enum class GROUP {
 
     NULL,
 
-    SIM_START,
+    SYSTEM,
 
     KEYBIND,
 

@@ -30,7 +30,7 @@ class TextLine {
      * Create a new text line
      */
     init {
-        textLineID = eventRegisterer.regiserTextLineEvent()
+        textLineID = eventRegisterer.registerTextLineEvent()
     }
 
     /**

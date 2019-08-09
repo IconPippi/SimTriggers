@@ -13,5 +13,7 @@ enum class TriggerType {
     CONNECTION_OPEN,
     CONNECTION_CLOSE,
 
+    SYSTEM,
+
     KEY;
 }

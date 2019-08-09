@@ -3,6 +3,7 @@ package com.simtriggers.fsx
 import com.simtriggers.fsx.data.DataHandler
 import com.simtriggers.fsx.event.EventHandler
 import com.simtriggers.fsx.event.GROUP
+import com.simtriggers.fsx.event.RegisterEvent
 import com.simtriggers.fsx.module.ModulesManager
 import com.simtriggers.fsx.scripting.ScriptLoader
 import com.simtriggers.fsx.triggers.TriggerType
@@ -43,6 +44,9 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
     private val sl: ScriptLoader = ScriptLoader()
     private val mm: ModulesManager = ModulesManager()
 
+    /** Event registerer */
+    private val registerEvent: RegisterEvent
+
     /**
      * Open a new connection
      */
@@ -54,13 +58,19 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
         initConnection()
         Logger.log("Connection established")
 
-        sc.subscribeToSystemEvent(GROUP.SIM_START, "SimStart")
+        //Init register event after
+        registerEvent = RegisterEvent()
+
+        registerEvent.registerSystemEvent("SimStart") //On simulation start
+        registerEvent.registerSystemEvent("SimStop") //On simulation stop
+        registerEvent.registerSystemEvent("Frame") //On simulator frame
 
         dt = DispatcherTask(sc)
         dt.addOpenHandler(this)
         dt.addQuitHandler(this)
         dt.addExceptionHandler(this)
         dt.addEventHandler(EventHandler())
+        dt.addEventFrameHandler(EventHandler())
         dt.addSimObjectDataTypeHandler(DataHandler())
 
         //Load scripts

@@ -8,60 +8,58 @@ import java.util.*
  *
  * @author IconPippi
  */
-class Logger {
+object Logger {
 
-    companion object {
-        /** Current time (hours:minutes:seconds) */
-        private val time: String = "${Date().hours}:${Date().minutes}:${Date().seconds}"
+    /** Current time (hours:minutes:seconds) */
+    private val time: String = "${Date().hours}:${Date().minutes}:${Date().seconds}"
 
-        /**
-         * Colors
-         */
-        private val RED = "\u001B[31m"
-        private val YELLOW = "\u001B[33m"
-        private val BLUE = "\u001B[34m"
-        private val PURPLE = "\u001B[35m"
-        private val RESET = "\u001B[0m"
+    /**
+     * Colors
+     */
+    private const val RED = "\u001B[31m"
+    private const val YELLOW = "\u001B[33m"
+    private const val BLUE = "\u001B[34m"
+    private const val PURPLE = "\u001B[35m"
+    private const val RESET = "\u001B[0m"
 
-        /**
-         * Print a white log message into the console
-         * FORMAT: [$time / LOG] $message
-         */
-        fun log(msg: String) {
-            System.out.println("[$time / LOG] $msg$RESET")
-        }
+    /**
+     * Print a white log message into the console
+     * FORMAT: [$time / LOG] $message
+     */
+    @JvmStatic fun log(msg: String) {
+        System.out.println("[$time / LOG] $msg$RESET")
+    }
 
-        /**
-         * Print a red error message into the console
-         * FORMAT: [$time / ERROR] $message
-         */
-        fun error(msg: String) {
-            System.out.println("$RED[$time / ERROR] $msg$RESET")
-        }
+    /**
+     * Print a red error message into the console
+     * FORMAT: [$time / ERROR] $message
+     */
+    @JvmStatic fun error(msg: String) {
+        System.out.println("$RED[$time / ERROR] $msg$RESET")
+    }
 
-        /**
-         * Print a yellow warning message into the console
-         * FORMAT: [$time / WARNING] $message
-         */
-        fun warning(msg: String) {
-            System.out.println("$YELLOW[$time / WARNING] $msg$RESET")
-        }
+    /**
+     * Print a yellow warning message into the console
+     * FORMAT: [$time / WARNING] $message
+     */
+    @JvmStatic fun warning(msg: String) {
+        System.out.println("$YELLOW[$time / WARNING] $msg$RESET")
+    }
 
-        /**
-         * Print a blue major message into the console
-         * FORMAT: [$time / MAJOR] $message
-         */
-        fun major(msg: String) {
-            System.out.println("$BLUE[$time / MAJOR] $msg$RESET")
-        }
+    /**
+     * Print a blue major message into the console
+     * FORMAT: [$time / MAJOR] $message
+     */
+    @JvmStatic fun major(msg: String) {
+        System.out.println("$BLUE[$time / MAJOR] $msg$RESET")
+    }
 
-        /**
-         * Print a purple debug message into the console
-         * FORMAT: [$time / DEBUG] $message
-         */
-        fun debug(msg: String) {
-            System.out.println("$PURPLE[$time / DEBUG] $msg$RESET")
-        }
+    /**
+     * Print a purple debug message into the console
+     * FORMAT: [$time / DEBUG] $message
+     */
+    @JvmStatic fun debug(msg: String) {
+        System.out.println("$PURPLE[$time / DEBUG] $msg$RESET")
     }
 
 }

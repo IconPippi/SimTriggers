@@ -6,8 +6,10 @@ import com.simtriggers.fsx.triggers.TriggersManager
 import dev.iconpippi.logger.Logger
 import flightsim.simconnect.SimConnect
 import flightsim.simconnect.TextResult
+import flightsim.simconnect.recv.EventFrameHandler
 import flightsim.simconnect.recv.EventHandler
 import flightsim.simconnect.recv.RecvEvent
+import flightsim.simconnect.recv.RecvEventFrame
 
 /**
  * 05/08/2019
@@ -15,7 +17,7 @@ import flightsim.simconnect.recv.RecvEvent
  *
  * @author IconPippi
  */
-class EventHandler : EventHandler {
+class EventHandler : EventHandler, EventFrameHandler {
 
     /** Event decoder */
     private val eventDecoder: EventDecoder = EventDecoder()
@@ -33,6 +35,8 @@ class EventHandler : EventHandler {
         Logger.debug("Triggered event, event ID:${e.eventID}, group ID:${e.groupID}")
 
         when {
+            "${e.eventID}".startsWith("1") -> //System event
+                triggersManager.triggerAll(TriggerType.SYSTEM, eventDecoder.decode(e.eventID))
             "${e.eventID}".startsWith("2") -> //Generic Trigger
                 triggersManager.triggerAll(TriggerType.GENERIC, eventDecoder.decode(e.eventID))
             "${e.eventID}".startsWith("3") -> //KeyBind
@@ -40,6 +44,14 @@ class EventHandler : EventHandler {
             "${e.eventID}".startsWith("4") -> //Menu
                 scriptLoader.invokeFunction(eventDecoder.decode(e.eventID), TextResult.type(e).toString())
         }
+    }
+
+    /**
+     * Handles each frame
+     */
+    override fun handleEventFrame(sc: SimConnect?, e: RecvEventFrame?) {
+        //The only event which gets handled by this function is a system trigger marked by the "Frame" event name
+        triggersManager.triggerAll(TriggerType.SYSTEM, "Frame")
     }
 
 }
