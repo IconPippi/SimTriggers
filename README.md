@@ -1,4 +1,7 @@
 # SimTriggers
+<a href="https://discord.gg/cKdyggh">
+        <img src="https://img.shields.io/discord/308323056592486420?logo=discord"
+            alt="Ask for support on Discord"></a>
 SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaScript providing a series of useful triggers* and functions.
 
 ## How to:
