@@ -16,6 +16,8 @@ enum class GROUP {
 
     MENU,
 
+    TAB_MENU,
+
     TEXTLINE,
 
     GENERIC_TRIGGER;

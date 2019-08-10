@@ -90,6 +90,15 @@ class RegisterEvent {
     }
 
     /**
+     * Register a new add-ons tab menu
+     * @param menuHandler Tab menu's handler function
+     * @return Menu ID
+     */
+    fun registerTabMenu(menuHandler: String): Int {
+        return encodeEvent(menuHandler, GROUP.TAB_MENU)
+    }
+
+    /**
      * Encode event names into Integers because SimConnect event subscribing system sucks
      * @return Encoded event ID
      */
@@ -113,6 +122,7 @@ class RegisterEvent {
             GROUP.KEYBIND -> 3
             GROUP.MENU -> 4
             GROUP.TEXTLINE -> 5
+            GROUP.TAB_MENU -> 6
         }
     }
 }

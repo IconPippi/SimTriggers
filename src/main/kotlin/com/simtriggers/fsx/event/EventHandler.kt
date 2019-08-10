@@ -43,6 +43,8 @@ class EventHandler : EventHandler, EventFrameHandler {
                 triggersManager.triggerAll(TriggerType.KEY, eventDecoder.decode(e.eventID))
             "${e.eventID}".startsWith("4") -> //Menu
                 scriptLoader.invokeFunction(eventDecoder.decode(e.eventID), TextResult.type(e).toString())
+            "${e.eventID}".startsWith("6") -> //Tab Menu
+                scriptLoader.invokeFunction(eventDecoder.decode(e.eventID), null)
         }
     }
 
