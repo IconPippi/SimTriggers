@@ -56,4 +56,5 @@ class TabMenu(private val handlerFunction: String) {
             sc.menuAddSubItem(tabMenuID, it.component1(), registerEvent.registerTabMenu(it.component2()), 0)
         }
     }
+
 }
