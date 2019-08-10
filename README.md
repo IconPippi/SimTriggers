@@ -1,4 +1,9 @@
 # SimTriggers
+<p align="left">
+     <a href="https://discord.gg/cKdyggh">
+        <img src="https://discordapp.com/api/guilds/609135276874399798/embed.png" alt="Discord" />
+    </a>
+</p>
 SimTriggers is a Flight Simulator X add-on which allows live scripting in JavaScript providing a series of useful triggers* and functions.
 
 ## How to:
@@ -111,6 +116,33 @@ speedBroadcast.setText("Hello world!")
 
 function textLine() {
     speedBroadcast.show()
+}
+```
+
+### Tab Menus
+Tab menus appear under the "Add-On" tab in the FSX alt menu, you can bind functions called when they get clicked or you can add sub-tabs which work the same way
+```js
+TriggerRegister.registerConnectionOpen("open");
+
+var tabMenu = new TabMenu("menu");
+tabMenu.setName("My Module")
+tabMenu.addSubTab("Tab 1", "tabOne");
+tabMenu.addSubTab("Tab 2", "tabTwo");
+
+function open() {
+    tabMenu.show();
+}
+
+function menu() {
+    //Do stuff
+}
+
+function tabOne() {
+    //Do stuff
+}
+
+function tabTwo() {
+    //Do stuff
 }
 ```
 
