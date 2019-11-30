@@ -6,15 +6,13 @@ import java.io.File
 
 /**
  * 01/08/2019
- * This class manages all modules
+ * Module manager
  *
  * @author IconPippi
  */
 class ModulesManager {
 
-    private val fileUtils: FileUtils = FileUtils()
-
-    /** Modules Foldrr */
+    /** Modules Folder */
     val modulesFolder: File = File("${SimTriggers.simTriggersFolder.absolutePath}/modules")
 
     /**
@@ -24,7 +22,7 @@ class ModulesManager {
         modulesFolder.setWritable(true)
         if (!modulesFolder.exists()) modulesFolder.mkdirs()
 
-        //TODO: Export simTriggersDevKit.js
+            FileUtils.saveResource("/simTriggersDevKit.js", modulesFolder)
     }
 
     /**
@@ -34,8 +32,8 @@ class ModulesManager {
     fun getModules(): List<Module> {
         val modules = ArrayList<Module>()
 
-        for (f: File in fileUtils.listFiles(modulesFolder, true)!!) {
-            if (f.isDirectory) modules.add(Module(f, Metadata(f, "metadata.json")))
+        FileUtils.listFiles(modulesFolder, true)?.forEach {
+            if (it.isDirectory) modules.add(Module(it, Metadata(it, "metadata.json")))
         }
 
         return modules

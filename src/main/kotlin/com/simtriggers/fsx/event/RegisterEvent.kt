@@ -4,10 +4,11 @@ import com.simtriggers.fsx.SimTriggers
 import flightsim.simconnect.SimConnect
 import java.io.IOException
 import flightsim.simconnect.NotificationPriority
+import kotlin.collections.ArrayList
 
 /**
  * 03/08/2019
- * This class provides functions for event registering purposes
+ * Register new events
  *
  * @author IconPippi
  */
@@ -116,6 +117,8 @@ class RegisterEvent {
 
     private fun getGroupID(groupID: GROUP): Int {
         return when(groupID) {
+            GROUP.CUSTOM_SIMTRIGGERSMENU_RELOADSCRIPTS -> -1
+            GROUP.CUSTOM_SIMTRIGGERSMENU -> -1
             GROUP.NULL -> 0
             GROUP.SYSTEM -> 1
             GROUP.GENERIC_TRIGGER -> 2

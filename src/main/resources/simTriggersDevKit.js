@@ -3,8 +3,8 @@
 // Description: This JavaScript file contains all functions and libraries provided by the SimTriggers add-on so you don't have to import them each time
 
 /* SimConnect API */
-var SimConnect = Java.type("flightsim.simconnect.SimConnect");
-var TextType = Java.type("flightsim.simconnect.TextType");
+var SimConnect = Java.type("SimConnect");
+var TextType = Java.type("TextType");
 
 /*
  * SimTriggers

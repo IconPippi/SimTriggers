@@ -4,7 +4,7 @@ import com.simtriggers.fsx.event.GROUP
 
 /**
  * 05/08/2019
- * This class is used to register keybinds
+ * Register new key binds
  *
  * @param function Function name
  * @param keyName The key you want to bind
@@ -20,9 +20,6 @@ class KeyTrigger(private val function: String, private val keyName: String) : Tr
         eventRegister.registerClientEvent(keyName, GROUP.KEYBIND)
     }
 
-    /**
-     * Run the trigger
-     */
     override fun trigger(eventName: String?) {
         if (eventName == keyName) {
             scriptLoader.invokeFunction(function, null)

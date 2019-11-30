@@ -6,11 +6,11 @@ import java.util.ArrayList
 
 /**
  * 02/08/2019
- * This class contains series of helper methods for file-related actions
+ * File utilities
  *
  * @author IconPippi
  */
-class FileUtils {
+object FileUtils {
 
     /**
      * List all the files inside a directory

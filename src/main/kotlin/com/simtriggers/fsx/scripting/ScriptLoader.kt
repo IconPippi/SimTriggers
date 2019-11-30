@@ -4,10 +4,15 @@ import javax.script.ScriptEngine
 import com.simtriggers.fsx.module.Module
 import com.simtriggers.fsx.module.ModulesManager
 import com.simtriggers.fsx.SimTriggers
+import com.simtriggers.fsx.data.request.RequestData
+import com.simtriggers.fsx.event.RegisterEvent
+import com.simtriggers.fsx.triggers.TriggerRegister
+import com.simtriggers.fsx.triggers.TriggersManager
 import com.simtriggers.fsx.util.FileUtils
 import java.net.URL
 import java.net.URLClassLoader
 import dev.iconpippi.logger.Logger
+import jdk.nashorn.api.scripting.NashornScriptEngine
 import java.io.File
 import javax.script.ScriptException
 import javax.script.Invocable
@@ -15,7 +20,7 @@ import javax.script.Invocable
 
 /**
  * 02/08/2019
- * This class loads and evaluates all modules scripts
+ * Handles the loading of all module's scripts
  *
  * @author IconPippi
  */
@@ -23,17 +28,19 @@ class ScriptLoader {
 
     companion object {
         /** Nashorn JavaScript engine */
-        private lateinit var engine: ScriptEngine
+        private lateinit var engine: NashornScriptEngine
     }
 
+    // Module manager
     private val mm: ModulesManager = ModulesManager()
-
-    private val fileUtils: FileUtils = FileUtils()
 
     /**
      * Load all modules inside modules' folder
      */
     fun load() {
+        // Clear triggers
+        TriggerRegister.unregisterAll()
+
         /** @author ChatTriggers development team (https://github.com/ChatTriggers) */
         val jars = mm.getModules().map {
             it.location.listFiles()?.toList() ?: listOf()
@@ -45,25 +52,29 @@ class ScriptLoader {
 
         engine = instanceScriptEngine(jars)
 
-        val simTriggersDevKit = fileUtils.saveResource(
+        val simTriggersDevKit = FileUtils.saveResource(
             "/simTriggersDevKit.js", File("${mm.modulesFolder}/simTriggersDevKit.js")
         )
 
-        try {
-            engine.eval(simTriggersDevKit)
-        } catch (e: java.lang.Exception) {
-            Logger.error("An unexpected error occurred while loading simTriggersDevKit.js file.")
-            e.printStackTrace()
-        }
-
-        for (m: Module in mm.getModules()) {
+        val modulesThread = Thread({
             try {
-                engine.eval(compileScripts(m))
-            } catch(e: Exception) {
-                Logger.error("Error on loading module: ${m.metadata.moduleName}")
+                engine.eval(simTriggersDevKit)
+            } catch (e: java.lang.Exception) {
+                Logger.error("An unexpected error occurred while loading simTriggersDevKit.js file.")
                 e.printStackTrace()
             }
-        }
+
+            mm.getModules().forEach {
+                try {
+                    engine.eval(compileScripts(it))
+                } catch(e: Exception) {
+                    Logger.error("Error on loading module: ${it.metadata.moduleName}")
+                    e.printStackTrace()
+                }
+            }
+        },"SimTriggers/Modules-Thread")
+        modulesThread.stop()
+        modulesThread.run()
     }
 
     /**

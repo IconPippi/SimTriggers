@@ -7,7 +7,7 @@ import flightsim.simconnect.SimConnectDataType
 
 /**
  * 06/08/2019
- * This class provides functions for data requesting purposes
+ * Generate new data requests
  *
  * @author IconPippi
  */

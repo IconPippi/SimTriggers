@@ -4,10 +4,10 @@ import java.io.File
 
 /**
  * 01/08/2019
- * This data class represents the metadata.json file
+ * metadata.json file
  *
  * @param parent Metadata module's folder
- * @param parent metadata.json file
+ * @param child metadata.json file
  *
  * @author IconPippi
  */

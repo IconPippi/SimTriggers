@@ -10,12 +10,6 @@ import java.util.*
  */
 object Logger {
 
-    /** Current time (hours:minutes:seconds) */
-    private val time: String = "${Date().hours}:${Date().minutes}:${Date().seconds}"
-
-    /**
-     * Colors
-     */
     private const val RED = "\u001B[31m"
     private const val YELLOW = "\u001B[33m"
     private const val BLUE = "\u001B[34m"
@@ -27,7 +21,7 @@ object Logger {
      * FORMAT: [$time / LOG] $message
      */
     @JvmStatic fun log(msg: String) {
-        System.out.println("[$time / LOG] $msg$RESET")
+        System.out.println("[${Date().hours}:${Date().minutes}:${Date().seconds} / LOG] $msg$RESET")
     }
 
     /**
@@ -35,7 +29,7 @@ object Logger {
      * FORMAT: [$time / ERROR] $message
      */
     @JvmStatic fun error(msg: String) {
-        System.out.println("$RED[$time / ERROR] $msg$RESET")
+        System.out.println("$RED[${Date().hours}:${Date().minutes}:${Date().seconds} / ERROR] $msg$RESET")
     }
 
     /**
@@ -43,7 +37,7 @@ object Logger {
      * FORMAT: [$time / WARNING] $message
      */
     @JvmStatic fun warning(msg: String) {
-        System.out.println("$YELLOW[$time / WARNING] $msg$RESET")
+        System.out.println("$YELLOW[${Date().hours}:${Date().minutes}:${Date().seconds} / WARNING] $msg$RESET")
     }
 
     /**
@@ -51,7 +45,7 @@ object Logger {
      * FORMAT: [$time / MAJOR] $message
      */
     @JvmStatic fun major(msg: String) {
-        System.out.println("$BLUE[$time / MAJOR] $msg$RESET")
+        System.out.println("$BLUE[${Date().hours}:${Date().minutes}:${Date().seconds} / MAJOR] $msg$RESET")
     }
 
     /**
@@ -59,7 +53,7 @@ object Logger {
      * FORMAT: [$time / DEBUG] $message
      */
     @JvmStatic fun debug(msg: String) {
-        System.out.println("$PURPLE[$time / DEBUG] $msg$RESET")
+        System.out.println("$PURPLE[${Date().hours}:${Date().minutes}:${Date().seconds} / DEBUG] $msg$RESET")
     }
 
 }

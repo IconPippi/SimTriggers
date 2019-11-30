@@ -1,11 +1,13 @@
 package com.simtriggers.fsx.event
 
 import com.simtriggers.fsx.scripting.ScriptLoader
+import com.simtriggers.fsx.simulator.TextLine
 import com.simtriggers.fsx.triggers.TriggerType
 import com.simtriggers.fsx.triggers.TriggersManager
 import dev.iconpippi.logger.Logger
 import flightsim.simconnect.SimConnect
 import flightsim.simconnect.TextResult
+import flightsim.simconnect.TextType
 import flightsim.simconnect.recv.EventFrameHandler
 import flightsim.simconnect.recv.EventHandler
 import flightsim.simconnect.recv.RecvEvent
@@ -33,6 +35,15 @@ class EventHandler : EventHandler, EventFrameHandler {
      */
     override fun handleEvent(sc: SimConnect?, e: RecvEvent) {
         Logger.debug("Triggered event, event ID:${e.eventID}, group ID:${e.groupID}")
+
+        if (GROUP.CUSTOM_SIMTRIGGERSMENU_RELOADSCRIPTS.isEvent(e)) {
+            val tl = TextLine()
+            tl.setText("Reloading Scripts...")
+            tl.setTextColor(TextType.SCROLL_BLUE)
+            tl.setTimeout(3.toFloat())
+            tl.show()
+            scriptLoader.load()
+        }
 
         when {
             "${e.eventID}".startsWith("1") -> //System event

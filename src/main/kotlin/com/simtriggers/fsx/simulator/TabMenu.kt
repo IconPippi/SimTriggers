@@ -6,7 +6,7 @@ import flightsim.simconnect.SimConnect
 
 /**
  * 10/08/2019
- * This class represents a FSX Add-On tab tab menu
+ * FSX tab menu (will be displayed under Add-Ons tab)
  *
  * @author IconPippi
  */

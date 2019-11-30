@@ -7,7 +7,7 @@ import flightsim.simconnect.wrappers.DataWrapper
 
 /**
  * 08/08/2019
- * This class formulates simplifies the variable setting process
+ * Simple variable setter
  *
  * @param cid Not sure, just set it to zero
  * @param dataWrapperSize Not sure, set it to a random number, I usually do 8
@@ -15,6 +15,8 @@ import flightsim.simconnect.wrappers.DataWrapper
  * @author IconPippi
  */
 class SetVariable(private val cid: Int, dataWrapperSize: Int) {
+
+    //TODO: FIX BUFFEROVERFLOW EXCEPTION
 
     /** SimConnect constant */
     private val sc: SimConnect = SimTriggers.sc
@@ -36,7 +38,7 @@ class SetVariable(private val cid: Int, dataWrapperSize: Int) {
      * @param units Units of the target variable
      */
     fun set(varName: String, value: Any, units: String) {
-        count = count++
+        count++
 
         when (value) {
             is String -> {

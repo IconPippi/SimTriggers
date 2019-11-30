@@ -2,7 +2,7 @@ package com.simtriggers.fsx.triggers
 
 /**
  * 05/08/2019
- * This object contains method used for trigger registering and unregistering
+ * Register and unregister triggers
  *
  * @author IconPippi
  */

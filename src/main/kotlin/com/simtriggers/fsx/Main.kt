@@ -18,7 +18,7 @@ fun main() {
 
     //Establish connection
     try {
-        st = SimTriggers()
+        st = SimTriggers
         sc = SimTriggers.sc
     } catch (e: Exception) {
         Logger.error("Could not connect to the simulator: ")

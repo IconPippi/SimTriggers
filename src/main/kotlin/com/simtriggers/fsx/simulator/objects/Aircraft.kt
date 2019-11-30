@@ -2,11 +2,12 @@ package com.simtriggers.fsx.simulator.objects
 
 import com.simtriggers.fsx.data.request.RequestData
 import com.simtriggers.fsx.data.set.SetVariable
-import flightsim.simconnect.SimConnectDataType
 
 /**
  * 07/08/2019
- * This simulator object represents the player's aircraft
+ * The aircraft object contains some of the main functions
+ * to set/request simulation variables, however you can
+ * always create custom requests using the requestData object
  *
  * @author IconPippi
  */
@@ -16,7 +17,7 @@ object Aircraft {
     private val requestData: RequestData = RequestData()
 
     /** SetVatiable constant */
-    private val setVariable: SetVariable = SetVariable(0, 8)
+    private val setVariable: SetVariable = SetVariable(0, 999999999)
 
     /**
      * Open a new altitude requestData

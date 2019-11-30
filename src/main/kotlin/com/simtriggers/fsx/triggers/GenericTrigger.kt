@@ -4,7 +4,9 @@ import com.simtriggers.fsx.event.GROUP
 
 /**
  * 04/08/2019
- * This class represents a generic trigger
+ * Generic trigger
+ *
+ * @see Event IDS: http://www.prepar3d.com/SDKv3/LearningCenter/utilities/variables/event_ids.html
  *
  * @param function Function name
  * @param eventName Name of the trigger's event
@@ -20,9 +22,6 @@ class GenericTrigger(private val function: String, private val eventName: String
         eventRegister.registerSimulatorEvent(eventName, eventName, GROUP.GENERIC_TRIGGER)
     }
 
-    /**
-     * Run the trigger
-     */
     override fun trigger(eventName: String?) {
         if (eventName == this.eventName)
             scriptLoader.invokeFunction(function, null)

@@ -2,7 +2,7 @@ package com.simtriggers.fsx.data.request
 
 /**
  * 06/08/2019
- * This class decodes data definitions and request IDs into strings
+ * Decode the received data
  *
  * @author IconPippi
  */

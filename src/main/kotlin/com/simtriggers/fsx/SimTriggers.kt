@@ -18,19 +18,18 @@ import java.io.IOException
 
 /**
  * 01/08/2019
- * This class handles the communication with the simulator
+ * Handle the communication between the software
+ * and the simulator
  *
  * @author IconPippi
  */
-class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
+object SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
 
-    companion object {
-        /** Simconnect constant */
-        lateinit var sc: SimConnect
+    /** SimConnect */
+    lateinit var sc: SimConnect
 
-        /** SimTriggers folder */
-        val simTriggersFolder: File = File("SimTriggers")
-    }
+    /** SimTriggers folder */
+    val simTriggersFolder: File = File("SimTriggers")
 
     /** SimConnect dispatcher task */
     private val dt: DispatcherTask
@@ -38,11 +37,11 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
     /** Triggers manager */
     private val tm: TriggersManager = TriggersManager()
 
-    /**
-     * Modules constants
-     */
+    // Modules
+    // -----------------------------------------------
     private val sl: ScriptLoader = ScriptLoader()
     private val mm: ModulesManager = ModulesManager()
+    // -----------------------------------------------
 
     /** Event registerer */
     private val registerEvent: RegisterEvent
@@ -147,13 +146,16 @@ class SimTriggers : OpenHandler, ExceptionHandler, QuitHandler {
                 open.applicationVersionMinor + "." +
                 open.applicationBuildMajor + "." +
                 open.applicationBuildMinor +
-                " simconnect " +
+                " " +
                 open.simConnectVersionMajor + "." +
                 open.simConnectVersionMinor + "." +
                 open.simConnectBuildMajor + "." +
                 open.simConnectBuildMinor
         )
         Logger.major("Protocol version: " + open.version)
+
+        sc?.menuAddItem("SimTriggers", GROUP.CUSTOM_SIMTRIGGERSMENU, 0)
+        sc?.menuAddSubItem(GROUP.CUSTOM_SIMTRIGGERSMENU, "Reload Scripts", GROUP.CUSTOM_SIMTRIGGERSMENU_RELOADSCRIPTS, 0)
     }
 
 }

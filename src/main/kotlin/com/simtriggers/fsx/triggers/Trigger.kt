@@ -5,7 +5,7 @@ import com.simtriggers.fsx.scripting.ScriptLoader
 
 /**
  * 04/08/2019
- * This abstract class explains itself
+ * Abstract trigger
  *
  * @author IconPippi
  */

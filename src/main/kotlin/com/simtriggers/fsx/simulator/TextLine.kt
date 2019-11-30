@@ -7,7 +7,7 @@ import flightsim.simconnect.TextType
 
 /**
  * 06/08/2019
- * This class represents a FSX text line
+ * FSX text line
  *
  * @author IconPippi
  */
@@ -21,6 +21,7 @@ class TextLine {
 
     /** Text line identifier */
     private val textLineID: Int
+
 
     private var text: String? = null
     private var timeout: Float? = null

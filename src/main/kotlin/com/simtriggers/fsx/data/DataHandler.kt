@@ -9,7 +9,7 @@ import flightsim.simconnect.recv.SimObjectDataTypeHandler
 
 /**
  * 06/08/2019
- * This class handles all data coming from the simulator
+ * Handle all the data received from the simulator
  *
  * @author IconPippi
  */
